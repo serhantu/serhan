@@ -2,9 +2,10 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
 
 export const main = style({
-  maxWidth: "48rem",
+  maxInlineSize: "min(100%, 48rem)",
   marginInline: "auto",
-  padding: `${vars.space["2xl"]} ${vars.space.md}`,
+  paddingBlock: "clamp(1.5rem, 4vw, 3rem)",
+  paddingInline: "clamp(1rem, 3vw, 2rem)",
   display: "flex",
   flexDirection: "column",
   gap: vars.space.lg,
@@ -13,7 +14,7 @@ export const main = style({
 });
 
 export const title = style({
-  fontSize: vars.font.size2xl,
+  fontSize: "clamp(1.5rem, 3vw, 2rem)",
   fontWeight: vars.font.weightBold,
 });
 
@@ -21,4 +22,5 @@ export const description = style({
   fontSize: vars.font.sizeMd,
   color: vars.color.mutedForeground,
   lineHeight: vars.font.lineNormal,
+  maxInlineSize: "min(100%, 42rem)",
 });

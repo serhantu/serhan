@@ -1,7 +1,4 @@
 // Shared minimal styling for CMS admin screens (Phase 7).
-//
-// These are intentionally plain: functional admin UI only, no visual design
-// invention. All values reference design tokens (HSL colors, rem spacing).
 
 import { style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
@@ -16,28 +13,33 @@ export const headerRow = style({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  marginBottom: vars.space.md,
+  marginBlockEnd: vars.space.md,
+  gap: vars.space.md,
+  flexWrap: "wrap",
 });
 
 export const buttonGroup = style({
   display: "flex",
   gap: vars.space.sm,
+  flexWrap: "wrap",
 });
 
 export const table = style({
-  width: "100%",
+  inlineSize: "100%",
   borderCollapse: "collapse",
 });
 
 export const th = style({
   textAlign: "left",
-  padding: vars.space.sm,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.sm,
   borderBottom: `1px solid ${vars.color.border}`,
   fontWeight: vars.font.weightMedium,
 });
 
 export const td = style({
-  padding: vars.space.sm,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.sm,
 });
 
 export const rowSeparator = style({
@@ -50,28 +52,30 @@ export const errorBox = style({
   color: vars.color.danger,
   borderRadius: vars.radius.sm,
   border: `1px solid ${vars.color.danger}`,
-  marginBottom: vars.space.md,
+  marginBlockEnd: vars.space.md,
 });
 
 export const statusText = style({
-  marginBottom: vars.space.md,
+  marginBlockEnd: vars.space.md,
 });
 
 export const field = style({
-  marginBottom: vars.space.md,
+  marginBlockEnd: vars.space.md,
 });
 
 export const label = style({
   display: "block",
-  marginBottom: vars.space.xs,
+  marginBlockEnd: vars.space.xs,
   fontWeight: vars.font.weightMedium,
+  inlineSize: "fit-content",
 });
 
 export const input = style({
   display: "block",
-  width: "100%",
-  marginTop: vars.space.xs,
-  padding: vars.space.sm,
+  inlineSize: "100%",
+  marginBlockStart: vars.space.xs,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
   fontFamily: vars.font.sans,
@@ -88,26 +92,28 @@ export const textarea = style([
 ]);
 
 export const textareaShort = style({
-  height: "4rem",
+  minBlockSize: "4rem",
 });
 
 export const textareaMid = style({
-  height: "6rem",
+  minBlockSize: "6rem",
 });
 
 export const textareaTall = style({
-  height: "12rem",
+  minBlockSize: "12rem",
 });
 
 export const buttonRow = style({
   display: "flex",
   gap: vars.space.md,
+  flexWrap: "wrap",
 });
 
 export const deleteButton = style({
   backgroundColor: vars.color.dangerBg,
   color: vars.color.danger,
   border: `1px solid ${vars.color.danger}`,
+  inlineSize: "fit-content",
 });
 
 export const loading = style({
@@ -120,8 +126,9 @@ export const layout = style({
 });
 
 export const nav = style({
-  width: "12.5rem",
-  borderRight: `1px solid ${vars.color.border}`,
+  inlineSize: "min(100%, 13rem)",
+  flexShrink: 0,
+  borderInlineEnd: `1px solid ${vars.color.border}`,
 });
 
 export const navList = style({
@@ -131,7 +138,7 @@ export const navList = style({
 });
 
 export const navItem = style({
-  marginBottom: vars.space.sm,
+  marginBlockEnd: vars.space.sm,
 });
 
 export const content = style({

@@ -21,7 +21,7 @@ globalStyle("html", {
 });
 
 globalStyle("body", {
-  minHeight: "100dvh",
+  minBlockSize: "100dvh",
   fontFamily: vars.font.sans,
   fontSize: vars.font.sizeMd,
   lineHeight: vars.font.lineNormal,
@@ -43,9 +43,10 @@ globalStyle("a", {
 
 globalStyle("img, svg, video", {
   display: "block",
-  maxWidth: "100%",
-  height: "auto",
+  maxInlineSize: "100%",
+  blockSize: "auto",
 });
+
 
 // Focus states must never be removed (accessibility rule).
 globalStyle(":focus-visible", {

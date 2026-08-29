@@ -1,15 +1,16 @@
 import { style } from "@vanilla-extract/css";
-import { vars, breakpoints } from "@/styles/tokens.css";
+import { vars } from "@/styles/tokens.css";
 
 export const page = style({
-  padding: vars.space.xl,
-  maxWidth: "48rem",
+  paddingBlock: vars.space.xl,
+  paddingInline: "clamp(1rem, 3vw, 2rem)",
+  maxInlineSize: "min(100%, 48rem)",
 });
 
 export const heading = style({
-  fontSize: vars.font.sizeXl,
+  fontSize: "clamp(1.25rem, 2.5vw, 1.65rem)",
   fontWeight: vars.font.weightBold,
-  marginBottom: vars.space.lg,
+  marginBlockEnd: vars.space.lg,
 });
 
 export const form = style({
@@ -20,15 +21,9 @@ export const form = style({
 
 export const fieldGroup = style({
   display: "grid",
-  gridTemplateColumns: "1fr 1fr",
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 18rem), 1fr))",
   gap: vars.space.md,
-  "@media": {
-    [`screen and (max-width: ${breakpoints.sm})`]: {
-      gridTemplateColumns: "1fr",
-    },
-  },
 });
-
 
 export const field = style({
   display: "flex",
@@ -47,10 +42,13 @@ export const label = style({
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
   color: vars.color.foreground,
+  inlineSize: "fit-content",
 });
 
 export const input = style({
-  padding: `${vars.space.sm} ${vars.space.md}`,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
+  inlineSize: "100%",
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
   fontSize: vars.font.sizeMd,
@@ -64,12 +62,14 @@ export const input = style({
 });
 
 export const textarea = style({
-  padding: `${vars.space.sm} ${vars.space.md}`,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
+  inlineSize: "100%",
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
   fontSize: vars.font.sizeMd,
   fontFamily: vars.font.sans,
-  minHeight: "5rem",
+  minBlockSize: "5rem",
   resize: "vertical",
   selectors: {
     "&:focus": {
@@ -83,18 +83,21 @@ export const sectionTitle = style({
   fontSize: vars.font.sizeLg,
   fontWeight: vars.font.weightMedium,
   borderBottom: `1px solid ${vars.color.border}`,
-  paddingBottom: vars.space.sm,
-  marginTop: vars.space.lg,
+  paddingBlockEnd: vars.space.sm,
+  marginBlockStart: vars.space.lg,
 });
 
 export const actions = style({
   display: "flex",
   gap: vars.space.sm,
-  marginTop: vars.space.md,
+  marginBlockStart: vars.space.md,
+  flexWrap: "wrap",
 });
 
 export const submitButton = style({
-  padding: `${vars.space.sm} ${vars.space.xl}`,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.xl,
+  inlineSize: "fit-content",
   border: "none",
   borderRadius: vars.radius.sm,
   background: vars.color.primary,

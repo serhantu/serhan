@@ -5,8 +5,8 @@ export const form = style({
   display: "flex",
   flexDirection: "column",
   gap: vars.space.lg,
-  maxWidth: "32rem",
-  width: "100%",
+  maxInlineSize: "min(100%, 34rem)",
+  inlineSize: "100%",
 });
 
 export const field = style({
@@ -19,10 +19,13 @@ export const label = style({
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
   color: vars.color.foreground,
+  inlineSize: "fit-content",
 });
 
 export const input = style({
-  padding: `${vars.space.sm} ${vars.space.md}`,
+  inlineSize: "100%",
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
   fontSize: vars.font.sizeMd,
@@ -38,14 +41,16 @@ export const input = style({
 });
 
 export const textarea = style({
-  padding: `${vars.space.sm} ${vars.space.md}`,
+  inlineSize: "100%",
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
   fontSize: vars.font.sizeMd,
   fontFamily: vars.font.sans,
   background: vars.color.background,
   color: vars.color.foreground,
-  minHeight: "8rem",
+  minBlockSize: "8rem",
   resize: "vertical",
   selectors: {
     "&:focus": {
@@ -56,7 +61,9 @@ export const textarea = style({
 });
 
 export const submitButton = style({
-  padding: `${vars.space.sm} ${vars.space.lg}`,
+  inlineSize: "fit-content",
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.lg,
   border: "none",
   borderRadius: vars.radius.sm,
   background: vars.color.primary,
@@ -99,10 +106,9 @@ export const fieldError = style({
 
 export const honeypot = style({
   position: "absolute",
-  left: "-9999px",
-  width: "1px",
-  height: "1px",
+  insetInlineStart: "-999rem",
+  inlineSize: "1px",
+  blockSize: "1px",
   opacity: 0,
   pointerEvents: "none",
 });
-

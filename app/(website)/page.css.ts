@@ -2,17 +2,18 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
 
 export const page = style({
-  maxWidth: "72rem",
+  maxInlineSize: "min(100%, 72rem)",
   marginInline: "auto",
-  padding: `${vars.space["2xl"]} ${vars.space.lg}`,
+  paddingBlock: "clamp(1.5rem, 4vw, 3rem)",
+  paddingInline: "clamp(1rem, 3vw, 2rem)",
   display: "flex",
   flexDirection: "column",
-  gap: vars.space["3xl"],
+  gap: "clamp(2rem, 5vw, 4rem)",
 });
 
 export const hero = style({
   textAlign: "center",
-  padding: `${vars.space["2xl"]} 0`,
+  paddingBlock: "clamp(1.5rem, 5vw, 3.5rem)",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -20,29 +21,31 @@ export const hero = style({
 });
 
 export const heroTitle = style({
-  fontSize: vars.font.size3xl,
+  fontSize: "clamp(1.85rem, 4.5vw, 2.75rem)",
   fontWeight: vars.font.weightBold,
   color: vars.color.foreground,
   lineHeight: vars.font.lineTight,
 });
 
 export const heroSubtitle = style({
-  fontSize: vars.font.sizeLg,
+  fontSize: "clamp(1rem, 2vw, 1.25rem)",
   color: vars.color.mutedForeground,
-  maxWidth: "40rem",
+  maxInlineSize: "min(100%, 40rem)",
   lineHeight: vars.font.lineNormal,
 });
 
 export const heroActions = style({
   display: "flex",
   gap: vars.space.md,
-  marginTop: vars.space.md,
+  marginBlockStart: vars.space.md,
   flexWrap: "wrap",
   justifyContent: "center",
 });
 
 export const primaryBtn = style({
-  padding: `${vars.space.sm} ${vars.space.xl}`,
+  inlineSize: "fit-content",
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.xl,
   background: vars.color.primary,
   color: vars.color.primaryForeground,
   textDecoration: "none",
@@ -55,7 +58,9 @@ export const primaryBtn = style({
 });
 
 export const secondaryBtn = style({
-  padding: `${vars.space.sm} ${vars.space.xl}`,
+  inlineSize: "fit-content",
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.xl,
   border: `1px solid ${vars.color.border}`,
   background: vars.color.background,
   color: vars.color.foreground,
@@ -79,11 +84,11 @@ export const sectionHeader = style({
   justifyContent: "space-between",
   alignItems: "flex-end",
   borderBottom: `1px solid ${vars.color.border}`,
-  paddingBottom: vars.space.sm,
+  paddingBlockEnd: vars.space.sm,
 });
 
 export const sectionTitle = style({
-  fontSize: vars.font.sizeXl,
+  fontSize: "clamp(1.25rem, 2.5vw, 1.65rem)",
   fontWeight: vars.font.weightBold,
 });
 
@@ -92,11 +97,12 @@ export const sectionLink = style({
   textDecoration: "none",
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
+  inlineSize: "fit-content",
 });
 
 export const grid = style({
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fill, minmax(18rem, 1fr))",
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 18rem), 1fr))",
   gap: vars.space.lg,
 });
 
@@ -130,16 +136,16 @@ export const cardDescription = style({
 });
 
 export const cardImage = style({
-  width: "100%",
-  height: "10rem",
+  inlineSize: "100%",
+  blockSize: "clamp(8rem, 18vw, 11rem)",
   objectFit: "cover",
   borderRadius: vars.radius.sm,
-  marginBottom: vars.space.xs,
+  marginBlockEnd: vars.space.xs,
 });
 
 export const refLogo = style({
-  width: "100%",
-  height: "5rem",
+  inlineSize: "100%",
+  blockSize: "clamp(3.5rem, 8vw, 5rem)",
   objectFit: "contain",
 });
 
@@ -157,7 +163,7 @@ export const faqItem = style({
 
 export const faqQuestion = style({
   fontWeight: vars.font.weightBold,
-  marginBottom: vars.space.xs,
+  marginBlockEnd: vars.space.xs,
 });
 
 export const faqAnswer = style({

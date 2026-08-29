@@ -13,7 +13,7 @@ export const wrapper = style({
 });
 
 export const svgContainer = style({
-  maxWidth: "100%",
+  maxInlineSize: "100%",
   overflow: "hidden",
   display: "flex",
   justifyContent: "center",
@@ -33,7 +33,9 @@ export const downloadActions = style({
 });
 
 export const downloadButton = style({
-  padding: `${vars.space.xs} ${vars.space.md}`,
+  inlineSize: "fit-content",
+  paddingBlock: vars.space.xs,
+  paddingInline: vars.space.md,
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
   background: vars.color.background,

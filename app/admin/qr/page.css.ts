@@ -1,27 +1,22 @@
 import { style } from "@vanilla-extract/css";
-import { vars, breakpoints } from "@/styles/tokens.css";
+import { vars } from "@/styles/tokens.css";
 
 export const page = style({
-  padding: vars.space.xl,
+  paddingBlock: vars.space.xl,
+  paddingInline: "clamp(1rem, 3vw, 2rem)",
 });
 
 export const heading = style({
-  fontSize: vars.font.sizeXl,
+  fontSize: "clamp(1.25rem, 2.5vw, 1.65rem)",
   fontWeight: vars.font.weightBold,
-  marginBottom: vars.space.lg,
+  marginBlockEnd: vars.space.lg,
 });
 
 export const layout = style({
   display: "grid",
-  gridTemplateColumns: "1fr 1fr",
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 22rem), 1fr))",
   gap: vars.space.xl,
-  "@media": {
-    [`screen and (max-width: ${breakpoints.md})`]: {
-      gridTemplateColumns: "1fr",
-    },
-  },
 });
-
 
 export const panel = style({
   display: "flex",
@@ -33,20 +28,22 @@ export const sectionTitle = style({
   fontSize: vars.font.sizeLg,
   fontWeight: vars.font.weightMedium,
   borderBottom: `1px solid ${vars.color.border}`,
-  paddingBottom: vars.space.sm,
+  paddingBlockEnd: vars.space.sm,
 });
 
 export const fieldLabel = style({
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
   color: vars.color.foreground,
-  marginBottom: vars.space.xs,
+  marginBlockEnd: vars.space.xs,
   display: "block",
+  inlineSize: "fit-content",
 });
 
 export const select = style({
-  width: "100%",
-  padding: `${vars.space.sm} ${vars.space.md}`,
+  inlineSize: "100%",
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
   fontSize: vars.font.sizeMd,
@@ -63,7 +60,7 @@ export const schoolList = style({
   display: "flex",
   flexDirection: "column",
   gap: vars.space.xs,
-  maxHeight: "20rem",
+  maxBlockSize: "20rem",
   overflowY: "auto",
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
@@ -74,7 +71,8 @@ export const schoolItem = style({
   display: "flex",
   alignItems: "center",
   gap: vars.space.sm,
-  padding: `${vars.space.xs} ${vars.space.sm}`,
+  paddingBlock: vars.space.xs,
+  paddingInline: vars.space.sm,
   borderRadius: vars.radius.sm,
   fontSize: vars.font.sizeSm,
   cursor: "pointer",
@@ -101,7 +99,9 @@ export const templateOptions = style({
 });
 
 export const templateButton = style({
-  padding: `${vars.space.sm} ${vars.space.md}`,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
+  inlineSize: "fit-content",
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
   background: vars.color.background,
@@ -124,11 +124,14 @@ export const templateButtonActive = style({
 export const batchActions = style({
   display: "flex",
   gap: vars.space.sm,
-  marginTop: vars.space.md,
+  marginBlockStart: vars.space.md,
+  flexWrap: "wrap",
 });
 
 export const batchButton = style({
-  padding: `${vars.space.sm} ${vars.space.lg}`,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.lg,
+  inlineSize: "fit-content",
   border: "none",
   borderRadius: vars.radius.sm,
   background: vars.color.primary,
@@ -151,7 +154,7 @@ export const previewSection = style({
 });
 
 export const selectAllWrap = style({
-  marginBottom: vars.space.sm,
+  marginBlockEnd: vars.space.sm,
 });
 
 export const emptyState = style({
@@ -160,4 +163,3 @@ export const emptyState = style({
   textAlign: "center",
   padding: vars.space.xl,
 });
-

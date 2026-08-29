@@ -2,13 +2,14 @@ import { style, globalStyle } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
 
 export const card = style({
-  width: "100%",
-  maxWidth: "40rem",
-  margin: "0 auto",
+  inlineSize: "100%",
+  maxInlineSize: "min(100%, 42rem)",
+  marginInline: "auto",
   display: "flex",
   flexDirection: "column",
   gap: vars.space.lg,
-  padding: vars.space.xl,
+  paddingBlock: vars.space.xl,
+  paddingInline: "clamp(1rem, 3vw, 2rem)",
   backgroundColor: vars.color.background,
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.lg,
@@ -32,7 +33,7 @@ export const stepItem = style({
 });
 
 export const stepBar = style({
-  height: "4px",
+  blockSize: "0.25rem",
   borderRadius: vars.radius.full,
   backgroundColor: vars.color.border,
 });
@@ -49,7 +50,7 @@ export const stepLabelActive = style({
 });
 
 export const stepHeading = style({
-  fontSize: vars.font.sizeLg,
+  fontSize: "clamp(1.15rem, 2vw, 1.35rem)",
   fontWeight: vars.font.weightMedium,
   color: vars.color.foreground,
 });
@@ -64,6 +65,7 @@ export const label = style({
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
   color: vars.color.foreground,
+  inlineSize: "fit-content",
 });
 
 export const requiredMark = style({
@@ -77,8 +79,9 @@ export const input = style({
   backgroundColor: vars.color.background,
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
-  padding: `${vars.space.sm} ${vars.space.md}`,
-  width: "100%",
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
+  inlineSize: "100%",
   ":focus-visible": {
     outline: `2px solid ${vars.color.primary}`,
     outlineOffset: "1px",
@@ -101,7 +104,7 @@ export const legalBox = style({
   padding: vars.space.md,
   fontSize: vars.font.sizeSm,
   color: vars.color.mutedForeground,
-  maxHeight: "14rem",
+  maxBlockSize: "14rem",
   overflowY: "auto",
 });
 
@@ -115,9 +118,9 @@ export const checkboxRow = style({
 });
 
 export const checkbox = style({
-  width: "1.1rem",
-  height: "1.1rem",
-  marginTop: "0.15rem",
+  inlineSize: "1.1rem",
+  blockSize: "1.1rem",
+  marginBlockStart: "0.15rem",
   accentColor: vars.color.primary,
   flexShrink: 0,
 });
@@ -141,7 +144,9 @@ export const button = style({
   backgroundColor: vars.color.primary,
   border: `1px solid ${vars.color.primary}`,
   borderRadius: vars.radius.sm,
-  padding: `${vars.space.sm} ${vars.space.lg}`,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.lg,
+  inlineSize: "fit-content",
   cursor: "pointer",
   ":disabled": {
     opacity: 0.6,
@@ -157,7 +162,9 @@ export const buttonSecondary = style({
   backgroundColor: vars.color.background,
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
-  padding: `${vars.space.sm} ${vars.space.lg}`,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.lg,
+  inlineSize: "fit-content",
   cursor: "pointer",
   ":disabled": {
     opacity: 0.6,
@@ -180,7 +187,7 @@ export const success = style({
 });
 
 export const successTitle = style({
-  fontSize: vars.font.sizeXl,
+  fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)",
   fontWeight: vars.font.weightBold,
   color: vars.color.success,
 });
@@ -188,7 +195,7 @@ export const successTitle = style({
 export const successText = style({
   fontSize: vars.font.sizeMd,
   color: vars.color.foreground,
-  maxWidth: "32rem",
+  maxInlineSize: "min(100%, 32rem)",
 });
 
 // Prevent the number inputs from showing spinners inconsistently.
@@ -205,17 +212,16 @@ export const fieldset = style({
 });
 
 export const noteText = style({
-  marginTop: vars.space.xs,
+  marginBlockStart: vars.space.xs,
   color: vars.color.mutedForeground,
   fontSize: vars.font.sizeSm,
 });
 
 export const honeypot = style({
   position: "absolute",
-  left: "-9999px",
-  width: "1px",
-  height: "1px",
+  insetInlineStart: "-999rem",
+  inlineSize: "1px",
+  blockSize: "1px",
   opacity: 0,
   pointerEvents: "none",
 });
-

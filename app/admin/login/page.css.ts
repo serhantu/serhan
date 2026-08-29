@@ -2,32 +2,34 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
 
 export const page = style({
-  minHeight: "100dvh",
+  minBlockSize: "100dvh",
   display: "grid",
   placeItems: "center",
-  padding: vars.space.xl,
+  paddingBlock: vars.space.xl,
+  paddingInline: "clamp(1rem, 3vw, 2rem)",
   background: vars.color.muted,
 });
 
 export const card = style({
-  width: "100%",
-  maxWidth: "28rem",
+  inlineSize: "100%",
+  maxInlineSize: "min(100%, 28rem)",
   background: vars.color.background,
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.lg,
-  padding: vars.space.xl,
+  paddingBlock: vars.space.xl,
+  paddingInline: "clamp(1.25rem, 3vw, 2rem)",
   boxShadow: vars.shadow.md,
 });
 
 export const title = style({
-  fontSize: vars.font.size2xl,
+  fontSize: "clamp(1.5rem, 3vw, 2rem)",
   fontWeight: vars.font.weightBold,
-  marginBottom: vars.space.md,
+  marginBlockEnd: vars.space.md,
 });
 
 export const helper = style({
   color: vars.color.mutedForeground,
-  marginBottom: vars.space.lg,
+  marginBlockEnd: vars.space.lg,
   lineHeight: vars.font.lineNormal,
 });
 
@@ -39,19 +41,21 @@ export const form = style({
 
 export const label = style({
   fontWeight: vars.font.weightMedium,
+  inlineSize: "fit-content",
 });
 
 export const input = style({
-  width: "100%",
+  inlineSize: "100%",
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.md,
-  padding: `${vars.space.sm} ${vars.space.md}`,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
   fontSize: vars.font.sizeMd,
   fontFamily: vars.font.sans,
 });
 
 export const actions = style({
-  marginTop: vars.space.sm,
+  marginBlockStart: vars.space.sm,
 });
 
 export const button = style({
@@ -59,9 +63,11 @@ export const button = style({
   borderRadius: vars.radius.md,
   background: vars.color.primary,
   color: vars.color.primaryForeground,
-  padding: `${vars.space.sm} ${vars.space.md}`,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
   fontWeight: vars.font.weightMedium,
   cursor: "pointer",
+  inlineSize: "fit-content",
   selectors: {
     "&:focus-visible": { outline: `2px solid ${vars.color.primary}`, outlineOffset: "2px" },
   },

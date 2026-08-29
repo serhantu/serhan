@@ -2,9 +2,10 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
 
 export const page = style({
-  maxWidth: "72rem",
-  margin: "0 auto",
-  padding: vars.space.xl,
+  maxInlineSize: "min(100%, 72rem)",
+  marginInline: "auto",
+  paddingBlock: vars.space.xl,
+  paddingInline: "clamp(1rem, 3vw, 2rem)",
   display: "flex",
   flexDirection: "column",
   gap: vars.space.xl,
@@ -19,7 +20,7 @@ export const header = style({
 });
 
 export const title = style({
-  fontSize: vars.font.size2xl,
+  fontSize: "clamp(1.5rem, 3vw, 2rem)",
   fontWeight: vars.font.weightBold,
   color: vars.color.foreground,
 });
@@ -33,13 +34,16 @@ export const searchForm = style({
   display: "flex",
   gap: vars.space.md,
   alignItems: "flex-end",
+  flexWrap: "wrap",
 });
 
 export const searchInput = style({
   flex: 1,
+  minInlineSize: "min(100%, 14rem)",
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.md,
-  padding: `${vars.space.sm} ${vars.space.md}`,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
   fontFamily: vars.font.sans,
 });
 
@@ -48,9 +52,11 @@ export const searchButton = style({
   borderRadius: vars.radius.md,
   background: vars.color.primary,
   color: vars.color.primaryForeground,
-  padding: `${vars.space.sm} ${vars.space.md}`,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
   fontWeight: vars.font.weightMedium,
   cursor: "pointer",
+  inlineSize: "fit-content",
 });
 
 export const customerList = style({
@@ -75,15 +81,16 @@ export const customerName = style({
 export const customerMeta = style({
   fontSize: vars.font.sizeSm,
   color: vars.color.mutedForeground,
-  marginTop: vars.space.sm,
+  marginBlockStart: vars.space.sm,
 });
 
 export const customerLink = style({
   color: vars.color.primary,
   textDecoration: "none",
   fontWeight: vars.font.weightMedium,
-  marginTop: vars.space.md,
+  marginBlockStart: vars.space.md,
   display: "inline-block",
+  inlineSize: "fit-content",
 });
 
 export const emptyState = style({

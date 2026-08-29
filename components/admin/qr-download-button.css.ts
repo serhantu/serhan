@@ -9,7 +9,9 @@ export const button = style({
   backgroundColor: vars.color.primary,
   border: `1px solid ${vars.color.primary}`,
   borderRadius: vars.radius.sm,
-  padding: `${vars.space.xs} ${vars.space.sm}`,
+  paddingBlock: vars.space.xs,
+  paddingInline: vars.space.sm,
+  inlineSize: "fit-content",
   cursor: "pointer",
   ":disabled": {
     opacity: 0.6,
@@ -17,7 +19,7 @@ export const button = style({
   },
   "@media": {
     "(max-width: 480px)": {
-      flex: 1,
+      inlineSize: "100%",
     },
   },
 });
@@ -31,5 +33,5 @@ export const actions = style({
 export const errorText = style({
   color: vars.color.danger,
   fontSize: vars.font.sizeSm,
-  marginTop: vars.space.xs,
+  marginBlockStart: vars.space.xs,
 });

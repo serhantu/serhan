@@ -2,7 +2,7 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
 
 export const page = style({
-  minHeight: "100dvh",
+  minBlockSize: "100dvh",
   background: vars.color.background,
   color: vars.color.foreground,
 });
@@ -13,10 +13,11 @@ export const nav = style({
   justifyContent: "space-between",
   gap: vars.space.md,
   borderBottom: `1px solid ${vars.color.border}`,
-  padding: `${vars.space.md} ${vars.space.xl}`,
+  paddingBlock: vars.space.md,
+  paddingInline: "clamp(1rem, 3vw, 2rem)",
   background: vars.color.muted,
   position: "sticky",
-  top: 0,
+  insetBlockStart: 0,
   zIndex: vars.zIndex.sticky,
 });
 
@@ -31,8 +32,10 @@ export const link = style({
   color: vars.color.foreground,
   textDecoration: "none",
   fontWeight: vars.font.weightMedium,
-  padding: `${vars.space.xs} ${vars.space.sm}`,
+  paddingBlock: vars.space.xs,
+  paddingInline: vars.space.sm,
   borderRadius: vars.radius.sm,
+  inlineSize: "fit-content",
   selectors: {
     "&:hover": { background: vars.color.accent },
     "&:focus-visible": { outline: `2px solid ${vars.color.primary}`, outlineOffset: "2px" },

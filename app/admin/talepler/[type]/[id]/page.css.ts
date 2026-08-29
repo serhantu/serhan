@@ -2,9 +2,10 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
 
 export const page = style({
-  maxWidth: "72rem",
-  margin: "0 auto",
-  padding: vars.space.xl,
+  maxInlineSize: "min(100%, 72rem)",
+  marginInline: "auto",
+  paddingBlock: vars.space.xl,
+  paddingInline: "clamp(1rem, 3vw, 2rem)",
   display: "flex",
   flexDirection: "column",
   gap: vars.space.xl,
@@ -26,7 +27,7 @@ export const kicker = style({
 });
 
 export const title = style({
-  fontSize: vars.font.size2xl,
+  fontSize: "clamp(1.5rem, 3vw, 2rem)",
   fontWeight: vars.font.weightBold,
   color: vars.color.foreground,
 });
@@ -35,11 +36,12 @@ export const backLink = style({
   color: vars.color.primary,
   textDecoration: "none",
   fontWeight: vars.font.weightMedium,
+  inlineSize: "fit-content",
 });
 
 export const grid = style({
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(16rem, 1fr))",
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 16rem), 1fr))",
   gap: vars.space.lg,
 });
 
@@ -54,7 +56,7 @@ export const card = style({
 export const sectionTitle = style({
   fontSize: vars.font.sizeLg,
   fontWeight: vars.font.weightBold,
-  marginBottom: vars.space.md,
+  marginBlockEnd: vars.space.md,
 });
 
 export const list = style({
@@ -80,9 +82,10 @@ export const listValue = style({
 export const select = style({
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.md,
-  padding: `${vars.space.sm} ${vars.space.md}`,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
   fontFamily: vars.font.sans,
-  marginRight: vars.space.md,
+  marginInlineEnd: vars.space.md,
 });
 
 export const button = style({
@@ -90,18 +93,21 @@ export const button = style({
   borderRadius: vars.radius.md,
   background: vars.color.primary,
   color: vars.color.primaryForeground,
-  padding: `${vars.space.sm} ${vars.space.md}`,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
   fontWeight: vars.font.weightMedium,
   cursor: "pointer",
+  inlineSize: "fit-content",
 });
 
 export const detailGrid = style({
   display: "grid",
   gap: vars.space.md,
-  gridTemplateColumns: "repeat(auto-fit, minmax(16rem, 1fr))",
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 16rem), 1fr))",
 });
 
 export const inlineLink = style({
-  marginTop: vars.space.md,
+  marginBlockStart: vars.space.md,
   display: "inline-block",
+  inlineSize: "fit-content",
 });

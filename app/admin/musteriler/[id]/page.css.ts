@@ -2,9 +2,10 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
 
 export const page = style({
-  maxWidth: "72rem",
-  margin: "0 auto",
-  padding: vars.space.xl,
+  maxInlineSize: "min(100%, 72rem)",
+  marginInline: "auto",
+  paddingBlock: vars.space.xl,
+  paddingInline: "clamp(1rem, 3vw, 2rem)",
   display: "flex",
   flexDirection: "column",
   gap: vars.space.xl,
@@ -19,7 +20,7 @@ export const header = style({
 });
 
 export const title = style({
-  fontSize: vars.font.size2xl,
+  fontSize: "clamp(1.5rem, 3vw, 2rem)",
   fontWeight: vars.font.weightBold,
   color: vars.color.foreground,
 });
@@ -28,11 +29,12 @@ export const backLink = style({
   color: vars.color.primary,
   textDecoration: "none",
   fontWeight: vars.font.weightMedium,
+  inlineSize: "fit-content",
 });
 
 export const grid = style({
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(20rem, 1fr))",
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 20rem), 1fr))",
   gap: vars.space.lg,
 });
 
@@ -47,7 +49,7 @@ export const card = style({
 export const sectionTitle = style({
   fontSize: vars.font.sizeLg,
   fontWeight: vars.font.weightBold,
-  marginBottom: vars.space.md,
+  marginBlockEnd: vars.space.md,
 });
 
 export const list = style({
@@ -75,5 +77,6 @@ export const link = style({
   textDecoration: "none",
   fontWeight: vars.font.weightMedium,
   display: "inline-block",
-  marginTop: vars.space.sm,
+  marginBlockStart: vars.space.sm,
+  inlineSize: "fit-content",
 });

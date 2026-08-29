@@ -63,8 +63,9 @@ export const vars = createGlobalTheme(":root", {
     sm: "0.25rem",
     md: "0.5rem",
     lg: "0.75rem",
-    full: "9999px",
+    full: "999rem",
   },
+
 
   shadow: {
     sm: "0 1px 2px hsl(0 0% 0% / 0.06)",

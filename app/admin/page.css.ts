@@ -2,16 +2,17 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
 
 export const page = style({
-  maxWidth: "64rem",
-  margin: "0 auto",
-  padding: vars.space.xl,
+  maxInlineSize: "min(100%, 64rem)",
+  marginInline: "auto",
+  paddingBlock: vars.space.xl,
+  paddingInline: "clamp(1rem, 3vw, 2rem)",
   display: "flex",
   flexDirection: "column",
   gap: vars.space.xl,
 });
 
 export const title = style({
-  fontSize: vars.font.size2xl,
+  fontSize: "clamp(1.5rem, 3vw, 2rem)",
   fontWeight: vars.font.weightBold,
   color: vars.color.foreground,
 });
@@ -19,12 +20,12 @@ export const title = style({
 export const note = style({
   fontSize: vars.font.sizeMd,
   color: vars.color.mutedForeground,
-  marginTop: vars.space.xs,
+  marginBlockStart: vars.space.xs,
 });
 
 export const cards = style({
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(12rem, 1fr))",
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 12rem), 1fr))",
   gap: vars.space.lg,
 });
 
@@ -46,7 +47,7 @@ export const cardTitle = style({
 });
 
 export const cardValue = style({
-  fontSize: vars.font.size3xl,
+  fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
   fontWeight: vars.font.weightBold,
   color: vars.color.foreground,
   lineHeight: vars.font.lineTight,
@@ -56,7 +57,7 @@ export const cardLink = style({
   color: vars.color.primary,
   textDecoration: "none",
   fontWeight: vars.font.weightMedium,
-  width: "fit-content",
+  inlineSize: "fit-content",
 });
 
 export const section = style({

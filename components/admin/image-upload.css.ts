@@ -48,15 +48,16 @@ export const preview = style({
 });
 
 export const previewImage = style({
-  width: "4rem",
-  height: "4rem",
+  inlineSize: "4rem",
+  blockSize: "4rem",
   objectFit: "cover",
   borderRadius: vars.radius.sm,
+  flexShrink: 0,
 });
 
 export const previewInfo = style({
   flex: 1,
-  minWidth: 0,
+  minInlineSize: 0,
 });
 
 export const previewUrl = style({
@@ -74,6 +75,7 @@ export const removeButton = style({
   fontWeight: vars.font.weightMedium,
   padding: vars.space.xs,
   borderRadius: vars.radius.sm,
+  inlineSize: "fit-content",
   selectors: {
     "&:hover": { background: vars.color.dangerBg },
   },
@@ -85,15 +87,15 @@ export const errorText = style({
 });
 
 export const progressBar = style({
-  width: "100%",
-  height: "0.25rem",
+  inlineSize: "100%",
+  blockSize: "0.25rem",
   background: vars.color.muted,
   borderRadius: vars.radius.full,
   overflow: "hidden",
 });
 
 export const progressFill = style({
-  height: "100%",
+  blockSize: "100%",
   background: vars.color.primary,
-  transition: "width 0.2s",
+  transition: "inline-size 0.2s",
 });

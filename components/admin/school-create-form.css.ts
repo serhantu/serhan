@@ -21,6 +21,7 @@ export const label = style({
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
   color: vars.color.foreground,
+  inlineSize: "fit-content",
 });
 
 export const input = style({
@@ -30,8 +31,9 @@ export const input = style({
   backgroundColor: vars.color.background,
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
-  padding: `${vars.space.sm} ${vars.space.md}`,
-  width: "100%",
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
+  inlineSize: "100%",
   ":focus-visible": {
     outline: `2px solid ${vars.color.primary}`,
     outlineOffset: "1px",
@@ -45,11 +47,12 @@ export const checkboxLabel = style({
   fontSize: vars.font.sizeMd,
   color: vars.color.foreground,
   cursor: "pointer",
+  inlineSize: "fit-content",
 });
 
 export const checkbox = style({
-  width: "1.1rem",
-  height: "1.1rem",
+  inlineSize: "1.1rem",
+  blockSize: "1.1rem",
   accentColor: vars.color.primary,
 });
 
@@ -72,7 +75,9 @@ export const submit = style({
   backgroundColor: vars.color.primary,
   border: `1px solid ${vars.color.primary}`,
   borderRadius: vars.radius.sm,
-  padding: `${vars.space.sm} ${vars.space.md}`,
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.md,
+  inlineSize: "fit-content",
   cursor: "pointer",
   ":disabled": {
     opacity: 0.6,
