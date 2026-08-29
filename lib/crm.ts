@@ -18,6 +18,8 @@
 
 import "server-only";
 import { prisma } from "@/lib/db";
+import { requireAdminSession } from "@/lib/auth";
+
 
 // Normalize phone for matching: remove spaces, dashes, parentheses, etc.
 // Return as digits only. This allows flexible input while matching deterministically.
@@ -176,6 +178,7 @@ export async function resolveOrCreateStudent(
  * Used in admin views to show customer history.
  */
 export async function getCustomerHistory(musteriId: string) {
+  await requireAdminSession();
   const onKayitlar = await prisma.onKayit.findMany({
     where: { musteriId },
     include: {
@@ -191,6 +194,7 @@ export async function getCustomerHistory(musteriId: string) {
  * Find all students belonging to a customer.
  */
 export async function getCustomerStudents(musteriId: string) {
+  await requireAdminSession();
   return prisma.ogrenci.findMany({
     where: { musteriId },
     include: {
@@ -199,3 +203,4 @@ export async function getCustomerStudents(musteriId: string) {
     orderBy: { createdAt: "desc" },
   });
 }
+

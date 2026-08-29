@@ -4,12 +4,15 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
+import { requireAdminSession } from "@/lib/auth";
 import { siteSettingsUpdateSchema } from "@/lib/validation/site-settings";
 
 const SINGLETON_ID = "main";
 
 export async function updateSiteSettings(input: unknown) {
+  await requireAdminSession();
   const parsed = siteSettingsUpdateSchema.parse(input);
+
 
   await prisma.siteSettings.upsert({
     where: { id: SINGLETON_ID },

@@ -4,6 +4,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
+import { requireAdminSession } from "@/lib/auth";
 import {
   faqCreateSchema,
   faqUpdateSchema,
@@ -12,6 +13,7 @@ import {
 } from "@/lib/validation/cms";
 
 export async function createFaq(input: unknown) {
+  await requireAdminSession();
   const parsed = faqCreateSchema.parse(input);
 
   const faq = await prisma.faqItem.create({
@@ -27,6 +29,7 @@ export async function createFaq(input: unknown) {
 }
 
 export async function updateFaq(input: unknown) {
+  await requireAdminSession();
   const parsed = faqUpdateSchema.parse(input);
 
   const faq = await prisma.faqItem.update({
@@ -43,6 +46,7 @@ export async function updateFaq(input: unknown) {
 }
 
 export async function setFaqActive(input: unknown) {
+  await requireAdminSession();
   const parsed = faqToggleSchema.parse(input);
 
   const faq = await prisma.faqItem.update({
@@ -56,6 +60,7 @@ export async function setFaqActive(input: unknown) {
 }
 
 export async function setFaqSortOrder(input: unknown) {
+  await requireAdminSession();
   const parsed = faqSortOrderSchema.parse(input);
 
   const faq = await prisma.faqItem.update({
@@ -68,18 +73,21 @@ export async function setFaqSortOrder(input: unknown) {
 }
 
 export async function getFaqForAdmin(id: string) {
+  await requireAdminSession();
   return prisma.faqItem.findUnique({
     where: { id },
   });
 }
 
 export async function listFaqsForAdmin() {
+  await requireAdminSession();
   return prisma.faqItem.findMany({
     orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
   });
 }
 
 export async function deleteFaq(id: string) {
+  await requireAdminSession();
   await prisma.faqItem.delete({
     where: { id },
   });

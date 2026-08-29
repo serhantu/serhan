@@ -96,3 +96,13 @@ export const fieldError = style({
   fontSize: vars.font.sizeXs,
   color: vars.color.danger,
 });
+
+export const honeypot = style({
+  position: "absolute",
+  left: "-9999px",
+  width: "1px",
+  height: "1px",
+  opacity: 0,
+  pointerEvents: "none",
+});
+

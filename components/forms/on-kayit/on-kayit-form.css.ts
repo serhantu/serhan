@@ -209,3 +209,13 @@ export const noteText = style({
   color: vars.color.mutedForeground,
   fontSize: vars.font.sizeSm,
 });
+
+export const honeypot = style({
+  position: "absolute",
+  left: "-9999px",
+  width: "1px",
+  height: "1px",
+  opacity: 0,
+  pointerEvents: "none",
+});
+

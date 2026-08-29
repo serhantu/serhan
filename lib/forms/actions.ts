@@ -1,11 +1,12 @@
 "use server";
 
-// Public website form server actions.
+// Public website form server actions with honeypot bot & spam protection.
 //
-// Each action validates input with the shared Zod schema, inserts a row into
-// the appropriate Prisma model, and optionally sends an admin notification.
-// E-mail notification is best-effort: if Resend is not configured the record
-// is still created.
+// Each action:
+//   1. Checks for honeypot bot trap (_hp). If populated by a bot, silently discards.
+//   2. Validates input with the shared Zod schema.
+//   3. Inserts a row into the appropriate Prisma model.
+//   4. Sends best-effort admin notification via Resend.
 
 import { prisma } from "@/lib/db";
 import {
@@ -21,7 +22,19 @@ export type FormSubmitResult = {
   error?: string;
 };
 
+/**
+ * Check if the submission is an automated bot trap (honeypot).
+ */
+function isBotSubmission(formData: FormData): boolean {
+  const hp = formData.get("_hp");
+  return typeof hp === "string" && hp.trim().length > 0;
+}
+
 export async function submitTeklif(formData: FormData): Promise<FormSubmitResult> {
+  if (isBotSubmission(formData)) {
+    return { ok: true };
+  }
+
   const raw = Object.fromEntries(formData.entries());
   const parsed = teklifSchema.safeParse(raw);
 
@@ -50,6 +63,10 @@ export async function submitTeklif(formData: FormData): Promise<FormSubmitResult
 }
 
 export async function submitIletisim(formData: FormData): Promise<FormSubmitResult> {
+  if (isBotSubmission(formData)) {
+    return { ok: true };
+  }
+
   const raw = Object.fromEntries(formData.entries());
   const parsed = iletisimSchema.safeParse(raw);
 
@@ -77,6 +94,10 @@ export async function submitIletisim(formData: FormData): Promise<FormSubmitResu
 }
 
 export async function submitIsBasvuru(formData: FormData): Promise<FormSubmitResult> {
+  if (isBotSubmission(formData)) {
+    return { ok: true };
+  }
+
   const raw = Object.fromEntries(formData.entries());
   const parsed = isBasvuruSchema.safeParse(raw);
 
@@ -104,6 +125,10 @@ export async function submitIsBasvuru(formData: FormData): Promise<FormSubmitRes
 }
 
 export async function submitAracGeriBildirim(formData: FormData): Promise<FormSubmitResult> {
+  if (isBotSubmission(formData)) {
+    return { ok: true };
+  }
+
   const raw = Object.fromEntries(formData.entries());
   const parsed = aracGeriBildirimSchema.safeParse(raw);
 

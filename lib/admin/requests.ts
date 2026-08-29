@@ -2,8 +2,10 @@ import "server-only";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
+import { requireAdminSession } from "@/lib/auth";
 import { maskStoredTcKimlik } from "@/lib/tc-kimlik";
 import { sendOnKayitAdminNotification } from "@/lib/resend";
+
 
 export const requestTypes = [
   "TEKLIF",
@@ -76,7 +78,9 @@ export async function listRequests(input?: {
   status?: RequestListItem["status"] | "TUMU";
   search?: string;
 }): Promise<RequestListResponse> {
+  await requireAdminSession();
   const page = Math.max(1, Number(input?.page ?? 1));
+
   const limit = Math.min(100, Math.max(1, Number(input?.limit ?? 20)));
   const typeFilter = input?.type ?? "TUMU";
   const statusFilter = input?.status ?? "TUMU";
@@ -246,7 +250,9 @@ export async function listRequests(input?: {
 }
 
 export async function getRequestDetail(type: UnifiedRequestType, id: string) {
+  await requireAdminSession();
   if (type === "TEKLIF") {
+
     return prisma.teklif.findUnique({
       where: { id },
       select: {
@@ -330,7 +336,9 @@ export async function updateRequestStatus(input: {
   type: UnifiedRequestType;
   status: RequestListItem["status"];
 }): Promise<{ ok: boolean; error?: string }> {
+  await requireAdminSession();
   const parsed = z
+
     .object({
       id: z.string().min(1),
       type: actionTypeSchema,
@@ -394,7 +402,9 @@ export async function changeRequestStatus(formData: FormData): Promise<void> {
 }
 
 export async function resendOnKayitNotification(input: { id: string }): Promise<{ ok: boolean; error?: string }> {
+  await requireAdminSession();
   const parsed = z.object({ id: z.string().min(1) }).safeParse(input);
+
   if (!parsed.success) {
     return { ok: false, error: "Geçersiz talep." };
   }

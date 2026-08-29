@@ -32,11 +32,13 @@ export function IsBasvuruForm() {
 
   return (
     <form onSubmit={handleSubmit} className={s.form}>
+      <input type="text" name="_hp" tabIndex={-1} autoComplete="off" className={s.honeypot} aria-hidden="true" />
       {result?.error && (
         <div className={s.errorBox} role="alert">
           {result.error}
         </div>
       )}
+
 
       <div className={s.field}>
         <label htmlFor="isbasvuru-adSoyad" className={s.label}>Ad Soyad *</label>

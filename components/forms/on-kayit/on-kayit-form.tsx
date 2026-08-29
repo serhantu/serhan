@@ -112,7 +112,9 @@ export function OnKayitForm({ slug, okulAd, showTc, explicitConsentRequired }: P
 
   return (
     <form ref={formRef} action={formAction} className={s.card} noValidate>
+      <input type="text" name="_hp" tabIndex={-1} autoComplete="off" className={s.honeypot} aria-hidden="true" />
       <ol className={s.steps} aria-label="Kayıt adımları">
+
         {STEP_LABELS.map((label, i) => (
           <li key={label} className={s.stepItem}>
             <span className={`${s.stepBar} ${i <= step ? s.stepBarActive : ""}`} aria-hidden />

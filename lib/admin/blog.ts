@@ -4,6 +4,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
+import { requireAdminSession } from "@/lib/auth";
 import { generateSlug } from "@/lib/slug";
 import {
   blogPostCreateSchema,
@@ -12,6 +13,7 @@ import {
 } from "@/lib/validation/cms";
 
 export async function createBlogPost(input: unknown) {
+  await requireAdminSession();
   const parsed = blogPostCreateSchema.parse(input);
 
   const slug = generateSlug(parsed.title);
@@ -37,6 +39,7 @@ export async function createBlogPost(input: unknown) {
 }
 
 export async function updateBlogPost(input: unknown) {
+  await requireAdminSession();
   const parsed = blogPostUpdateSchema.parse(input);
 
   const post = await prisma.blogPost.update({
@@ -55,6 +58,7 @@ export async function updateBlogPost(input: unknown) {
 }
 
 export async function publishBlogPost(input: unknown) {
+  await requireAdminSession();
   const parsed = blogPostPublishSchema.parse(input);
 
   const post = await prisma.blogPost.update({
@@ -72,18 +76,21 @@ export async function publishBlogPost(input: unknown) {
 }
 
 export async function getBlogPostForAdmin(id: string) {
+  await requireAdminSession();
   return prisma.blogPost.findUnique({
     where: { id },
   });
 }
 
 export async function listBlogPostsForAdmin() {
+  await requireAdminSession();
   return prisma.blogPost.findMany({
     orderBy: [{ createdAt: "desc" }],
   });
 }
 
 export async function deleteBlogPost(id: string) {
+  await requireAdminSession();
   const post = await prisma.blogPost.delete({
     where: { id },
   });

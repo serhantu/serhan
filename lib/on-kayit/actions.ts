@@ -18,9 +18,15 @@ export async function onKayitOlustur(
   slug: string,
   formData: FormData,
 ): Promise<SubmitOnKayitResult> {
+  const hp = formData.get("_hp");
+  if (typeof hp === "string" && hp.trim().length > 0) {
+    return { ok: true, id: "bot-discarded" };
+  }
+
   if (typeof slug !== "string" || slug.length === 0) {
     return { ok: false, error: "Geçersiz istek." };
   }
+
 
   const input: SubmitOnKayitInput = {};
   for (const [key, value] of formData.entries()) {

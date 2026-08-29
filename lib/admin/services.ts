@@ -4,6 +4,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
+import { requireAdminSession } from "@/lib/auth";
 import { generateSlug } from "@/lib/slug";
 import {
   serviceCreateSchema,
@@ -13,6 +14,7 @@ import {
 } from "@/lib/validation/cms";
 
 export async function createService(input: unknown) {
+  await requireAdminSession();
   const parsed = serviceCreateSchema.parse(input);
 
   const slug = generateSlug(parsed.name);
@@ -37,6 +39,7 @@ export async function createService(input: unknown) {
 }
 
 export async function updateService(input: unknown) {
+  await requireAdminSession();
   const parsed = serviceUpdateSchema.parse(input);
 
   const service = await prisma.service.update({
@@ -55,6 +58,7 @@ export async function updateService(input: unknown) {
 }
 
 export async function setServiceActive(input: unknown) {
+  await requireAdminSession();
   const parsed = serviceToggleSchema.parse(input);
 
   const service = await prisma.service.update({
@@ -68,6 +72,7 @@ export async function setServiceActive(input: unknown) {
 }
 
 export async function setServiceSortOrder(input: unknown) {
+  await requireAdminSession();
   const parsed = serviceSortOrderSchema.parse(input);
 
   const service = await prisma.service.update({
@@ -80,18 +85,21 @@ export async function setServiceSortOrder(input: unknown) {
 }
 
 export async function getServiceForAdmin(id: string) {
+  await requireAdminSession();
   return prisma.service.findUnique({
     where: { id },
   });
 }
 
 export async function listServicesForAdmin() {
+  await requireAdminSession();
   return prisma.service.findMany({
     orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
   });
 }
 
 export async function deleteService(id: string) {
+  await requireAdminSession();
   const service = await prisma.service.delete({
     where: { id },
   });
