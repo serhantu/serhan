@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { vars } from "@/styles/tokens.css";
+import { vars, breakpoints } from "@/styles/tokens.css";
 
 export const button = style({
   fontFamily: vars.font.sans,
@@ -18,11 +18,12 @@ export const button = style({
     cursor: "not-allowed",
   },
   "@media": {
-    "(max-width: 480px)": {
+    [`screen and (max-width: ${breakpoints.sm})`]: {
       inlineSize: "100%",
     },
   },
 });
+
 
 export const actions = style({
   display: "flex",

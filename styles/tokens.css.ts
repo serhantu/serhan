@@ -82,17 +82,18 @@ export const vars = createGlobalTheme(":root", {
   },
 
   breakpoint: {
-    sm: "480px",
-    md: "768px",
-    lg: "1024px",
-    xl: "1280px",
+    sm: "30rem",
+    md: "48rem",
+    lg: "64rem",
+    xl: "80rem",
   },
 });
 
 export const breakpoints = {
-  sm: "480px",
-  md: "768px",
-  lg: "1024px",
-  xl: "1280px",
+  sm: "30rem",
+  md: "48rem",
+  lg: "64rem",
+  xl: "80rem",
 } as const;
+
 

@@ -1,5 +1,5 @@
 import { style, globalStyle } from "@vanilla-extract/css";
-import { vars } from "@/styles/tokens.css";
+import { vars, breakpoints } from "@/styles/tokens.css";
 
 export const wrapper = style({
   inlineSize: "100%",
@@ -14,7 +14,8 @@ export const table = style({
   fontSize: vars.font.sizeSm,
 });
 
-const MOBILE = "(max-width: 768px)";
+const MOBILE = `(max-width: ${breakpoints.md})`;
+
 
 globalStyle(`${table} thead`, {
   "@media": { [MOBILE]: { display: "none" } },
