@@ -122,6 +122,12 @@ R2_PUBLIC_URL="https://pub-xxxxxxxxxxxx.r2.dev"
 Tüm arayüz kodları [docs/frontend-rules.md](file:///Users/tarikozbalkan/www/serhan/docs/frontend-rules.md) standartlarına %100 uyar:
 - **Vanilla Extract (`.css.ts`)** kullanılır.
 - **Inline CSS (`style={{...}}`) kesinlikle kullanılmaz.**
-- Renkler HSL tokenleri üzerindendir (`vars.color.*`).
-- Tip güvenliği: TypeScript strict mode aktif, Zod ile ortak client/server şemaları.
-- Sunucu Bileşenleri (Server Components) varsayılandır, interaktivite gereken yerler açıkça `"use client"` ile ayrılmıştır.
+- **Mantıksal Özellikler (Logical Properties):** `inline-size`, `block-size`, `margin-inline`, `padding-block`, `inset-block-start` standarttır.
+- **Akışkan Boyutlandırma:** Başlıklar, aralıklar ve padding'ler için `clamp(min, ideal, max)` kullanılır.
+- **İçerik-Bazlı Boyutlandırma (Intrinsic Sizing):** Buton ve badge'lerde `inline-size: fit-content` kullanılır.
+- **Akışkan Grid:** `grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr))` kalıbı kullanılır.
+- **`rem` Birimi & Breakpointler:** Tüm ölçüler, radii (`999rem`) ve breakpointler (`30rem`, `48rem`, `64rem`, `80rem`) `rem` cinsindendir.
+- **Renkler:** HSL tokenleri üzerindendir (`vars.color.*`).
+- **Tip Güvenliği:** TypeScript strict mode aktif, Zod ile ortak client/server şemaları.
+- **Sunucu Bileşenleri:** Server Components varsayılandır, interaktivite gereken yerler açıkça `"use client"` ile ayrılmıştır.
+
