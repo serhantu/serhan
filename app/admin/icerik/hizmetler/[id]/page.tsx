@@ -5,6 +5,7 @@
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { updateService, setServiceActive, getServiceForAdmin, deleteService } from "@/lib/admin/services";
+import { ImageUpload } from "@/components/admin/image-upload";
 import * as s from "@/components/cms/admin-cms.css";
 
 export default function EditHizmetPage() {
@@ -156,15 +157,13 @@ export default function EditHizmetPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="imageUrl" className={s.label}>Resim URL</label>
-          <input
-            id="imageUrl"
-            type="text"
-            className={s.input}
+          <ImageUpload
             value={formData.imageUrl}
-            onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+            onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+            label="Hizmet Resmi"
           />
         </div>
+
 
         <div className={s.buttonRow}>
           <button type="submit" disabled={isSubmitting}>

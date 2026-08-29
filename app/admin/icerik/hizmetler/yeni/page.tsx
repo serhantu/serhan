@@ -6,7 +6,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createService } from "@/lib/admin/services";
 import { ServiceCreateInput, serviceCreateSchema } from "@/lib/validation/cms";
+import { ImageUpload } from "@/components/admin/image-upload";
 import * as s from "@/components/cms/admin-cms.css";
+
 
 export default function YeniHizmetPage() {
   const router = useRouter();
@@ -98,15 +100,13 @@ export default function YeniHizmetPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="imageUrl" className={s.label}>Resim URL</label>
-          <input
-            id="imageUrl"
-            type="text"
-            className={s.input}
+          <ImageUpload
             value={formData.imageUrl}
-            onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+            onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+            label="Hizmet Resmi"
           />
         </div>
+
 
         <div className={s.buttonRow}>
           <button type="submit" disabled={isSubmitting}>

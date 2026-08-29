@@ -5,7 +5,9 @@
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { updateReference, setReferenceActive, getReferenceForAdmin, deleteReference } from "@/lib/admin/references";
+import { ImageUpload } from "@/components/admin/image-upload";
 import * as s from "@/components/cms/admin-cms.css";
+
 
 export default function EditReferansPage() {
   const router = useRouter();
@@ -135,15 +137,13 @@ export default function EditReferansPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="logoUrl" className={s.label}>Logo URL</label>
-          <input
-            id="logoUrl"
-            type="text"
-            className={s.input}
+          <ImageUpload
             value={formData.logoUrl}
-            onChange={(e) => setFormData({ ...formData, logoUrl: e.target.value })}
+            onChange={(url) => setFormData({ ...formData, logoUrl: url })}
+            label="Logo Resmi"
           />
         </div>
+
 
         <div className={s.field}>
           <label htmlFor="websiteUrl" className={s.label}>Website URL</label>

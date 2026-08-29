@@ -6,7 +6,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createBlogPost } from "@/lib/admin/blog";
 import { BlogPostCreateInput, blogPostCreateSchema } from "@/lib/validation/cms";
+import { ImageUpload } from "@/components/admin/image-upload";
 import * as s from "@/components/cms/admin-cms.css";
+
 
 export default function YeniBlogPage() {
   const router = useRouter();
@@ -98,15 +100,13 @@ export default function YeniBlogPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="coverImage" className={s.label}>Kapak Resmi URL</label>
-          <input
-            id="coverImage"
-            type="text"
-            className={s.input}
+          <ImageUpload
             value={formData.coverImage}
-            onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
+            onChange={(url) => setFormData({ ...formData, coverImage: url })}
+            label="Kapak Resmi"
           />
         </div>
+
 
         <div className={s.buttonRow}>
           <button type="submit" disabled={isSubmitting}>

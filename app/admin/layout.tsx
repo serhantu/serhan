@@ -7,8 +7,11 @@ const navItems = [
   { href: "/admin/talepler", label: "Talepler" },
   { href: "/admin/musteriler", label: "Müşteriler" },
   { href: "/admin/okullar", label: "Okullar" },
+  { href: "/admin/qr", label: "QR Üret" },
   { href: "/admin/icerik", label: "İçerik" },
+  { href: "/admin/ayarlar", label: "Ayarlar" },
 ];
+
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (

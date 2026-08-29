@@ -6,7 +6,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createReference } from "@/lib/admin/references";
 import { ReferenceCreateInput, referenceCreateSchema } from "@/lib/validation/cms";
+import { ImageUpload } from "@/components/admin/image-upload";
 import * as s from "@/components/cms/admin-cms.css";
+
 
 export default function YeniReferansPage() {
   const router = useRouter();
@@ -63,15 +65,13 @@ export default function YeniReferansPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="logoUrl" className={s.label}>Logo URL</label>
-          <input
-            id="logoUrl"
-            type="text"
-            className={s.input}
+          <ImageUpload
             value={formData.logoUrl}
-            onChange={(e) => setFormData({ ...formData, logoUrl: e.target.value })}
+            onChange={(url) => setFormData({ ...formData, logoUrl: url })}
+            label="Logo Resmi"
           />
         </div>
+
 
         <div className={s.field}>
           <label htmlFor="websiteUrl" className={s.label}>Website URL</label>

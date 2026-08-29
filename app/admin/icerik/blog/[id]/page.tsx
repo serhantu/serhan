@@ -5,7 +5,9 @@
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { updateBlogPost, publishBlogPost, getBlogPostForAdmin, deleteBlogPost } from "@/lib/admin/blog";
+import { ImageUpload } from "@/components/admin/image-upload";
 import * as s from "@/components/cms/admin-cms.css";
+
 
 export default function EditBlogPage() {
   const router = useRouter();
@@ -157,15 +159,13 @@ export default function EditBlogPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="coverImage" className={s.label}>Kapak Resmi URL</label>
-          <input
-            id="coverImage"
-            type="text"
-            className={s.input}
+          <ImageUpload
             value={formData.coverImage}
-            onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
+            onChange={(url) => setFormData({ ...formData, coverImage: url })}
+            label="Kapak Resmi"
           />
         </div>
+
 
         <div className={s.buttonRow}>
           <button type="submit" disabled={isSubmitting}>

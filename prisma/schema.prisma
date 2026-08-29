@@ -299,8 +299,29 @@ model BlogPost {
 }
 
 // ---------------------------------------------------------------------------
+// SiteSettings (singleton — company info, contact, social links)
+// ---------------------------------------------------------------------------
+
+model SiteSettings {
+  id           String   @id @default("main")
+  companyName  String   @default("Serhan Turizm")
+  phone        String   @default("")
+  email        String   @default("")
+  address      String   @default("")
+  whatsapp     String?
+  instagram    String?
+  facebook     String?
+  twitter      String?
+  googleMaps   String?  // embed URL
+  workingHours String?
+  aboutShort   String?  // short about text for footer/homepage
+  updatedAt    DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
 // User (minimal, for future admin authentication — no auth implemented yet)
 // ---------------------------------------------------------------------------
+
 
 model User {
   id        String   @id @default(cuid())
