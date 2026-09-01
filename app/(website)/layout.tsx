@@ -15,14 +15,10 @@ export default async function WebsiteLayout({
     <div className={s.siteWrapper}>
       <header className={s.header}>
         <div className={s.headerInner}>
-          <Link href="/" className={s.brand} aria-label={settings.companyName || "Serhan Turizm"}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/logo.svg"
-              alt={settings.companyName || "Serhan Turizm"}
-              className={s.brandLogo}
-            />
+          <Link href="/" className={s.brand}>
+            {settings.companyName || "Serhan Turizm"}
           </Link>
+
 
 
           <nav className={s.nav} aria-label="Ana Navigasyon">

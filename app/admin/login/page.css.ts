@@ -21,18 +21,12 @@ export const card = style({
   boxShadow: vars.shadow.md,
 });
 
-export const logoImg = style({
-  blockSize: "3rem",
-  inlineSize: "auto",
-  marginBlockEnd: vars.space.lg,
-  display: "block",
-});
-
 export const title = style({
   fontSize: "clamp(1.5rem, 3vw, 2rem)",
   fontWeight: vars.font.weightBold,
   marginBlockEnd: vars.space.md,
 });
+
 
 
 export const helper = style({

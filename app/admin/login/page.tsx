@@ -1,13 +1,12 @@
 import { loginAdmin } from "@/lib/auth";
-import { page, card, title, form, label, input, actions, button, helper, logoImg } from "./page.css";
+import { page, card, title, form, label, input, actions, button, helper } from "./page.css";
 
 export default function AdminLoginPage() {
   return (
     <main className={page}>
       <div className={card}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/logo.svg" alt="Serhan Turizm" className={logoImg} />
         <h1 className={title}>Admin Girişi</h1>
+
 
         <p className={helper}>Bu aşamada temel admin erişimi için tek kullanıcı girişi kullanılır.</p>
 
