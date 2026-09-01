@@ -30,12 +30,18 @@ export const headerInner = style({
 });
 
 export const brand = style({
-  fontSize: "clamp(1.1rem, 2vw, 1.35rem)",
-  fontWeight: vars.font.weightBold,
-  color: vars.color.foreground,
+  display: "flex",
+  alignItems: "center",
   textDecoration: "none",
   inlineSize: "fit-content",
 });
+
+export const brandLogo = style({
+  blockSize: "clamp(2rem, 3.5vw, 2.5rem)",
+  inlineSize: "auto",
+  display: "block",
+});
+
 
 export const nav = style({
   display: "flex",
