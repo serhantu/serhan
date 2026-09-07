@@ -41,14 +41,10 @@ export function FormNotificationAdminEmail({
             <td style={{ padding: "8px 12px", fontWeight: "bold", borderBottom: "1px solid #eee" }}>
               E-posta
             </td>
-            <td style={{ padding: "8px 12px", borderBottom: "1px solid #eee" }}>
-              {eposta || "—"}
-            </td>
+            <td style={{ padding: "8px 12px", borderBottom: "1px solid #eee" }}>{eposta || "—"}</td>
           </tr>
           <tr>
-            <td
-              style={{ padding: "8px 12px", fontWeight: "bold", borderBottom: "1px solid #eee" }}
-            >
+            <td style={{ padding: "8px 12px", fontWeight: "bold", borderBottom: "1px solid #eee" }}>
               Mesaj
             </td>
             <td style={{ padding: "8px 12px", borderBottom: "1px solid #eee" }}>{mesaj}</td>

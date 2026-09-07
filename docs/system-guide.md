@@ -42,6 +42,7 @@ app/
 ## 2. Modüller & Özellikler
 
 ### 2.1 Cloudflare R2 İmaj Yönetimi & 5K WebP Dönüşümü (`lib/r2.ts` & `/api/admin/upload`)
+
 - **S3 Uyumlu İstemci:** `@aws-sdk/client-s3` kütüphanesi ile Cloudflare R2'ye bağlanır.
 - **Otomatik WebP Optimizasyonu (`sharp`):** Yüklenen tüm raster görseller (JPG, PNG, GIF, WebP) sunucuda işlenerek doğrudan yüksek kaliteli `.webp` formatına dönüştürülür.
 - **5K Çözünürlük Sınırı:** Görseller 5K sınırına (`5120×5120 px`) kadar orijinal detayını korur; daha büyük görseller en boy oranı korunarak 5K'ya resize edilir.
@@ -51,26 +52,32 @@ app/
 - **Upload Bileşeni (`ImageUpload`):** Admin paneldeki Hizmetler, Blog ve Referanslar formlarında drag & drop ile anında yükleme yapılır.
 
 ### 2.2 QR Kod Yönetimi & Baskı Arayüzü (`/admin/qr`)
+
 - **Şablonlar (`lib/qr-templates.ts`):**
-  1. *Servis Etiketi (6×9 cm):* Şirket adı, QR kod, okul adı ve iletişim bilgisi.
-  2. *A4 Poster:* Büyük afiş boyutu, açıklama metni ve public URL.
-  3. *Sticker (5×5 cm):* Kompakt kare etiket.
-- **Canlı Önizleme:** Seçilen okul ve şablona göre SVG anında render edilir.
-- **Toplu İndirme (Batch):** İstenen okullar seçilerek tek tıkla tüm şablonlar SVG olarak indirilebilir.
+  1. _Servis Etiketi (6×9 cm):_ Şirket adı, QR kod, okul adı ve iletişim bilgisi.
+  2. _A4 Poster:_ Büyük afiş boyutu, açıklama metni ve public URL.
+  3. _Sticker (10×10 cm):_ Kompakt kare etiket.
+- **Canlı Önizleme:** Seçilen okul ve şablona göre SVG anında render edilir. A4 Poster şablonunda doğrudan baskıya hazır **A4 PDF İndir** butonu sunulur.
+- **Toplu İndirme (Batch):** İstenen okullar seçilerek tek tıkla SVG olarak veya A4 şablonu seçiliyken tek bir çok-sayfalı kitapçık halinde **Toplu A4 PDF İndir** olarak indirilebilir.
+- **PDF Motoru (`lib/pdf.ts`):** `sharp` (300 DPI rasterizasyon) ve `pdf-lib` kullanılarak standart A4 (595.28×841.89 pt) vektörel netliğinde PDF üretilir.
 
 ### 2.3 Site Ayarları (`SiteSettings` Modeli & `/admin/ayarlar`)
+
 - Singleton pattern (`id = "main"`).
 - Şirket adı, telefon, e-posta, adres, WhatsApp, Instagram, Facebook, Twitter, Google Maps ve kısa tanıtım metni tek ekrandan yönetilir.
 - Public web sitesinin Header ve Footer bileşenleri bu ayarlardan otomatik beslenir.
 
 ### 2.4 Public Website Formları & Bot Koruması (`lib/forms/actions.ts` & `lib/validation/forms.ts`)
+
 1. **Teklif Alın (`/teklif`):** Fiyat teklifi talepleri toplanır (`Teklif` tablosu).
 2. **İletişim (`/iletisim`):** Genel iletişim mesajları toplanır (`Iletisim` tablosu).
 3. **İş Başvurusu (`/is-basvurusu`):** Sürücü/rehber/personel başvuruları toplanır (`IsBasvuru` tablosu).
 4. **Araç Geri Bildirim (`/arac-geri-bildirim`):** Araç ve servis memnuniyet geri bildirimleri toplanır (`AracGeriBildirim` tablosu).
+
 - **Honeypot Koruması:** Formlara gizli `_hp` alanı yerleştirilmiştir. Botlar bu alanı doldurduğunda istek sessizce reddedilir, veritabanı şişirilmez ve Resend e-posta kotası korunur.
 
 ### 2.5 Resend E-Posta Genişletmesi (`lib/resend-notifications.ts`)
+
 - Yeni form tipleri için admin bildirim e-postası altyapısı hazırlandı.
 - HTML e-posta tasarımı `emails/form-notification-admin.tsx` üzerinden yönetilebilir.
 - API Key tanımlı değilse form gönderimi engellenmez, hata loglanarak kayıt tamamlanır (graceful fallback).
@@ -120,6 +127,7 @@ R2_PUBLIC_URL="https://pub-xxxxxxxxxxxx.r2.dev"
 ## 5. Frontend & Stil Kuralları
 
 Tüm arayüz kodları [docs/frontend-rules.md](file:///Users/tarikozbalkan/www/serhan/docs/frontend-rules.md) standartlarına %100 uyar:
+
 - **Vanilla Extract (`.css.ts`)** kullanılır.
 - **Inline CSS (`style={{...}}`) kesinlikle kullanılmaz.**
 - **Mantıksal Özellikler (Logical Properties):** `inline-size`, `block-size`, `margin-inline`, `padding-block`, `inset-block-start` standarttır.
@@ -130,4 +138,3 @@ Tüm arayüz kodları [docs/frontend-rules.md](file:///Users/tarikozbalkan/www/s
 - **Renkler:** HSL tokenleri üzerindendir (`vars.color.*`).
 - **Tip Güvenliği:** TypeScript strict mode aktif, Zod ile ortak client/server şemaları.
 - **Sunucu Bileşenleri:** Server Components varsayılandır, interaktivite gereken yerler açıkça `"use client"` ile ayrılmıştır.
-

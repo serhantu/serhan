@@ -54,7 +54,7 @@ export async function generateQrTemplate(
     case "poster":
       return buildPosterSvg(qrInner, qrViewBox, input.schoolName, companyName, url, input.phone);
     case "sticker":
-      return buildStickerSvg(qrInner, qrViewBox, input.schoolName, companyName);
+      return buildStickerSvg(qrInner, qrViewBox, input.schoolName, companyName, input.phone);
     default:
       throw new Error(`Bilinmeyen şablon tipi: ${template}`);
   }
@@ -108,7 +108,6 @@ function buildPosterSvg(
   </svg>
   <text x="${w / 2}" y="${180 + qrSize + 50}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="24" font-weight="600" fill="#222">${escapeXml(schoolName)}</text>
   <text x="${w / 2}" y="${180 + qrSize + 90}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#666">QR kodu telefonunuzla tarayarak ön kayıt yapabilirsiniz.</text>
-  <text x="${w / 2}" y="${180 + qrSize + 120}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#999">${escapeXml(publicUrl)}</text>
   ${phone ? `<text x="${w / 2}" y="${h - 60}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#444">${escapeXml(phone)}</text>` : ""}
 </svg>`;
 }
@@ -118,20 +117,22 @@ function buildStickerSvg(
   qrViewBox: string,
   schoolName: string,
   companyName: string,
+  phone?: string,
 ): string {
-  // 5×5 cm → 189×189 px at 96 DPI
-  const size = 189;
-  const qrSize = 120;
+  // 10×10 cm → 378×378 px at 96 DPI
+  const size = 378;
+  const qrSize = 230;
   const qrPos = (size - qrSize) / 2;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
-  <rect width="${size}" height="${size}" fill="white" rx="6"/>
-  <text x="${size / 2}" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#1a1a1a">${escapeXml(companyName)}</text>
-  <svg x="${qrPos}" y="24" width="${qrSize}" height="${qrSize}" viewBox="${qrViewBox}">
+  <rect width="${size}" height="${size}" fill="white" rx="12"/>
+  <text x="${size / 2}" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">${escapeXml(companyName)}</text>
+  <svg x="${qrPos}" y="48" width="${qrSize}" height="${qrSize}" viewBox="${qrViewBox}">
     ${qrInner}
   </svg>
-  <text x="${size / 2}" y="${24 + qrSize + 16}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" font-weight="600" fill="#333">${escapeXml(truncate(schoolName, 28))}</text>
-  <text x="${size / 2}" y="${24 + qrSize + 30}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="7" fill="#888">Ön Kayıt</text>
+  <text x="${size / 2}" y="${48 + qrSize + 28}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#222">${escapeXml(truncate(schoolName, 36))}</text>
+  <text x="${size / 2}" y="${48 + qrSize + 48}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#666">Servis Ön Kayıt</text>
+  ${phone ? `<text x="${size / 2}" y="${size - 12}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#888">${escapeXml(phone)}</text>` : ""}
 </svg>`;
 }
 

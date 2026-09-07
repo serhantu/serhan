@@ -2,7 +2,17 @@ import Link from "next/link";
 import { requireAdminSession } from "@/lib/auth";
 import { listSchools } from "@/lib/schools";
 import { listRequests } from "@/lib/admin/requests";
-import { page, title, note, cards, card, cardTitle, cardValue, cardLink, section } from "./page.css";
+import {
+  page,
+  title,
+  note,
+  cards,
+  card,
+  cardTitle,
+  cardValue,
+  cardLink,
+  section,
+} from "./page.css";
 
 export default async function AdminPage() {
   await requireAdminSession();
@@ -26,19 +36,25 @@ export default async function AdminPage() {
         <article className={card}>
           <p className={cardTitle}>Toplam Ön Kayıt</p>
           <p className={cardValue}>{totalRequests}</p>
-          <Link href="/admin/talepler" className={cardLink}>Talepleri gör</Link>
+          <Link href="/admin/talepler" className={cardLink}>
+            Talepleri gör
+          </Link>
         </article>
 
         <article className={card}>
           <p className={cardTitle}>Yeni Talepler</p>
           <p className={cardValue}>{newRequests}</p>
-          <Link href="/admin/talepler?status=YENI" className={cardLink}>Filtrele</Link>
+          <Link href="/admin/talepler?status=YENI" className={cardLink}>
+            Filtrele
+          </Link>
         </article>
 
         <article className={card}>
           <p className={cardTitle}>Aktif Okullar</p>
           <p className={cardValue}>{schools.filter((school) => school.aktif).length}</p>
-          <Link href="/admin/okullar" className={cardLink}>Okullar</Link>
+          <Link href="/admin/okullar" className={cardLink}>
+            Okullar
+          </Link>
         </article>
       </section>
 
@@ -47,7 +63,10 @@ export default async function AdminPage() {
         <ul>
           {latestRequests.items.map((item) => (
             <li key={`${item.type}-${item.id}`}>
-              <Link href={`/admin/talepler/${item.type.toLowerCase().replace(/_/g, "-")}/${item.id}`} className={cardLink}>
+              <Link
+                href={`/admin/talepler/${item.type.toLowerCase().replace(/_/g, "-")}/${item.id}`}
+                className={cardLink}
+              >
                 {item.type} · {item.summary} · {item.status}
               </Link>
             </li>

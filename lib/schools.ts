@@ -19,6 +19,9 @@ export type SchoolRow = {
   slug: string;
   aktif: boolean;
   tcKimlikIster: boolean;
+  ilce?: string | null;
+  adres?: string | null;
+  haritaUrl?: string | null;
   kayitSayisi: number;
   createdAt: Date;
 };
@@ -34,6 +37,9 @@ export async function listSchools(): Promise<SchoolRow[]> {
       slug: true,
       aktif: true,
       tcKimlikIster: true,
+      ilce: true,
+      adres: true,
+      haritaUrl: true,
       createdAt: true,
       _count: { select: { onKayitlar: true } },
     },
@@ -45,6 +51,9 @@ export async function listSchools(): Promise<SchoolRow[]> {
     slug: s.slug,
     aktif: s.aktif,
     tcKimlikIster: s.tcKimlikIster,
+    ilce: s.ilce,
+    adres: s.adres,
+    haritaUrl: s.haritaUrl,
     kayitSayisi: s._count.onKayitlar,
     createdAt: s.createdAt,
   }));
@@ -54,6 +63,14 @@ export async function listSchools(): Promise<SchoolRow[]> {
 export async function getSchoolBySlug(slug: string) {
   return prisma.okul.findUnique({
     where: { slug },
-    select: { ad: true, aktif: true, tcKimlikIster: true },
+    select: {
+      id: true,
+      ad: true,
+      aktif: true,
+      tcKimlikIster: true,
+      ilce: true,
+      adres: true,
+      haritaUrl: true,
+    },
   });
 }

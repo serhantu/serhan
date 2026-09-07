@@ -28,7 +28,14 @@ const DEFAULTS: Required<QrRenderOptions> = {
 // The production domain is configured via NEXT_PUBLIC_APP_URL (single source of
 // truth — never hardcode the domain across the codebase).
 export function buildPublicOnKayitUrl(slug: string): string {
-  const base = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/+$/, "") ?? "";
+  const base = (
+    process.env.NEXT_PUBLIC_APP_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "") ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "") ||
+    ""
+  ).replace(/\/+$/, "");
   return `${base}/on-kayit/${encodeURIComponent(slug)}`;
 }
 
@@ -53,10 +60,7 @@ export async function generateQrPng(
 
 // Generate a QR code as an SVG string. Same usage pattern as the PNG variant,
 // returned with content-type `image/svg+xml`.
-export async function generateQrSvg(
-  data: string,
-  options: QrRenderOptions = {},
-): Promise<string> {
+export async function generateQrSvg(data: string, options: QrRenderOptions = {}): Promise<string> {
   const { margin, errorCorrectionLevel } = { ...DEFAULTS, ...options };
   return QRCode.toString(data, {
     type: "svg",

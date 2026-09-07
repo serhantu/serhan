@@ -53,7 +53,7 @@ npx prisma generate  # Prisma client yeniden üret
 `docs/architecture.md` dosyasına bakın. Bu kurallar kalıcıdır; her kod
 değişikliği öncesinde okunmalıdır.
 
-> **Aşamalar:** 
+> **Aşamalar:**
 > Bootstrap ✅ · Domain şeması + migration ✅ · Okul yönetimi + QR + herkese açık
 > okul girişi ✅ · Okul servisi ön kayıt akışı (form, KVKK onay akışı, TC
 > algoritmik doğrulama, Resend bildirimleri) ✅ · Admin paneli (talepler, durum

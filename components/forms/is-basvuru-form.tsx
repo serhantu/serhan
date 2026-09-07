@@ -32,32 +32,52 @@ export function IsBasvuruForm() {
 
   return (
     <form onSubmit={handleSubmit} className={s.form}>
-      <input type="text" name="_hp" tabIndex={-1} autoComplete="off" className={s.honeypot} aria-hidden="true" />
+      <input
+        type="text"
+        name="_hp"
+        tabIndex={-1}
+        autoComplete="off"
+        className={s.honeypot}
+        aria-hidden="true"
+      />
       {result?.error && (
         <div className={s.errorBox} role="alert">
           {result.error}
         </div>
       )}
 
-
       <div className={s.field}>
-        <label htmlFor="isbasvuru-adSoyad" className={s.label}>Ad Soyad *</label>
+        <label htmlFor="isbasvuru-adSoyad" className={s.label}>
+          Ad Soyad *
+        </label>
         <input id="isbasvuru-adSoyad" name="adSoyad" type="text" required className={s.input} />
       </div>
 
       <div className={s.field}>
-        <label htmlFor="isbasvuru-telefon" className={s.label}>Telefon *</label>
+        <label htmlFor="isbasvuru-telefon" className={s.label}>
+          Telefon *
+        </label>
         <input id="isbasvuru-telefon" name="telefon" type="tel" required className={s.input} />
       </div>
 
       <div className={s.field}>
-        <label htmlFor="isbasvuru-eposta" className={s.label}>E-posta</label>
+        <label htmlFor="isbasvuru-eposta" className={s.label}>
+          E-posta
+        </label>
         <input id="isbasvuru-eposta" name="eposta" type="email" className={s.input} />
       </div>
 
       <div className={s.field}>
-        <label htmlFor="isbasvuru-mesaj" className={s.label}>Mesaj *</label>
-        <textarea id="isbasvuru-mesaj" name="mesaj" required className={s.textarea} placeholder="Deneyiminiz, pozisyon tercihiniz vb." />
+        <label htmlFor="isbasvuru-mesaj" className={s.label}>
+          Mesaj *
+        </label>
+        <textarea
+          id="isbasvuru-mesaj"
+          name="mesaj"
+          required
+          className={s.textarea}
+          placeholder="Deneyiminiz, pozisyon tercihiniz vb."
+        />
       </div>
 
       <button type="submit" disabled={pending} className={s.submitButton}>

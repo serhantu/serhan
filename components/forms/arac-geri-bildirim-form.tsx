@@ -32,32 +32,52 @@ export function AracGeriBildirimForm() {
 
   return (
     <form onSubmit={handleSubmit} className={s.form}>
-      <input type="text" name="_hp" tabIndex={-1} autoComplete="off" className={s.honeypot} aria-hidden="true" />
+      <input
+        type="text"
+        name="_hp"
+        tabIndex={-1}
+        autoComplete="off"
+        className={s.honeypot}
+        aria-hidden="true"
+      />
       {result?.error && (
         <div className={s.errorBox} role="alert">
           {result.error}
         </div>
       )}
 
-
       <div className={s.field}>
-        <label htmlFor="arac-adSoyad" className={s.label}>Ad Soyad *</label>
+        <label htmlFor="arac-adSoyad" className={s.label}>
+          Ad Soyad *
+        </label>
         <input id="arac-adSoyad" name="adSoyad" type="text" required className={s.input} />
       </div>
 
       <div className={s.field}>
-        <label htmlFor="arac-telefon" className={s.label}>Telefon *</label>
+        <label htmlFor="arac-telefon" className={s.label}>
+          Telefon *
+        </label>
         <input id="arac-telefon" name="telefon" type="tel" required className={s.input} />
       </div>
 
       <div className={s.field}>
-        <label htmlFor="arac-eposta" className={s.label}>E-posta</label>
+        <label htmlFor="arac-eposta" className={s.label}>
+          E-posta
+        </label>
         <input id="arac-eposta" name="eposta" type="email" className={s.input} />
       </div>
 
       <div className={s.field}>
-        <label htmlFor="arac-mesaj" className={s.label}>Geri Bildirim *</label>
-        <textarea id="arac-mesaj" name="mesaj" required className={s.textarea} placeholder="Araç, sürücü veya servis hakkındaki geri bildiriminiz…" />
+        <label htmlFor="arac-mesaj" className={s.label}>
+          Geri Bildirim *
+        </label>
+        <textarea
+          id="arac-mesaj"
+          name="mesaj"
+          required
+          className={s.textarea}
+          placeholder="Araç, sürücü veya servis hakkındaki geri bildiriminiz…"
+        />
       </div>
 
       <button type="submit" disabled={pending} className={s.submitButton}>

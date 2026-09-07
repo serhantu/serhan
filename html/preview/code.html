@@ -1,418 +1,705 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="scroll-smooth" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Serhan Turizm - Trusted Partner in Corporate Transportation Solutions</title>
-<!-- Fonts & Icons -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;family=Noto+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Tailwind Config -->
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "surface-container-low": "#f6f3f4",
-                      "tertiary": "#000000",
-                      "border": "#E2E8F0",
-                      "tertiary-fixed": "#fddcc4",
-                      "text-secondary": "#475569",
-                      "on-secondary": "#ffffff",
-                      "error": "#EF4444",
-                      "primary": "#0B1220", /* Forced Primary */
-                      "surface-container-highest": "#e5e2e3",
-                      "surface-container": "#f0edee",
-                      "accent": "#0EA5E9", /* Forced Accent */
-                      "primary-fixed-dim": "#c0c6da",
-                      "inverse-on-surface": "#f3f0f1",
-                      "success": "#16A34A",
-                      "tertiary-container": "#281809",
-                      "on-tertiary-fixed": "#281809",
-                      "on-surface-variant": "#45474c",
-                      "surface-container-high": "#eae7e9",
-                      "secondary-fixed-dim": "#adc8f4",
-                      "on-tertiary-container": "#997f6a",
-                      "on-surface": "#1b1b1d",
-                      "on-secondary-fixed": "#001c3a",
-                      "on-primary-fixed-variant": "#404757",
-                      "error-container": "#ffdad6",
-                      "on-primary-fixed": "#151b2a",
-                      "surface-3": "#F1F5F9",
-                      "surface-bright": "#fcf8fa",
-                      "on-secondary-container": "#405b81",
-                      "inverse-primary": "#c0c6da",
-                      "inverse-surface": "#303031",
-                      "surface-container-lowest": "#ffffff",
-                      "secondary-fixed": "#d4e3ff",
-                      "surface": "#fcf8fa",
-                      "warning": "#F59E0B",
-                      "on-primary": "#ffffff",
-                      "on-error-container": "#93000a",
-                      "tertiary-fixed-dim": "#e0c1a9",
-                      "on-tertiary": "#ffffff",
-                      "on-secondary-fixed-variant": "#2d486c",
-                      "primary-fixed": "#dce2f6",
-                      "secondary": "#1F3B5F", /* Forced Secondary */
-                      "surface-tint": "#585e6f",
-                      "outline": "#76777d",
-                      "on-background": "#1b1b1d",
-                      "surface-dim": "#dcd9da",
-                      "text-primary": "#0F172A",
-                      "primary-container": "#151b2a",
-                      "secondary-container": "#b8d3ff",
-                      "surface-variant": "#e5e2e3",
-                      "surface-2": "#F8FAFC",
-                      "on-primary-container": "#7d8496",
-                      "accent-soft": "#E0F2FE",
-                      "surface-1": "#FFFFFF",
-                      "on-error": "#ffffff",
-                      "on-tertiary-fixed-variant": "#584231",
-                      "outline-variant": "#c6c6cc",
-                      "background": "#fcf8fa"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.75rem", /* Adjusted to medium-soft corners */
-                      "lg": "0.75rem",
-                      "xl": "1rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "base-unit": "0.25rem",
-                      "margin-mobile": "1rem",
-                      "margin-desktop": "2rem",
-                      "container-max": "1280px",
-                      "gutter": "1.5rem"
-              },
-              "fontFamily": {
-                      "label-md": ["Noto Sans", "sans-serif"],
-                      "body-lg": ["Noto Sans", "sans-serif"],
-                      "display": ["Bricolage Grotesque", "sans-serif"],
-                      "headline-h3": ["Bricolage Grotesque", "sans-serif"],
-                      "headline-h1-mobile": ["Bricolage Grotesque", "sans-serif"],
-                      "label-caption": ["Noto Sans", "sans-serif"],
-                      "body-md": ["Noto Sans", "sans-serif"],
-                      "body-sm": ["Noto Sans", "sans-serif"],
-                      "headline-h2": ["Bricolage Grotesque", "sans-serif"],
-                      "headline-h1": ["Bricolage Grotesque", "sans-serif"]
-              },
-              "fontSize": {
-                      "label-md": ["14px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                      "display": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "800"}],
-                      "headline-h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                      "headline-h1-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
-                      "label-caption": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600"}],
-                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                      "headline-h2": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
-                      "headline-h1": ["44px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
-              }
-            }
-          }
-        }
+<html class="scroll-smooth" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Serhan Turizm - Trusted Partner in Corporate Transportation Solutions</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;family=Noto+Sans:wght@400;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f6f3f4",
+              tertiary: "#000000",
+              border: "#E2E8F0",
+              "tertiary-fixed": "#fddcc4",
+              "text-secondary": "#475569",
+              "on-secondary": "#ffffff",
+              error: "#EF4444",
+              primary: "#0B1220" /* Forced Primary */,
+              "surface-container-highest": "#e5e2e3",
+              "surface-container": "#f0edee",
+              accent: "#0EA5E9" /* Forced Accent */,
+              "primary-fixed-dim": "#c0c6da",
+              "inverse-on-surface": "#f3f0f1",
+              success: "#16A34A",
+              "tertiary-container": "#281809",
+              "on-tertiary-fixed": "#281809",
+              "on-surface-variant": "#45474c",
+              "surface-container-high": "#eae7e9",
+              "secondary-fixed-dim": "#adc8f4",
+              "on-tertiary-container": "#997f6a",
+              "on-surface": "#1b1b1d",
+              "on-secondary-fixed": "#001c3a",
+              "on-primary-fixed-variant": "#404757",
+              "error-container": "#ffdad6",
+              "on-primary-fixed": "#151b2a",
+              "surface-3": "#F1F5F9",
+              "surface-bright": "#fcf8fa",
+              "on-secondary-container": "#405b81",
+              "inverse-primary": "#c0c6da",
+              "inverse-surface": "#303031",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed": "#d4e3ff",
+              surface: "#fcf8fa",
+              warning: "#F59E0B",
+              "on-primary": "#ffffff",
+              "on-error-container": "#93000a",
+              "tertiary-fixed-dim": "#e0c1a9",
+              "on-tertiary": "#ffffff",
+              "on-secondary-fixed-variant": "#2d486c",
+              "primary-fixed": "#dce2f6",
+              secondary: "#1F3B5F" /* Forced Secondary */,
+              "surface-tint": "#585e6f",
+              outline: "#76777d",
+              "on-background": "#1b1b1d",
+              "surface-dim": "#dcd9da",
+              "text-primary": "#0F172A",
+              "primary-container": "#151b2a",
+              "secondary-container": "#b8d3ff",
+              "surface-variant": "#e5e2e3",
+              "surface-2": "#F8FAFC",
+              "on-primary-container": "#7d8496",
+              "accent-soft": "#E0F2FE",
+              "surface-1": "#FFFFFF",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#584231",
+              "outline-variant": "#c6c6cc",
+              background: "#fcf8fa",
+            },
+            borderRadius: {
+              DEFAULT: "0.75rem" /* Adjusted to medium-soft corners */,
+              lg: "0.75rem",
+              xl: "1rem",
+              full: "9999px",
+            },
+            spacing: {
+              "base-unit": "0.25rem",
+              "margin-mobile": "1rem",
+              "margin-desktop": "2rem",
+              "container-max": "1280px",
+              gutter: "1.5rem",
+            },
+            fontFamily: {
+              "label-md": ["Noto Sans", "sans-serif"],
+              "body-lg": ["Noto Sans", "sans-serif"],
+              display: ["Bricolage Grotesque", "sans-serif"],
+              "headline-h3": ["Bricolage Grotesque", "sans-serif"],
+              "headline-h1-mobile": ["Bricolage Grotesque", "sans-serif"],
+              "label-caption": ["Noto Sans", "sans-serif"],
+              "body-md": ["Noto Sans", "sans-serif"],
+              "body-sm": ["Noto Sans", "sans-serif"],
+              "headline-h2": ["Bricolage Grotesque", "sans-serif"],
+              "headline-h1": ["Bricolage Grotesque", "sans-serif"],
+            },
+            fontSize: {
+              "label-md": ["14px", { lineHeight: "1.2", fontWeight: "600" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              display: ["72px", { lineHeight: "1.1", letterSpacing: "-0.03em", fontWeight: "800" }],
+              "headline-h3": ["24px", { lineHeight: "1.4", fontWeight: "600" }],
+              "headline-h1-mobile": ["32px", { lineHeight: "1.2", fontWeight: "700" }],
+              "label-caption": [
+                "12px",
+                { lineHeight: "1.2", letterSpacing: "0.01em", fontWeight: "600" },
+              ],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              "body-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+              "headline-h2": ["32px", { lineHeight: "1.3", fontWeight: "700" }],
+              "headline-h1": [
+                "44px",
+                { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" },
+              ],
+            },
+          },
+        },
+      };
     </script>
-<style>
-        /* Custom Styles for Interactive Elements */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .text-gradient {
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-image: linear-gradient(to right, #0B1220, #0EA5E9);
-        }
+    <style>
+      /* Custom Styles for Interactive Elements */
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      .text-gradient {
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-image: linear-gradient(to right, #0b1220, #0ea5e9);
+      }
     </style>
-</head>
-<body class="bg-background text-text-primary antialiased font-body-md overflow-x-hidden">
-<!-- Header / TopNavBar -->
-<header class="bg-surface-1 dark:bg-surface-container-lowest sticky top-0 w-full z-50 border-b border-border dark:border-outline-variant shadow-sm transition-all duration-300" id="main-header">
-<div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
-<!-- Logo -->
-<a class="text-headline-h3 font-headline-h3 text-primary dark:text-on-surface uppercase tracking-tight flex items-center gap-2" href="#">
-<span class="material-symbols-outlined text-accent" data-weight="fill" style="font-variation-settings: 'FILL' 1;">directions_bus</span>
-                Serhan Turizm
+  </head>
+  <body class="bg-background text-text-primary antialiased font-body-md overflow-x-hidden">
+    <!-- Header / TopNavBar -->
+    <header
+      class="bg-surface-1 dark:bg-surface-container-lowest sticky top-0 w-full z-50 border-b border-border dark:border-outline-variant shadow-sm transition-all duration-300"
+      id="main-header"
+    >
+      <div
+        class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto"
+      >
+        <!-- Logo -->
+        <a
+          class="text-headline-h3 font-headline-h3 text-primary dark:text-on-surface uppercase tracking-tight flex items-center gap-2"
+          href="#"
+        >
+          <span
+            class="material-symbols-outlined text-accent"
+            data-weight="fill"
+            style="font-variation-settings: &quot;FILL&quot; 1"
+            >directions_bus</span
+          >
+          Serhan Turizm
+        </a>
+        <!-- Navigation Links (Desktop) -->
+        <nav class="hidden lg:flex items-center gap-8 font-label-md text-label-md">
+          <!-- Dropdown: Corporate -->
+          <div class="relative group">
+            <button
+              class="text-primary dark:text-accent font-bold border-b-2 border-primary dark:border-accent pb-1 flex items-center gap-1"
+            >
+              Corporate
+              <span class="material-symbols-outlined text-[18px]">expand_more</span>
+            </button>
+            <!-- Dropdown Menu -->
+            <div
+              class="absolute left-0 mt-4 w-48 bg-surface-1 border border-border rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+            >
+              <a
+                class="block px-4 py-3 text-text-secondary hover:text-primary hover:bg-surface-2 transition-colors"
+                href="#"
+                >About Us</a
+              >
+              <a
+                class="block px-4 py-3 text-text-secondary hover:text-primary hover:bg-surface-2 transition-colors"
+                href="#"
+                >Vision &amp; Mission</a
+              >
+            </div>
+          </div>
+          <!-- Dropdown: Services -->
+          <div class="relative group">
+            <button
+              class="text-text-secondary dark:text-on-surface-variant hover:text-primary dark:hover:text-accent transition-colors flex items-center gap-1 pb-1 border-b-2 border-transparent"
+            >
+              Services
+              <span class="material-symbols-outlined text-[18px]">expand_more</span>
+            </button>
+            <!-- Dropdown Menu -->
+            <div
+              class="absolute left-0 mt-4 w-56 bg-surface-1 border border-border rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+            >
+              <a
+                class="block px-4 py-3 text-text-secondary hover:text-primary hover:bg-surface-2 transition-colors"
+                href="#"
+                >School Shuttle</a
+              >
+              <a
+                class="block px-4 py-3 text-text-secondary hover:text-primary hover:bg-surface-2 transition-colors"
+                href="#"
+                >Staff Transportation</a
+              >
+              <a
+                class="block px-4 py-3 text-text-secondary hover:text-primary hover:bg-surface-2 transition-colors"
+                href="#"
+                >VIP Transfer</a
+              >
+            </div>
+          </div>
+          <!-- Link: Contact -->
+          <a
+            class="text-text-secondary dark:text-on-surface-variant hover:text-primary dark:hover:text-accent transition-colors pb-1 border-b-2 border-transparent"
+            href="#"
+            >Contact</a
+          >
+        </nav>
+        <!-- Trailing Actions -->
+        <div class="hidden md:flex items-center gap-4">
+          <div class="flex items-center gap-3 text-text-secondary">
+            <a
+              class="hover:bg-surface-2 dark:hover:bg-surface-container-low transition-all duration-200 p-2 rounded-full flex items-center justify-center"
+              href="tel:+"
+            >
+              <span class="material-symbols-outlined" data-icon="phone">phone</span>
             </a>
-<!-- Navigation Links (Desktop) -->
-<nav class="hidden lg:flex items-center gap-8 font-label-md text-label-md">
-<!-- Dropdown: Corporate -->
-<div class="relative group">
-<button class="text-primary dark:text-accent font-bold border-b-2 border-primary dark:border-accent pb-1 flex items-center gap-1">
-                        Corporate
-                        <span class="material-symbols-outlined text-[18px]">expand_more</span>
-</button>
-<!-- Dropdown Menu -->
-<div class="absolute left-0 mt-4 w-48 bg-surface-1 border border-border rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-<a class="block px-4 py-3 text-text-secondary hover:text-primary hover:bg-surface-2 transition-colors" href="#">About Us</a>
-<a class="block px-4 py-3 text-text-secondary hover:text-primary hover:bg-surface-2 transition-colors" href="#">Vision &amp; Mission</a>
-</div>
-</div>
-<!-- Dropdown: Services -->
-<div class="relative group">
-<button class="text-text-secondary dark:text-on-surface-variant hover:text-primary dark:hover:text-accent transition-colors flex items-center gap-1 pb-1 border-b-2 border-transparent">
-                        Services
-                        <span class="material-symbols-outlined text-[18px]">expand_more</span>
-</button>
-<!-- Dropdown Menu -->
-<div class="absolute left-0 mt-4 w-56 bg-surface-1 border border-border rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-<a class="block px-4 py-3 text-text-secondary hover:text-primary hover:bg-surface-2 transition-colors" href="#">School Shuttle</a>
-<a class="block px-4 py-3 text-text-secondary hover:text-primary hover:bg-surface-2 transition-colors" href="#">Staff Transportation</a>
-<a class="block px-4 py-3 text-text-secondary hover:text-primary hover:bg-surface-2 transition-colors" href="#">VIP Transfer</a>
-</div>
-</div>
-<!-- Link: Contact -->
-<a class="text-text-secondary dark:text-on-surface-variant hover:text-primary dark:hover:text-accent transition-colors pb-1 border-b-2 border-transparent" href="#">Contact</a>
-</nav>
-<!-- Trailing Actions -->
-<div class="hidden md:flex items-center gap-4">
-<div class="flex items-center gap-3 text-text-secondary">
-<a class="hover:bg-surface-2 dark:hover:bg-surface-container-low transition-all duration-200 p-2 rounded-full flex items-center justify-center" href="tel:+">
-<span class="material-symbols-outlined" data-icon="phone">phone</span>
-</a>
-<a class="hover:bg-surface-2 dark:hover:bg-surface-container-low transition-all duration-200 p-2 rounded-full flex items-center justify-center" href="mailto:info@">
-<span class="material-symbols-outlined" data-icon="mail">mail</span>
-</a>
-</div>
-<button class="bg-primary text-surface-1 font-label-md text-label-md px-6 py-3 rounded-full scale-95 active:scale-90 transition-transform hover:bg-secondary">
-                    Get a Quote
-                </button>
-</div>
-<!-- Mobile Menu Toggle -->
-<button class="lg:hidden p-2 text-primary">
-<span class="material-symbols-outlined">menu</span>
-</button>
-</div>
-</header>
-<main>
-<!-- Hero Section -->
-<section class="relative w-full min-h-[870px] flex items-center justify-center overflow-hidden">
-<!-- Background Image with Gradient Overlay -->
-<div class="absolute inset-0 z-0 bg-cover bg-center" data-alt="A striking digital installation art piece featuring a fleet of modern, sleek corporate transportation vehicles parked in a pristine, expansive logistics hub. The scene is illuminated by dramatic, high-key white lighting that emphasizes the polished navy blue and silver exteriors of the vans and buses. The setting relies on a sophisticated palette of deep blacks and pristine whites, with subtle azure reflections on the glass surfaces. The mood is highly professional, conveying trust, efficiency, and a premium corporate modern aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD9Z3bLNL7eMqgFbNHPV1RrCWEqL87XAIeAH975lKNwYFcWSFFMfkx1HueXpvavkzs5SFNz96iQpRvnFgwNuUBX4Y_wQjvjaxGB7-6I6THbx6ec1bygeC3TMqrOm0Dn0ZXuCnfCmgZdVYMFySTKkbpXhTgqGq77JaI6Dh_oTjtJAM5OHmcrV5NAYzVAV0__h8PFkynayk1y6dZkxhL49-Yeq7rkl0fyJOs_ZRqHNxbCxCxPAaNevF2C1A')"></div>
-<div class="absolute inset-0 z-10 bg-gradient-to-r from-primary/90 to-primary/40 dark:from-primary/95 dark:to-primary/60"></div>
-<div class="relative z-20 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-20 pb-16 flex flex-col md:flex-row items-center gap-12">
-<div class="w-full md:w-3/5 text-center md:text-left text-surface-1">
-<div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-6">
-<span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-<span class="font-label-md text-label-sm tracking-wider uppercase">Premium Fleet Services</span>
-</div>
-<h1 class="font-display text-headline-h1-mobile md:text-display font-bold leading-tight mb-6">
-                        Trusted Partner in <br class="hidden md:block"/>
-<span class="text-accent">Corporate Transportation</span> Solutions
-                    </h1>
-<p class="font-body-lg text-body-lg text-surface-container-high mb-10 max-w-2xl opacity-90">
-                        20+ years of excellence in school, personnel, and VIP transfer services. We ensure safe, punctual, and comfortable journeys for every client.
-                    </p>
-<div class="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-<button class="w-full sm:w-auto bg-accent text-surface-1 font-label-md text-label-md px-8 py-4 rounded-full scale-95 active:scale-90 transition-transform hover:bg-accent/90 shadow-[0_10px_25px_-5px_rgba(14,165,233,0.3)]">
-                            Discover Our Services
-                        </button>
-<button class="w-full sm:w-auto bg-transparent border-2 border-surface-1/30 text-surface-1 font-label-md text-label-md px-8 py-4 rounded-full scale-95 active:scale-90 transition-transform hover:bg-surface-1/10">
-                            View Fleet
-                        </button>
-</div>
-</div>
-<!-- Decorative Element / Abstract Graphic -->
-<div class="hidden md:block w-full md:w-2/5 relative h-[500px]">
-<!-- A subtle graphic or pattern representing routes/tracking -->
-<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent opacity-50 rounded-full blur-3xl"></div>
-</div>
-</div>
-</section>
-<!-- Trust Strip -->
-<section class="relative z-30 -mt-16 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-24">
-<div class="glass-panel rounded-xl shadow-lg p-8">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-border/50">
-<!-- Stat 1 -->
-<div class="flex items-center gap-6 pt-4 md:pt-0 md:px-6">
-<div class="w-16 h-16 rounded-full bg-accent-soft flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-accent text-3xl" data-weight="fill" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
-</div>
-<div>
-<h3 class="font-headline-h3 text-headline-h3 text-primary mb-1">20+ Years</h3>
-<p class="font-body-sm text-body-sm text-text-secondary">Of Industry Experience</p>
-</div>
-</div>
-<!-- Stat 2 -->
-<div class="flex items-center gap-6 pt-8 md:pt-0 md:px-6">
-<div class="w-16 h-16 rounded-full bg-accent-soft flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-accent text-3xl" data-weight="fill" style="font-variation-settings: 'FILL' 1;">my_location</span>
-</div>
-<div>
-<h3 class="font-headline-h3 text-headline-h3 text-primary mb-1">Live Tracking</h3>
-<p class="font-body-sm text-body-sm text-text-secondary">Real-time Vehicle Monitoring</p>
-</div>
-</div>
-<!-- Stat 3 -->
-<div class="flex items-center gap-6 pt-8 md:pt-0 md:px-6">
-<div class="w-16 h-16 rounded-full bg-accent-soft flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-accent text-3xl" data-weight="fill" style="font-variation-settings: 'FILL' 1;">support_agent</span>
-</div>
-<div>
-<h3 class="font-headline-h3 text-headline-h3 text-primary mb-1">24/7 Support</h3>
-<p class="font-body-sm text-body-sm text-text-secondary">Dedicated Operations Desk</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Services Section (Bento Grid Style) -->
-<section class="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 mb-20 bg-surface-2 rounded-[2rem]">
-<div class="text-center max-w-3xl mx-auto mb-16">
-<span class="font-label-md text-accent uppercase tracking-wider mb-2 block">Our Expertise</span>
-<h2 class="font-headline-h2 text-headline-h2 text-primary mb-4">Comprehensive Transportation Solutions</h2>
-<p class="font-body-md text-text-secondary">Tailored services designed to meet the exact requirements of schools, corporations, and individuals requiring premium mobility.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-gutter">
-<!-- Card 1: School Shuttle (Large) -->
-<div class="lg:col-span-8 group relative bg-surface-1 rounded-xl border border-border overflow-hidden hover:shadow-[0_10px_25px_-5px_rgba(11,18,32,0.08)] transition-all duration-300 flex flex-col md:flex-row h-full">
-<div class="w-full md:w-1/2 h-64 md:h-auto bg-cover bg-center relative" data-alt="A striking digital installation art piece capturing a modern, vibrant yellow school bus parked on a clean, minimalist urban street at dawn. The scene is illuminated by soft, high-key morning lighting, creating a bright and safe atmosphere. The artwork features a sophisticated palette of crisp whites, deep navy accents, and the bright yellow of the bus. The mood is reassuring, reliable, and corporate-modern." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDNhwHWdcJXVHEcsR76_r14SfZhMMy3CcvkEl8gnTRsW3tngUWO32Wky0ETmsvzPAuD9zfN79-OPdqBH9kZvPkCikt6cJO22Pqomb9t3frrbwN65AdnMB22rF2uVl2A3nu0owtn9E2qZk3tsNtouBe-7-on-5eq1gQB4PW92DcJUbtDMeoDsJaxQ_mYeeVYGBvhF4w3QxAs-7GyJ5YWa9q_pyI4KtF45YHHwE2w5J4eE26_rj_0SDsFwA')">
-<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent md:hidden"></div>
-</div>
-<div class="w-full md:w-1/2 p-8 flex flex-col justify-center">
-<div class="w-12 h-12 rounded bg-accent-soft flex items-center justify-center mb-6">
-<span class="material-symbols-outlined text-accent" data-weight="fill" style="font-variation-settings: 'FILL' 1;">school</span>
-</div>
-<h3 class="font-headline-h3 text-headline-h3 text-primary mb-3">School Shuttle Service</h3>
-<p class="font-body-sm text-text-secondary mb-6 flex-grow">Ensuring the highest safety standards and punctuality for students. Equipped with modern tracking and dedicated supervisors.</p>
-<a class="inline-flex items-center gap-2 font-label-md text-accent hover:text-primary transition-colors" href="#">
-                            View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
-</a>
-</div>
-</div>
-<!-- Card 2: VIP Transfer (Tall) -->
-<div class="lg:col-span-4 group relative bg-surface-1 rounded-xl border border-border overflow-hidden hover:shadow-[0_10px_25px_-5px_rgba(11,18,32,0.08)] transition-all duration-300 flex flex-col h-full">
-<div class="w-full h-48 bg-cover bg-center relative" data-alt="A striking digital installation art piece showing a sleek, luxurious black VIP transport van waiting outside a high-end corporate glass building. The scene is illuminated by crisp, high-key architectural lighting that reflects off the polished dark surface of the vehicle. The palette relies on deep blacks, sharp silvers, and clean whites, accented by a subtle azure glow. The mood is exclusive, premium, and highly professional." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAZw-RmlyZcWD7G8m1qFYNxS6zsk2cTM51qXADs906UrOFAhTWQYo6x-LQif_HuAYexlDZsjyorNgMcGLs-WHO-Iq6xzy39eEHB3JzMdaJO_PheCo49xr2fqDlQU3J34ggU3xxCkwGkkJPuZYKBBAixSPtRdUsKchICuSL3kL8u7sCJal4_BxsQHGTO4wSrDmjiYK66ba_75h2P3mkYaBB2DItxQozIg9b6tBVtzlJvhKgbHkxGikBkDw')">
-</div>
-<div class="p-8 flex flex-col flex-grow">
-<div class="w-12 h-12 rounded bg-accent-soft flex items-center justify-center mb-6">
-<span class="material-symbols-outlined text-accent" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
-</div>
-<h3 class="font-headline-h3 text-headline-h3 text-primary mb-3">VIP Transfer</h3>
-<p class="font-body-sm text-text-secondary mb-6 flex-grow">Luxury vehicles and professional chauffeurs for executives and special guests. Discretion and comfort guaranteed.</p>
-<a class="inline-flex items-center gap-2 font-label-md text-accent hover:text-primary transition-colors mt-auto" href="#">
-                            View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
-</a>
-</div>
-</div>
-<!-- Card 3: Staff Transportation -->
-<div class="lg:col-span-6 group relative bg-surface-1 rounded-xl border border-border overflow-hidden hover:shadow-[0_10px_25px_-5px_rgba(11,18,32,0.08)] transition-all duration-300 flex flex-col">
-<div class="p-8 pb-0">
-<div class="w-12 h-12 rounded bg-accent-soft flex items-center justify-center mb-6">
-<span class="material-symbols-outlined text-accent" data-weight="fill" style="font-variation-settings: 'FILL' 1;">business_center</span>
-</div>
-<h3 class="font-headline-h3 text-headline-h3 text-primary mb-3">Staff Transportation</h3>
-<p class="font-body-sm text-text-secondary mb-6">Optimized routing and reliable daily commutes for your workforce, boosting productivity and employee satisfaction.</p>
-<a class="inline-flex items-center gap-2 font-label-md text-accent hover:text-primary transition-colors mb-8" href="#">
-                            View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
-</a>
-</div>
-<div class="w-full h-48 bg-cover bg-center mt-auto" data-alt="A striking digital installation art piece illustrating a fleet of modern corporate shuttle buses lined up orderly at a minimalist industrial park. The scene features bright, high-key daytime lighting that creates sharp, clean shadows. The color palette focuses on crisp whites, deep corporate navy, and subtle asphalt grays. The mood is highly organized, efficient, and technologically advanced." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD1FpSdTcaBazSNU3kHoiqidqGZWXHHzTeziwNxqH9wQaMamZXpYBZM-QPNtqln_QiMJppBLfKPdtZ91wGntPWRYL3NE2aEmBIUghsZuURRs0f-2lMtd1ToQvB2oL3n_BfrgzebrPW0zlI1mUQD7Hb3ZygIIbgpcxX_7zXxIbfVSg1BMcBsGKlCqDc8K3BlrzX51hsL0hRfZulccnmtchsrUNtTDZ0IvdDO3rDXmXsRaSPSVg8jIgZXUA')">
-</div>
-</div>
-<!-- Card 4: Fleet Rental -->
-<div class="lg:col-span-6 group relative bg-surface-1 rounded-xl border border-border overflow-hidden hover:shadow-[0_10px_25px_-5px_rgba(11,18,32,0.08)] transition-all duration-300 flex flex-col">
-<div class="p-8 pb-0">
-<div class="w-12 h-12 rounded bg-accent-soft flex items-center justify-center mb-6">
-<span class="material-symbols-outlined text-accent" data-weight="fill" style="font-variation-settings: 'FILL' 1;">car_rental</span>
-</div>
-<h3 class="font-headline-h3 text-headline-h3 text-primary mb-3">Fleet Rental</h3>
-<p class="font-body-sm text-text-secondary mb-6">Flexible long-term rental solutions for organizations requiring their own dedicated transportation assets without the overhead.</p>
-<a class="inline-flex items-center gap-2 font-label-md text-accent hover:text-primary transition-colors mb-8" href="#">
-                            View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
-</a>
-</div>
-<div class="w-full h-48 bg-cover bg-center mt-auto" data-alt="A striking digital installation art piece showing a variety of pristine, unbranded modern vehicles—ranging from sedans to minivans—parked in a geometric array on a minimalist white concrete expanse. The lighting is high-key and diffused, creating a bright, modern light-mode aesthetic. The palette is dominated by whites, silvers, and deep navy accents. The mood is clean, professional, and resourceful." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAOaD3I0nrTnNz39iO_OwqfvTDRXYOMZHYgQHf1bx24i7Zz6T-PWQgtoYde8yhO2aJLQg469q9n3frMqX0pQcFrMoGJXs9Swt8txtsYpaJult0UH-E1LM4JYFc0ojRTs7WcTOf93WweGHkg0OdSSEcSL1HVzRENqBJC0GTYnUr6XKxr2RHQe8OEhaRVZF67YxfXa3QHxl5qfoVoawyBAP7MBAAAGYjKTSmJ3IenTCuqK3PAauHKiMIjqw')">
-</div>
-</div>
-</div>
-</section>
-<!-- Partners / Clients Strip -->
-<section class="w-full py-16 border-t border-border">
-<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-<p class="text-center font-label-caption text-text-secondary uppercase tracking-widest mb-8">Trusted by Leading Institutions</p>
-<div class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-<!-- Placeholder Logos using Text/Icons for structure -->
-<div class="flex items-center gap-2 font-headline-h3 text-primary">
-<span class="material-symbols-outlined text-3xl">account_balance</span>
-<span class="font-bold tracking-tighter">EduCorp</span>
-</div>
-<div class="flex items-center gap-2 font-headline-h3 text-primary">
-<span class="material-symbols-outlined text-3xl">domain</span>
-<span class="font-bold tracking-tighter">TechGlobal</span>
-</div>
-<div class="flex items-center gap-2 font-headline-h3 text-primary">
-<span class="material-symbols-outlined text-3xl">health_and_safety</span>
-<span class="font-bold tracking-tighter">MedCare Hub</span>
-</div>
-<div class="flex items-center gap-2 font-headline-h3 text-primary">
-<span class="material-symbols-outlined text-3xl">factory</span>
-<span class="font-bold tracking-tighter">Industra</span>
-</div>
-<div class="flex items-center gap-2 font-headline-h3 text-primary">
-<span class="material-symbols-outlined text-3xl">school</span>
-<span class="font-bold tracking-tighter">Academy+</span>
-</div>
-</div>
-</div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="bg-surface-container-lowest dark:bg-surface-container-highest w-full py-12 border-t border-border dark:border-outline-variant flat no shadows">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter px-margin-desktop max-w-container-max mx-auto">
-<!-- Column 1: Brand & Description -->
-<div>
-<a class="text-headline-h3 font-headline-h3 text-primary dark:text-on-surface flex items-center gap-2 mb-6" href="#">
-<span class="material-symbols-outlined text-accent" data-weight="fill" style="font-variation-settings: 'FILL' 1;">directions_bus</span>
-                    Serhan Turizm
-                </a>
-<p class="font-body-sm text-body-sm text-text-secondary max-w-sm mb-8">
-                    Delivering premium corporate mobility solutions. Safety, punctuality, and comfort engineered for the modern enterprise.
-                </p>
-<div class="flex gap-4">
-<a class="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center text-text-secondary hover:text-accent transition-colors" href="#">
-<span class="material-symbols-outlined">language</span>
-</a>
-<a class="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center text-text-secondary hover:text-accent transition-colors" href="#">
-<span class="material-symbols-outlined">share</span>
-</a>
-</div>
-</div>
-<!-- Column 2: Links -->
-<div class="grid grid-cols-2 gap-8 pt-2 md:pt-0">
-<div>
-<h4 class="font-label-md text-primary mb-4">Company</h4>
-<ul class="space-y-3 font-body-sm text-body-sm">
-<li><a class="text-text-secondary dark:text-on-surface-variant hover:text-accent dark:hover:text-accent transition-colors hover:underline decoration-accent underline-offset-4" href="#">About Us</a></li>
-<li><a class="text-text-secondary dark:text-on-surface-variant hover:text-accent dark:hover:text-accent transition-colors hover:underline decoration-accent underline-offset-4" href="#">Our Fleet</a></li>
-<li><a class="text-text-secondary dark:text-on-surface-variant hover:text-accent dark:hover:text-accent transition-colors hover:underline decoration-accent underline-offset-4" href="#">Transfer Services</a></li>
-<li><a class="text-text-secondary dark:text-on-surface-variant hover:text-accent dark:hover:text-accent transition-colors hover:underline decoration-accent underline-offset-4" href="#">Corporate Solutions</a></li>
-</ul>
-</div>
-<div>
-<h4 class="font-label-md text-primary mb-4">Support</h4>
-<ul class="space-y-3 font-body-sm text-body-sm">
-<li><a class="text-text-secondary dark:text-on-surface-variant hover:text-accent dark:hover:text-accent transition-colors hover:underline decoration-accent underline-offset-4" href="#">Contact</a></li>
-<li><a class="text-text-secondary dark:text-on-surface-variant hover:text-accent dark:hover:text-accent transition-colors hover:underline decoration-accent underline-offset-4" href="#">Privacy Policy</a></li>
-<li><a class="text-text-secondary dark:text-on-surface-variant hover:text-accent dark:hover:text-accent transition-colors hover:underline decoration-accent underline-offset-4" href="#">Terms of Service</a></li>
-</ul>
-</div>
-</div>
-</div>
-<!-- Copyright Strip -->
-<div class="mt-16 pt-8 border-t border-border px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-<p class="font-body-sm text-body-sm text-text-secondary opacity-80 hover:opacity-100 transition-opacity">
-                © 2024 Serhan Turizm. All rights reserved.
+            <a
+              class="hover:bg-surface-2 dark:hover:bg-surface-container-low transition-all duration-200 p-2 rounded-full flex items-center justify-center"
+              href="mailto:info@"
+            >
+              <span class="material-symbols-outlined" data-icon="mail">mail</span>
+            </a>
+          </div>
+          <button
+            class="bg-primary text-surface-1 font-label-md text-label-md px-6 py-3 rounded-full scale-95 active:scale-90 transition-transform hover:bg-secondary"
+          >
+            Get a Quote
+          </button>
+        </div>
+        <!-- Mobile Menu Toggle -->
+        <button class="lg:hidden p-2 text-primary">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </header>
+    <main>
+      <!-- Hero Section -->
+      <section
+        class="relative w-full min-h-[870px] flex items-center justify-center overflow-hidden"
+      >
+        <!-- Background Image with Gradient Overlay -->
+        <div
+          class="absolute inset-0 z-0 bg-cover bg-center"
+          data-alt="A striking digital installation art piece featuring a fleet of modern, sleek corporate transportation vehicles parked in a pristine, expansive logistics hub. The scene is illuminated by dramatic, high-key white lighting that emphasizes the polished navy blue and silver exteriors of the vans and buses. The setting relies on a sophisticated palette of deep blacks and pristine whites, with subtle azure reflections on the glass surfaces. The mood is highly professional, conveying trust, efficiency, and a premium corporate modern aesthetic."
+          style="
+            background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuD9Z3bLNL7eMqgFbNHPV1RrCWEqL87XAIeAH975lKNwYFcWSFFMfkx1HueXpvavkzs5SFNz96iQpRvnFgwNuUBX4Y_wQjvjaxGB7-6I6THbx6ec1bygeC3TMqrOm0Dn0ZXuCnfCmgZdVYMFySTKkbpXhTgqGq77JaI6Dh_oTjtJAM5OHmcrV5NAYzVAV0__h8PFkynayk1y6dZkxhL49-Yeq7rkl0fyJOs_ZRqHNxbCxCxPAaNevF2C1A&quot;);
+          "
+        ></div>
+        <div
+          class="absolute inset-0 z-10 bg-gradient-to-r from-primary/90 to-primary/40 dark:from-primary/95 dark:to-primary/60"
+        ></div>
+        <div
+          class="relative z-20 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-20 pb-16 flex flex-col md:flex-row items-center gap-12"
+        >
+          <div class="w-full md:w-3/5 text-center md:text-left text-surface-1">
+            <div
+              class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-6"
+            >
+              <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+              <span class="font-label-md text-label-sm tracking-wider uppercase"
+                >Premium Fleet Services</span
+              >
+            </div>
+            <h1
+              class="font-display text-headline-h1-mobile md:text-display font-bold leading-tight mb-6"
+            >
+              Trusted Partner in <br class="hidden md:block" />
+              <span class="text-accent">Corporate Transportation</span> Solutions
+            </h1>
+            <p
+              class="font-body-lg text-body-lg text-surface-container-high mb-10 max-w-2xl opacity-90"
+            >
+              20+ years of excellence in school, personnel, and VIP transfer services. We ensure
+              safe, punctual, and comfortable journeys for every client.
             </p>
-</div>
-</footer>
-</body></html>
+            <div
+              class="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start"
+            >
+              <button
+                class="w-full sm:w-auto bg-accent text-surface-1 font-label-md text-label-md px-8 py-4 rounded-full scale-95 active:scale-90 transition-transform hover:bg-accent/90 shadow-[0_10px_25px_-5px_rgba(14,165,233,0.3)]"
+              >
+                Discover Our Services
+              </button>
+              <button
+                class="w-full sm:w-auto bg-transparent border-2 border-surface-1/30 text-surface-1 font-label-md text-label-md px-8 py-4 rounded-full scale-95 active:scale-90 transition-transform hover:bg-surface-1/10"
+              >
+                View Fleet
+              </button>
+            </div>
+          </div>
+          <!-- Decorative Element / Abstract Graphic -->
+          <div class="hidden md:block w-full md:w-2/5 relative h-[500px]">
+            <!-- A subtle graphic or pattern representing routes/tracking -->
+            <div
+              class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent opacity-50 rounded-full blur-3xl"
+            ></div>
+          </div>
+        </div>
+      </section>
+      <!-- Trust Strip -->
+      <section
+        class="relative z-30 -mt-16 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-24"
+      >
+        <div class="glass-panel rounded-xl shadow-lg p-8">
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-border/50"
+          >
+            <!-- Stat 1 -->
+            <div class="flex items-center gap-6 pt-4 md:pt-0 md:px-6">
+              <div
+                class="w-16 h-16 rounded-full bg-accent-soft flex items-center justify-center shrink-0"
+              >
+                <span
+                  class="material-symbols-outlined text-accent text-3xl"
+                  data-weight="fill"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >workspace_premium</span
+                >
+              </div>
+              <div>
+                <h3 class="font-headline-h3 text-headline-h3 text-primary mb-1">20+ Years</h3>
+                <p class="font-body-sm text-body-sm text-text-secondary">Of Industry Experience</p>
+              </div>
+            </div>
+            <!-- Stat 2 -->
+            <div class="flex items-center gap-6 pt-8 md:pt-0 md:px-6">
+              <div
+                class="w-16 h-16 rounded-full bg-accent-soft flex items-center justify-center shrink-0"
+              >
+                <span
+                  class="material-symbols-outlined text-accent text-3xl"
+                  data-weight="fill"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >my_location</span
+                >
+              </div>
+              <div>
+                <h3 class="font-headline-h3 text-headline-h3 text-primary mb-1">Live Tracking</h3>
+                <p class="font-body-sm text-body-sm text-text-secondary">
+                  Real-time Vehicle Monitoring
+                </p>
+              </div>
+            </div>
+            <!-- Stat 3 -->
+            <div class="flex items-center gap-6 pt-8 md:pt-0 md:px-6">
+              <div
+                class="w-16 h-16 rounded-full bg-accent-soft flex items-center justify-center shrink-0"
+              >
+                <span
+                  class="material-symbols-outlined text-accent text-3xl"
+                  data-weight="fill"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >support_agent</span
+                >
+              </div>
+              <div>
+                <h3 class="font-headline-h3 text-headline-h3 text-primary mb-1">24/7 Support</h3>
+                <p class="font-body-sm text-body-sm text-text-secondary">
+                  Dedicated Operations Desk
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Services Section (Bento Grid Style) -->
+      <section
+        class="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 mb-20 bg-surface-2 rounded-[2rem]"
+      >
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="font-label-md text-accent uppercase tracking-wider mb-2 block"
+            >Our Expertise</span
+          >
+          <h2 class="font-headline-h2 text-headline-h2 text-primary mb-4">
+            Comprehensive Transportation Solutions
+          </h2>
+          <p class="font-body-md text-text-secondary">
+            Tailored services designed to meet the exact requirements of schools, corporations, and
+            individuals requiring premium mobility.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-gutter">
+          <!-- Card 1: School Shuttle (Large) -->
+          <div
+            class="lg:col-span-8 group relative bg-surface-1 rounded-xl border border-border overflow-hidden hover:shadow-[0_10px_25px_-5px_rgba(11,18,32,0.08)] transition-all duration-300 flex flex-col md:flex-row h-full"
+          >
+            <div
+              class="w-full md:w-1/2 h-64 md:h-auto bg-cover bg-center relative"
+              data-alt="A striking digital installation art piece capturing a modern, vibrant yellow school bus parked on a clean, minimalist urban street at dawn. The scene is illuminated by soft, high-key morning lighting, creating a bright and safe atmosphere. The artwork features a sophisticated palette of crisp whites, deep navy accents, and the bright yellow of the bus. The mood is reassuring, reliable, and corporate-modern."
+              style="
+                background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuDNhwHWdcJXVHEcsR76_r14SfZhMMy3CcvkEl8gnTRsW3tngUWO32Wky0ETmsvzPAuD9zfN79-OPdqBH9kZvPkCikt6cJO22Pqomb9t3frrbwN65AdnMB22rF2uVl2A3nu0owtn9E2qZk3tsNtouBe-7-on-5eq1gQB4PW92DcJUbtDMeoDsJaxQ_mYeeVYGBvhF4w3QxAs-7GyJ5YWa9q_pyI4KtF45YHHwE2w5J4eE26_rj_0SDsFwA&quot;);
+              "
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent md:hidden"
+              ></div>
+            </div>
+            <div class="w-full md:w-1/2 p-8 flex flex-col justify-center">
+              <div class="w-12 h-12 rounded bg-accent-soft flex items-center justify-center mb-6">
+                <span
+                  class="material-symbols-outlined text-accent"
+                  data-weight="fill"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >school</span
+                >
+              </div>
+              <h3 class="font-headline-h3 text-headline-h3 text-primary mb-3">
+                School Shuttle Service
+              </h3>
+              <p class="font-body-sm text-text-secondary mb-6 flex-grow">
+                Ensuring the highest safety standards and punctuality for students. Equipped with
+                modern tracking and dedicated supervisors.
+              </p>
+              <a
+                class="inline-flex items-center gap-2 font-label-md text-accent hover:text-primary transition-colors"
+                href="#"
+              >
+                View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+          <!-- Card 2: VIP Transfer (Tall) -->
+          <div
+            class="lg:col-span-4 group relative bg-surface-1 rounded-xl border border-border overflow-hidden hover:shadow-[0_10px_25px_-5px_rgba(11,18,32,0.08)] transition-all duration-300 flex flex-col h-full"
+          >
+            <div
+              class="w-full h-48 bg-cover bg-center relative"
+              data-alt="A striking digital installation art piece showing a sleek, luxurious black VIP transport van waiting outside a high-end corporate glass building. The scene is illuminated by crisp, high-key architectural lighting that reflects off the polished dark surface of the vehicle. The palette relies on deep blacks, sharp silvers, and clean whites, accented by a subtle azure glow. The mood is exclusive, premium, and highly professional."
+              style="
+                background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAZw-RmlyZcWD7G8m1qFYNxS6zsk2cTM51qXADs906UrOFAhTWQYo6x-LQif_HuAYexlDZsjyorNgMcGLs-WHO-Iq6xzy39eEHB3JzMdaJO_PheCo49xr2fqDlQU3J34ggU3xxCkwGkkJPuZYKBBAixSPtRdUsKchICuSL3kL8u7sCJal4_BxsQHGTO4wSrDmjiYK66ba_75h2P3mkYaBB2DItxQozIg9b6tBVtzlJvhKgbHkxGikBkDw&quot;);
+              "
+            ></div>
+            <div class="p-8 flex flex-col flex-grow">
+              <div class="w-12 h-12 rounded bg-accent-soft flex items-center justify-center mb-6">
+                <span
+                  class="material-symbols-outlined text-accent"
+                  data-weight="fill"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+              </div>
+              <h3 class="font-headline-h3 text-headline-h3 text-primary mb-3">VIP Transfer</h3>
+              <p class="font-body-sm text-text-secondary mb-6 flex-grow">
+                Luxury vehicles and professional chauffeurs for executives and special guests.
+                Discretion and comfort guaranteed.
+              </p>
+              <a
+                class="inline-flex items-center gap-2 font-label-md text-accent hover:text-primary transition-colors mt-auto"
+                href="#"
+              >
+                View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+          <!-- Card 3: Staff Transportation -->
+          <div
+            class="lg:col-span-6 group relative bg-surface-1 rounded-xl border border-border overflow-hidden hover:shadow-[0_10px_25px_-5px_rgba(11,18,32,0.08)] transition-all duration-300 flex flex-col"
+          >
+            <div class="p-8 pb-0">
+              <div class="w-12 h-12 rounded bg-accent-soft flex items-center justify-center mb-6">
+                <span
+                  class="material-symbols-outlined text-accent"
+                  data-weight="fill"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >business_center</span
+                >
+              </div>
+              <h3 class="font-headline-h3 text-headline-h3 text-primary mb-3">
+                Staff Transportation
+              </h3>
+              <p class="font-body-sm text-text-secondary mb-6">
+                Optimized routing and reliable daily commutes for your workforce, boosting
+                productivity and employee satisfaction.
+              </p>
+              <a
+                class="inline-flex items-center gap-2 font-label-md text-accent hover:text-primary transition-colors mb-8"
+                href="#"
+              >
+                View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+            <div
+              class="w-full h-48 bg-cover bg-center mt-auto"
+              data-alt="A striking digital installation art piece illustrating a fleet of modern corporate shuttle buses lined up orderly at a minimalist industrial park. The scene features bright, high-key daytime lighting that creates sharp, clean shadows. The color palette focuses on crisp whites, deep corporate navy, and subtle asphalt grays. The mood is highly organized, efficient, and technologically advanced."
+              style="
+                background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuD1FpSdTcaBazSNU3kHoiqidqGZWXHHzTeziwNxqH9wQaMamZXpYBZM-QPNtqln_QiMJppBLfKPdtZ91wGntPWRYL3NE2aEmBIUghsZuURRs0f-2lMtd1ToQvB2oL3n_BfrgzebrPW0zlI1mUQD7Hb3ZygIIbgpcxX_7zXxIbfVSg1BMcBsGKlCqDc8K3BlrzX51hsL0hRfZulccnmtchsrUNtTDZ0IvdDO3rDXmXsRaSPSVg8jIgZXUA&quot;);
+              "
+            ></div>
+          </div>
+          <!-- Card 4: Fleet Rental -->
+          <div
+            class="lg:col-span-6 group relative bg-surface-1 rounded-xl border border-border overflow-hidden hover:shadow-[0_10px_25px_-5px_rgba(11,18,32,0.08)] transition-all duration-300 flex flex-col"
+          >
+            <div class="p-8 pb-0">
+              <div class="w-12 h-12 rounded bg-accent-soft flex items-center justify-center mb-6">
+                <span
+                  class="material-symbols-outlined text-accent"
+                  data-weight="fill"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >car_rental</span
+                >
+              </div>
+              <h3 class="font-headline-h3 text-headline-h3 text-primary mb-3">Fleet Rental</h3>
+              <p class="font-body-sm text-text-secondary mb-6">
+                Flexible long-term rental solutions for organizations requiring their own dedicated
+                transportation assets without the overhead.
+              </p>
+              <a
+                class="inline-flex items-center gap-2 font-label-md text-accent hover:text-primary transition-colors mb-8"
+                href="#"
+              >
+                View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+            <div
+              class="w-full h-48 bg-cover bg-center mt-auto"
+              data-alt="A striking digital installation art piece showing a variety of pristine, unbranded modern vehicles—ranging from sedans to minivans—parked in a geometric array on a minimalist white concrete expanse. The lighting is high-key and diffused, creating a bright, modern light-mode aesthetic. The palette is dominated by whites, silvers, and deep navy accents. The mood is clean, professional, and resourceful."
+              style="
+                background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAOaD3I0nrTnNz39iO_OwqfvTDRXYOMZHYgQHf1bx24i7Zz6T-PWQgtoYde8yhO2aJLQg469q9n3frMqX0pQcFrMoGJXs9Swt8txtsYpaJult0UH-E1LM4JYFc0ojRTs7WcTOf93WweGHkg0OdSSEcSL1HVzRENqBJC0GTYnUr6XKxr2RHQe8OEhaRVZF67YxfXa3QHxl5qfoVoawyBAP7MBAAAGYjKTSmJ3IenTCuqK3PAauHKiMIjqw&quot;);
+              "
+            ></div>
+          </div>
+        </div>
+      </section>
+      <!-- Partners / Clients Strip -->
+      <section class="w-full py-16 border-t border-border">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+          <p
+            class="text-center font-label-caption text-text-secondary uppercase tracking-widest mb-8"
+          >
+            Trusted by Leading Institutions
+          </p>
+          <div
+            class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all duration-500"
+          >
+            <!-- Placeholder Logos using Text/Icons for structure -->
+            <div class="flex items-center gap-2 font-headline-h3 text-primary">
+              <span class="material-symbols-outlined text-3xl">account_balance</span>
+              <span class="font-bold tracking-tighter">EduCorp</span>
+            </div>
+            <div class="flex items-center gap-2 font-headline-h3 text-primary">
+              <span class="material-symbols-outlined text-3xl">domain</span>
+              <span class="font-bold tracking-tighter">TechGlobal</span>
+            </div>
+            <div class="flex items-center gap-2 font-headline-h3 text-primary">
+              <span class="material-symbols-outlined text-3xl">health_and_safety</span>
+              <span class="font-bold tracking-tighter">MedCare Hub</span>
+            </div>
+            <div class="flex items-center gap-2 font-headline-h3 text-primary">
+              <span class="material-symbols-outlined text-3xl">factory</span>
+              <span class="font-bold tracking-tighter">Industra</span>
+            </div>
+            <div class="flex items-center gap-2 font-headline-h3 text-primary">
+              <span class="material-symbols-outlined text-3xl">school</span>
+              <span class="font-bold tracking-tighter">Academy+</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+    <footer
+      class="bg-surface-container-lowest dark:bg-surface-container-highest w-full py-12 border-t border-border dark:border-outline-variant flat no shadows"
+    >
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-gutter px-margin-desktop max-w-container-max mx-auto"
+      >
+        <!-- Column 1: Brand & Description -->
+        <div>
+          <a
+            class="text-headline-h3 font-headline-h3 text-primary dark:text-on-surface flex items-center gap-2 mb-6"
+            href="#"
+          >
+            <span
+              class="material-symbols-outlined text-accent"
+              data-weight="fill"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >directions_bus</span
+            >
+            Serhan Turizm
+          </a>
+          <p class="font-body-sm text-body-sm text-text-secondary max-w-sm mb-8">
+            Delivering premium corporate mobility solutions. Safety, punctuality, and comfort
+            engineered for the modern enterprise.
+          </p>
+          <div class="flex gap-4">
+            <a
+              class="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center text-text-secondary hover:text-accent transition-colors"
+              href="#"
+            >
+              <span class="material-symbols-outlined">language</span>
+            </a>
+            <a
+              class="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center text-text-secondary hover:text-accent transition-colors"
+              href="#"
+            >
+              <span class="material-symbols-outlined">share</span>
+            </a>
+          </div>
+        </div>
+        <!-- Column 2: Links -->
+        <div class="grid grid-cols-2 gap-8 pt-2 md:pt-0">
+          <div>
+            <h4 class="font-label-md text-primary mb-4">Company</h4>
+            <ul class="space-y-3 font-body-sm text-body-sm">
+              <li>
+                <a
+                  class="text-text-secondary dark:text-on-surface-variant hover:text-accent dark:hover:text-accent transition-colors hover:underline decoration-accent underline-offset-4"
+                  href="#"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-text-secondary dark:text-on-surface-variant hover:text-accent dark:hover:text-accent transition-colors hover:underline decoration-accent underline-offset-4"
+                  href="#"
+                  >Our Fleet</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-text-secondary dark:text-on-surface-variant hover:text-accent dark:hover:text-accent transition-colors hover:underline decoration-accent underline-offset-4"
+                  href="#"
+                  >Transfer Services</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-text-secondary dark:text-on-surface-variant hover:text-accent dark:hover:text-accent transition-colors hover:underline decoration-accent underline-offset-4"
+                  href="#"
+                  >Corporate Solutions</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-label-md text-primary mb-4">Support</h4>
+            <ul class="space-y-3 font-body-sm text-body-sm">
+              <li>
+                <a
+                  class="text-text-secondary dark:text-on-surface-variant hover:text-accent dark:hover:text-accent transition-colors hover:underline decoration-accent underline-offset-4"
+                  href="#"
+                  >Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-text-secondary dark:text-on-surface-variant hover:text-accent dark:hover:text-accent transition-colors hover:underline decoration-accent underline-offset-4"
+                  href="#"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-text-secondary dark:text-on-surface-variant hover:text-accent dark:hover:text-accent transition-colors hover:underline decoration-accent underline-offset-4"
+                  href="#"
+                  >Terms of Service</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Copyright Strip -->
+      <div
+        class="mt-16 pt-8 border-t border-border px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4"
+      >
+        <p
+          class="font-body-sm text-body-sm text-text-secondary opacity-80 hover:opacity-100 transition-opacity"
+        >
+          © 2024 Serhan Turizm. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -4,10 +4,14 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { updateBlogPost, publishBlogPost, getBlogPostForAdmin, deleteBlogPost } from "@/lib/admin/blog";
+import {
+  updateBlogPost,
+  publishBlogPost,
+  getBlogPostForAdmin,
+  deleteBlogPost,
+} from "@/lib/admin/blog";
 import { ImageUpload } from "@/components/admin/image-upload";
 import * as s from "@/components/cms/admin-cms.css";
-
 
 export default function EditBlogPage() {
   const router = useRouter();
@@ -122,11 +126,15 @@ export default function EditBlogPage() {
 
       {error && <div className={s.errorBox}>{error}</div>}
 
-      <p className={s.statusText}>Durum: <strong>{status}</strong></p>
+      <p className={s.statusText}>
+        Durum: <strong>{status}</strong>
+      </p>
 
       <form onSubmit={handleUpdate}>
         <div className={s.field}>
-          <label htmlFor="title" className={s.label}>Başlık *</label>
+          <label htmlFor="title" className={s.label}>
+            Başlık *
+          </label>
           <input
             id="title"
             type="text"
@@ -138,7 +146,9 @@ export default function EditBlogPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="excerpt" className={s.label}>Özet</label>
+          <label htmlFor="excerpt" className={s.label}>
+            Özet
+          </label>
           <textarea
             id="excerpt"
             className={`${s.textarea} ${s.textareaShort}`}
@@ -148,7 +158,9 @@ export default function EditBlogPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="content" className={s.label}>İçerik *</label>
+          <label htmlFor="content" className={s.label}>
+            İçerik *
+          </label>
           <textarea
             id="content"
             className={`${s.textarea} ${s.textareaTall}`}
@@ -165,7 +177,6 @@ export default function EditBlogPage() {
             label="Kapak Resmi"
           />
         </div>
-
 
         <div className={s.buttonRow}>
           <button type="submit" disabled={isSubmitting}>

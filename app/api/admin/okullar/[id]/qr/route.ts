@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { buildPublicOnKayitUrl, generateQrPng, generateQrSvg } from "@/lib/qr";
+import { generateQrTemplate, type TemplateType } from "@/lib/qr-templates";
+import { getSiteSettings } from "@/lib/site-settings";
+import { generateA4PdfFromSvgs } from "@/lib/pdf";
 
-// GET /api/admin/okullar/[id]/qr?format=png|svg
+// GET /api/admin/okullar/[id]/qr?format=png|svg|pdf
 //
 // Server-only QR generation. Resolves the school by `id` (never trusting a
 // client-provided URL or slug for identity), derives the canonical public URL
@@ -16,13 +19,33 @@ export async function GET(req: NextRequest, ctx: QrRouteContext) {
 
   const okul = await prisma.okul.findUnique({
     where: { id },
-    select: { slug: true },
+    select: { id: true, ad: true, slug: true },
   });
   if (!okul) {
     return new NextResponse("Okul bulunamadı.", { status: 404 });
   }
 
   const url = buildPublicOnKayitUrl(okul.slug);
+
+  if (format === "pdf") {
+    const template = (req.nextUrl.searchParams.get("template") ?? "poster") as TemplateType;
+    const settings = await getSiteSettings();
+    const svg = await generateQrTemplate(template, {
+      schoolName: okul.ad,
+      schoolSlug: okul.slug,
+      companyName: settings.companyName,
+      phone: settings.phone || undefined,
+    });
+    const pdfBytes = await generateA4PdfFromSvgs([svg]);
+    return new NextResponse(Buffer.from(pdfBytes), {
+      status: 200,
+      headers: {
+        "content-type": "application/pdf",
+        "content-disposition": `attachment; filename="serhan-a4-poster-${okul.slug}.pdf"`,
+        "cache-control": "no-store",
+      },
+    });
+  }
 
   if (format === "svg") {
     const svg = await generateQrSvg(url);

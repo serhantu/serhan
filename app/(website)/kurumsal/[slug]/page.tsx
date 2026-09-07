@@ -37,9 +37,7 @@ export default async function KurumsalPage({ params }: Props) {
     <main className={s.main}>
       <h1 className={s.headline}>{page.title}</h1>
       {page.excerpt && <p>{page.excerpt}</p>}
-      <article className={s.article}>
-        {page.content}
-      </article>
+      <article className={s.article}>{page.content}</article>
     </main>
   );
 }

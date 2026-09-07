@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #F2F1EE; }
+    * { box-sizing: border-box; }
+    a { color: #0A6B3D; text-decoration: none; }
+    a:hover { color: #085430; }
+    input, select, textarea, button { font: inherit; color: inherit; }
+    ::placeholder { color: #9A9A96; }
+  </style>
+</helmet>
+
+<div style="font-family: 'Schibsted Grotesk', system-ui, sans-serif; min-height: 100vh; background: #F2F1EE; color: #1C1E1D; display: grid; grid-template-columns: {{ shellCols }}">
+
+  <aside style="display: {{ railShow }}; grid-template-rows: auto 1fr auto; gap: 0; background: #FFFFFF; border-right: 1px solid #E2E0DA; position: sticky; top: 0; height: 100vh">
+    <div style="padding: 20px 18px 16px; border-bottom: 1px solid #E2E0DA">
+      <img src="../uploads/serhan_logo.png" alt="Serhan Turizm" style="width: 100%; max-width: 168px; display: block">
+      <div style="margin-top: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: #8A8A85">YÖNETİM PANELİ</div>
+    </div>
+    <nav style="display: grid; align-content: start; gap: 2px; padding: 14px 12px; overflow-y: auto">
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="7">
+        <button onClick="{{ n.go }}" style="display: grid; grid-template-columns: 26px 1fr auto; gap: 10px; align-items: center; text-align: left; padding: 11px 12px; border: 0; border-radius: 8px; cursor: pointer; transition: background 0.18s ease, color 0.18s ease; background: {{ n.bg }}; color: {{ n.fg }}; font-weight: {{ n.weight }}">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; opacity: 0.65">{{ n.no }}</span>
+          <span style="font-size: 14.5px">{{ n.label }}</span>
+          <span style="min-width: 22px; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; padding: 2px 6px; border-radius: 999px; background: {{ n.badgeBg }}; color: {{ n.badgeFg }}; opacity: {{ n.badgeOp }}">{{ n.badge }}</span>
+        </button>
+      </sc-for>
+    </nav>
+    <div style="padding: 14px 16px 18px; border-top: 1px solid #E2E0DA; display: grid; gap: 10px">
+      <div style="display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: center">
+        <div style="width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; background: #0A6B3D; color: #FFFFFF; font-size: 13px; font-weight: 600">SY</div>
+        <div style="display: grid; gap: 1px; min-width: 0">
+          <span style="font-size: 13px; font-weight: 500">Serhan Yönetici</span>
+          <span style="font-size: 11px; color: #8A8A85; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">admin@serhanturizm.com</span>
+        </div>
+      </div>
+      <button style="padding: 9px; border: 1px solid #E2E0DA; border-radius: 8px; background: #FFFFFF; font-size: 12.5px; cursor: pointer; color: #6B6B66">Çıkış yap</button>
+    </div>
+  </aside>
+
+  <div style="display: grid; grid-template-rows: auto 1fr; min-width: 0">
+
+    <header style="position: sticky; top: 0; z-index: 40; display: grid; grid-template-columns: {{ topbarCols }}; gap: 14px; align-items: center; padding: 12px clamp(14px, 3vw, 28px); background: rgba(255,255,255,0.93); backdrop-filter: blur(10px); border-bottom: 1px solid #E2E0DA">
+      <div style="display: flex; align-items: center; gap: 12px; min-width: 0">
+        <button onClick="{{ openNav }}" aria-label="Menü" style="display: {{ burgerShow }}; width: 34px; height: 34px; padding: 0; gap: 5px; grid-auto-flow: row; align-content: center; justify-items: center; background: transparent; border: 0; cursor: pointer">
+          <span style="width: 19px; height: 1.5px; background: #1C1E1D"></span>
+          <span style="width: 19px; height: 1.5px; background: #1C1E1D"></span>
+        </button>
+        <img src="../uploads/serhan_logo.png" alt="Serhan Turizm" style="display: {{ topLogoShow }}; height: 26px">
+        <div style="display: grid; gap: 1px; min-width: 0">
+          <span style="font-size: clamp(17px, 2.2vw, 22px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15">{{ pageTitle }}</span>
+          <span style="font-size: 12.5px; color: #8A8A85; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ pageSub }}</span>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; justify-content: flex-end">
+        <div style="display: {{ searchShow }}; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid #E2E0DA; border-radius: 8px; background: #FFFFFF; min-width: 220px">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #A8A8A2">⌕</span>
+          <input placeholder="Ara: ref no, okul, veli…" style="width: 100%; border: 0; outline: none; background: transparent; font-size: 13.5px">
+        </div>
+        <button style="position: relative; width: 36px; height: 36px; border: 1px solid #E2E0DA; border-radius: 8px; background: #FFFFFF; cursor: pointer; font-size: 14px">
+          ☰
+          <span style="position: absolute; top: -5px; right: -5px; min-width: 18px; height: 18px; display: grid; place-items: center; border-radius: 999px; background: #C2410C; color: #FFFFFF; font-family: 'IBM Plex Mono', monospace; font-size: 10px">{{ unreadCount }}</span>
+        </button>
+        <button style="padding: 9px 16px; border: 0; border-radius: 8px; background: #0A6B3D; color: #FFFFFF; font-size: 13px; font-weight: 500; cursor: pointer">Yeni kayıt</button>
+      </div>
+    </header>
+
+    <main style="padding: clamp(16px, 2.6vw, 28px); display: grid; align-content: start; gap: 18px; min-width: 0">
+
+      <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+        <div style="display: grid; gap: 18px">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px">
+            <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+              <div style="display: grid; gap: 10px; padding: 18px; background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 12px">
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; color: #8A8A85">{{ k.label }}</span>
+                <span style="font-size: 34px; font-weight: 600; letter-spacing: -0.04em; line-height: 1">{{ k.value }}</span>
+                <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: {{ k.deltaFg }}">
+                  <span style="width: 6px; height: 6px; border-radius: 999px; background: {{ k.deltaFg }}"></span>
+                  <span>{{ k.delta }}</span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display: grid; grid-template-columns: {{ dashCols }}; gap: 12px; align-items: start">
+            <div style="background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 12px; overflow: hidden">
+              <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 16px 18px; border-bottom: 1px solid #E2E0DA">
+                <span style="font-size: 15px; font-weight: 600">Son 7 gün — gelen talepler</span>
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8A8A85">TOPLAM {{ weekTotal }}</span>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; align-items: end; padding: 22px 18px 14px; height: 190px">
+                <sc-for list="{{ chart }}" as="c" hint-placeholder-count="7">
+                  <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 8px; height: 100%">
+                    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #6B6B66">{{ c.v }}</span>
+                    <span style="width: 100%; flex: 0 0 auto; border-radius: 5px 5px 0 0; transition: height 0.4s ease; background: {{ c.bg }}; height: {{ c.h }}"></span>
+                    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #A8A8A2">{{ c.d }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 12px; overflow: hidden">
+              <div style="padding: 16px 18px; border-bottom: 1px solid #E2E0DA; font-size: 15px; font-weight: 600">Bugünün işleri</div>
+              <div style="display: grid">
+                <sc-for list="{{ todos }}" as="t" hint-placeholder-count="4">
+                  <div style="display: grid; grid-template-columns: 8px 1fr auto; gap: 12px; align-items: center; padding: 14px 18px; border-bottom: 1px solid #EFEDE8">
+                    <span style="width: 8px; height: 8px; border-radius: 999px; background: {{ t.dot }}"></span>
+                    <span style="display: grid; gap: 2px; min-width: 0">
+                      <span style="font-size: 13.5px">{{ t.title }}</span>
+                      <span style="font-size: 11.5px; color: #8A8A85">{{ t.meta }}</span>
+                    </span>
+                    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8A8A85">{{ t.time }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <div style="background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 12px; overflow: hidden">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 16px 18px; border-bottom: 1px solid #E2E0DA">
+              <span style="font-size: 15px; font-weight: 600">Son talepler</span>
+              <button onClick="{{ goRequests }}" style="border: 0; background: transparent; color: #0A6B3D; font-size: 13px; cursor: pointer">Tümünü gör →</button>
+            </div>
+            <div style="display: grid">
+              <sc-for list="{{ recent }}" as="r" hint-placeholder-count="4">
+                <div style="display: grid; grid-template-columns: {{ recentCols }}; gap: 8px 14px; align-items: center; padding: 14px 18px; border-bottom: 1px solid #EFEDE8">
+                  <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #6B6B66">{{ r.ref }}</span>
+                  <span style="font-size: 14px; font-weight: 500; min-width: 0; overflow: hidden; text-overflow: ellipsis">{{ r.name }}</span>
+                  <span style="font-size: 12.5px; color: #8A8A85; min-width: 0; overflow: hidden; text-overflow: ellipsis">{{ r.school }}</span>
+                  <span style="justify-self: start; font-size: 11.5px; padding: 4px 10px; border-radius: 999px; background: {{ r.bg }}; color: {{ r.fg }}">{{ r.status }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isRequests }}" hint-placeholder-val="{{ false }}">
+        <div style="display: grid; gap: 14px">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+            <sc-for list="{{ typeTabs }}" as="tt" hint-placeholder-count="6">
+              <button onClick="{{ tt.on }}" style="padding: 8px 15px; border-radius: 999px; cursor: pointer; font-size: 13px; transition: background 0.18s ease, color 0.18s ease; border: 1px solid {{ tt.line }}; background: {{ tt.bg }}; color: {{ tt.fg }}">{{ tt.label }}</button>
+            </sc-for>
+          </div>
+
+          <div style="background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 12px; overflow: hidden">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 14px 18px; border-bottom: 1px solid #E2E0DA">
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+                <sc-for list="{{ readTabs }}" as="rt" hint-placeholder-count="3">
+                  <button onClick="{{ rt.on }}" style="padding: 7px 13px; border-radius: 7px; cursor: pointer; font-size: 12.5px; border: 1px solid {{ rt.line }}; background: {{ rt.bg }}; color: {{ rt.fg }}">{{ rt.label }}</button>
+                </sc-for>
+              </div>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8A8A85">{{ rowCountText }}</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: {{ tableCols }}; gap: 8px 14px; padding: 11px 18px; background: #FAF9F6; border-bottom: 1px solid #E2E0DA; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #8A8A85">
+              <span></span>
+              <span>TİP</span>
+              <span>ÖZET</span>
+              <span style="display: {{ wideCell }}">OKUL</span>
+              <span style="display: {{ wideCell }}">TARİH</span>
+            </div>
+
+            <div style="display: grid">
+              <sc-for list="{{ rows }}" as="row" hint-placeholder-count="5">
+                <button onClick="{{ row.open }}" style="display: grid; grid-template-columns: {{ tableCols }}; gap: 6px 14px; align-items: center; text-align: left; padding: 15px 18px; border: 0; border-bottom: 1px solid #EFEDE8; cursor: pointer; transition: background 0.15s ease; background: {{ row.rowBg }}" style-hover="background: #F7F6F2">
+                  <span style="width: 9px; height: 9px; border-radius: 999px; background: {{ row.dot }}"></span>
+                  <span style="justify-self: start; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; padding: 4px 8px; border-radius: 5px; background: #F0EFEA; color: #6B6B66">{{ row.type }}</span>
+                  <span style="display: grid; gap: 2px; min-width: 0">
+                    <span style="font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: {{ row.weight }}">{{ row.name }}</span>
+                    <span style="display: {{ narrowCell }}; font-size: 11.5px; color: #8A8A85">{{ row.school }} · {{ row.date }}</span>
+                  </span>
+                  <span style="display: {{ wideCell }}; font-size: 13px; color: #6B6B66; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ row.school }}</span>
+                  <span style="display: {{ wideCell }}; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #8A8A85">{{ row.date }}</span>
+                </button>
+              </sc-for>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; font-size: 12.5px; color: #8A8A85">
+              <span>Sayfa 1 / 1</span>
+              <div style="display: flex; gap: 6px">
+                <button style="padding: 7px 13px; border: 1px solid #E2E0DA; border-radius: 7px; background: #FFFFFF; cursor: pointer; font-size: 12.5px">Önceki</button>
+                <button style="padding: 7px 13px; border: 1px solid #E2E0DA; border-radius: 7px; background: #FFFFFF; cursor: pointer; font-size: 12.5px">Sonraki</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isSchools }}" hint-placeholder-val="{{ false }}">
+        <div style="display: grid; gap: 14px">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+            <div style="display: flex; align-items: center; gap: 8px; padding: 9px 13px; border: 1px solid #E2E0DA; border-radius: 8px; background: #FFFFFF; min-width: 240px; flex: 1; max-width: 380px">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #A8A8A2">⌕</span>
+              <input placeholder="Okul adı veya ilçe ara…" style="width: 100%; border: 0; outline: none; background: transparent; font-size: 13.5px">
+            </div>
+            <button onClick="{{ toggleForm }}" style="padding: 10px 18px; border: 0; border-radius: 8px; background: #0A6B3D; color: #FFFFFF; font-size: 13.5px; font-weight: 500; cursor: pointer">{{ formBtnLabel }}</button>
+          </div>
+
+          <sc-if value="{{ formOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 12px; overflow: hidden">
+              <div style="padding: 16px 18px; border-bottom: 1px solid #E2E0DA; display: grid; gap: 3px">
+                <span style="font-size: 15px; font-weight: 600">Yeni okul ekle</span>
+                <span style="font-size: 12.5px; color: #8A8A85">QR servis ön kaydı için okul ve konum bilgisi tanımlayın.</span>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; padding: 18px">
+                <sc-for list="{{ schoolFields }}" as="sf" hint-placeholder-count="4">
+                  <label style="display: grid; gap: 6px">
+                    <span style="font-size: 12.5px; font-weight: 500">{{ sf.label }}</span>
+                    <input placeholder="{{ sf.ph }}" style="padding: 10px 12px; border: 1px solid #E2E0DA; border-radius: 8px; outline: none; font-size: 13.5px; background: #FFFFFF">
+                  </label>
+                </sc-for>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 0 18px 18px">
+                <label style="display: flex; align-items: center; gap: 9px; font-size: 13px; cursor: pointer">
+                  <input type="checkbox" style="width: 16px; height: 16px; accent-color: #0A6B3D">
+                  <span>Velilerden T.C. Kimlik numarası zorunlu istensin</span>
+                </label>
+                <div style="display: flex; gap: 8px">
+                  <button onClick="{{ toggleForm }}" style="padding: 10px 18px; border: 1px solid #E2E0DA; border-radius: 8px; background: #FFFFFF; font-size: 13.5px; cursor: pointer">Vazgeç</button>
+                  <button style="padding: 10px 18px; border: 0; border-radius: 8px; background: #0A6B3D; color: #FFFFFF; font-size: 13.5px; cursor: pointer">Okul ekle</button>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <div style="background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 12px; overflow: hidden">
+            <div style="display: grid; grid-template-columns: {{ schoolCols }}; gap: 8px 14px; padding: 11px 18px; background: #FAF9F6; border-bottom: 1px solid #E2E0DA; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #8A8A85">
+              <span>OKUL</span>
+              <span style="display: {{ wideCell }}">İLÇE</span>
+              <span style="display: {{ wideCell }}">SLUG</span>
+              <span>KAYIT</span>
+              <span>QR</span>
+            </div>
+            <sc-for list="{{ schools }}" as="s" hint-placeholder-count="6">
+              <div style="display: grid; grid-template-columns: {{ schoolCols }}; gap: 6px 14px; align-items: center; padding: 15px 18px; border-bottom: 1px solid #EFEDE8">
+                <span style="display: grid; gap: 3px; min-width: 0">
+                  <span style="font-size: 14px; font-weight: 500">{{ s.name }}</span>
+                  <span style="display: {{ narrowCell }}; font-size: 11.5px; color: #8A8A85">{{ s.district }} · {{ s.slug }}</span>
+                </span>
+                <span style="display: {{ wideCell }}; justify-self: start; font-size: 12px; padding: 4px 10px; border-radius: 999px; background: #F0EFEA; color: #6B6B66">{{ s.district }}</span>
+                <span style="display: {{ wideCell }}; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #8A8A85; min-width: 0; overflow: hidden; text-overflow: ellipsis">{{ s.slug }}</span>
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">{{ s.count }}</span>
+                <span style="display: flex; gap: 6px; flex-wrap: wrap">
+                  <button style="padding: 6px 11px; border: 1px solid #E2E0DA; border-radius: 6px; background: #FFFFFF; font-size: 11.5px; cursor: pointer">PNG</button>
+                  <button style="padding: 6px 11px; border: 1px solid #E2E0DA; border-radius: 6px; background: #FFFFFF; font-size: 11.5px; cursor: pointer">SVG</button>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isQr }}" hint-placeholder-val="{{ false }}">
+        <div style="display: grid; grid-template-columns: {{ qrCols }}; gap: 14px; align-items: start">
+          <div style="display: grid; gap: 14px">
+            <div style="background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 12px; padding: 18px; display: grid; gap: 12px">
+              <span style="font-size: 15px; font-weight: 600">Şablon</span>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <sc-for list="{{ templates }}" as="tp" hint-placeholder-count="3">
+                  <button onClick="{{ tp.on }}" style="padding: 9px 15px; border-radius: 8px; cursor: pointer; font-size: 13px; border: 1px solid {{ tp.line }}; background: {{ tp.bg }}; color: {{ tp.fg }}">{{ tp.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 12px; overflow: hidden">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; border-bottom: 1px solid #E2E0DA">
+                <span style="font-size: 15px; font-weight: 600">Okul seçimi</span>
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8A8A85">{{ selectedText }}</span>
+              </div>
+              <sc-for list="{{ qrSchools }}" as="q" hint-placeholder-count="6">
+                <button onClick="{{ q.on }}" style="width: 100%; display: grid; grid-template-columns: 20px 1fr auto; gap: 12px; align-items: center; text-align: left; padding: 13px 18px; border: 0; border-bottom: 1px solid #EFEDE8; cursor: pointer; background: {{ q.bg }}">
+                  <span style="width: 18px; height: 18px; border-radius: 5px; display: grid; place-items: center; font-size: 11px; border: 1px solid {{ q.boxLine }}; background: {{ q.boxBg }}; color: #FFFFFF">{{ q.tick }}</span>
+                  <span style="display: grid; gap: 2px; min-width: 0">
+                    <span style="font-size: 13.5px; font-weight: 500">{{ q.name }}</span>
+                    <span style="font-size: 11.5px; color: #8A8A85">{{ q.district }}</span>
+                  </span>
+                  <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #A8A8A2">{{ q.count }} kayıt</span>
+                </button>
+              </sc-for>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; padding: 16px 18px">
+                <button style="padding: 10px 16px; border: 0; border-radius: 8px; background: #0A6B3D; color: #FFFFFF; font-size: 13px; cursor: pointer">Seçili okulları indir</button>
+                <button style="padding: 10px 16px; border: 1px solid #E2E0DA; border-radius: 8px; background: #FFFFFF; font-size: 13px; cursor: pointer">Toplu A4 PDF</button>
+              </div>
+            </div>
+          </div>
+          <div style="background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 12px; overflow: hidden; position: sticky; top: 82px">
+            <div style="padding: 16px 18px; border-bottom: 1px solid #E2E0DA; font-size: 15px; font-weight: 600">Canlı önizleme</div>
+            <div style="padding: 24px; display: grid; place-items: center; background: #FAF9F6">
+              <div style="width: 100%; max-width: 330px; background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 10px; padding: 26px 22px; display: grid; gap: 16px; justify-items: center; text-align: center">
+                <img src="../uploads/serhan_logo.png" alt="Serhan Turizm" style="width: 150px">
+                <span style="font-size: 13.5px; color: #6B6B66">Okul Servisi Ön Kayıt</span>
+                <div style="width: 100%; aspect-ratio: 1; display: grid; place-items: center; border: 1px solid #E2E0DA; border-radius: 8px; background: #FFFFFF">
+                  <div style="width: 78%; aspect-ratio: 1; display: grid; grid-template-columns: repeat(11, 1fr); grid-template-rows: repeat(11, 1fr)">
+                  <sc-for list="{{ qrCells }}" as="qc" hint-placeholder-count="121">
+                    <span style="background: {{ qc.bg }}"></span>
+                  </sc-for>
+                </div>
+                </div>
+                <span style="font-size: 15px; font-weight: 600">{{ previewSchool }}</span>
+                <span style="font-size: 11.5px; color: #8A8A85; line-height: 1.5">QR kodu telefonunuzla tarayarak ön kayıt yapabilirsiniz.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isCustomers }}" hint-placeholder-val="{{ false }}">
+        <div style="display: grid; gap: 14px">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid #E2E0DA; border-radius: 8px; background: #FFFFFF; max-width: 460px">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #A8A8A2">⌕</span>
+            <input placeholder="Ad, telefon veya e-posta…" style="width: 100%; border: 0; outline: none; background: transparent; font-size: 13.5px">
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px">
+            <sc-for list="{{ customers }}" as="c" hint-placeholder-count="6">
+              <div style="display: grid; gap: 12px; padding: 18px; background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 12px">
+                <div style="display: grid; grid-template-columns: 38px 1fr; gap: 11px; align-items: center">
+                  <span style="width: 38px; height: 38px; border-radius: 9px; display: grid; place-items: center; background: #EAF3EE; color: #0A6B3D; font-size: 13px; font-weight: 600">{{ c.initials }}</span>
+                  <span style="display: grid; gap: 2px; min-width: 0">
+                    <span style="font-size: 14.5px; font-weight: 500">{{ c.name }}</span>
+                    <span style="font-size: 11.5px; color: #8A8A85">{{ c.role }}</span>
+                  </span>
+                </div>
+                <div style="display: grid; gap: 6px; font-size: 12.5px; color: #6B6B66">
+                  <span>{{ c.phone }}</span>
+                  <span style="overflow: hidden; text-overflow: ellipsis">{{ c.mail }}</span>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 11px; border-top: 1px solid #EFEDE8">
+                  <span style="font-size: 11.5px; padding: 4px 10px; border-radius: 999px; background: {{ c.bg }}; color: {{ c.fg }}">{{ c.tag }}</span>
+                  <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #A8A8A2">{{ c.since }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isContent }}" hint-placeholder-val="{{ false }}">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px">
+          <sc-for list="{{ contentAreas }}" as="ca" hint-placeholder-count="5">
+            <div style="display: grid; gap: 14px; padding: 20px; background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 12px">
+              <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px">
+                <span style="font-size: 16px; font-weight: 600">{{ ca.title }}</span>
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #A8A8A2">{{ ca.count }}</span>
+              </div>
+              <span style="font-size: 13px; line-height: 1.55; color: #6B6B66">{{ ca.desc }}</span>
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 12px; border-top: 1px solid #EFEDE8">
+                <span style="font-size: 11.5px; color: #8A8A85">Son güncelleme {{ ca.updated }}</span>
+                <button style="padding: 7px 14px; border: 1px solid #E2E0DA; border-radius: 7px; background: #FFFFFF; font-size: 12.5px; cursor: pointer">Düzenle</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+        <div style="display: grid; gap: 14px; max-width: 860px">
+          <div style="background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 12px; overflow: hidden">
+            <div style="padding: 16px 18px; border-bottom: 1px solid #E2E0DA; font-size: 15px; font-weight: 600">Şirket bilgileri</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; padding: 18px">
+              <sc-for list="{{ settingFields }}" as="sf" hint-placeholder-count="6">
+                <label style="display: grid; gap: 6px">
+                  <span style="font-size: 12.5px; font-weight: 500">{{ sf.label }}</span>
+                  <input value="{{ sf.value }}" placeholder="{{ sf.ph }}" onChange="{{ noop }}" style="padding: 10px 12px; border: 1px solid #E2E0DA; border-radius: 8px; outline: none; font-size: 13.5px">
+                </label>
+              </sc-for>
+            </div>
+          </div>
+          <div style="background: #FFFFFF; border: 1px solid #E2E0DA; border-radius: 12px; overflow: hidden">
+            <div style="padding: 16px 18px; border-bottom: 1px solid #E2E0DA; font-size: 15px; font-weight: 600">Bildirimler</div>
+            <sc-for list="{{ toggles }}" as="tg" hint-placeholder-count="3">
+              <div style="display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; padding: 15px 18px; border-bottom: 1px solid #EFEDE8">
+                <span style="display: grid; gap: 3px">
+                  <span style="font-size: 14px">{{ tg.label }}</span>
+                  <span style="font-size: 12px; color: #8A8A85">{{ tg.desc }}</span>
+                </span>
+                <button onClick="{{ tg.on }}" aria-label="{{ tg.label }}" style="width: 44px; height: 25px; border-radius: 999px; border: 0; cursor: pointer; padding: 3px; display: flex; justify-content: {{ tg.justify }}; transition: background 0.2s ease; background: {{ tg.track }}">
+                  <span style="width: 19px; height: 19px; border-radius: 999px; background: #FFFFFF; box-shadow: 0 1px 2px rgba(0,0,0,0.18)"></span>
+                </button>
+              </div>
+            </sc-for>
+            <div style="display: flex; justify-content: flex-end; gap: 8px; padding: 16px 18px">
+              <button style="padding: 10px 18px; border: 1px solid #E2E0DA; border-radius: 8px; background: #FFFFFF; font-size: 13.5px; cursor: pointer">Vazgeç</button>
+              <button style="padding: 10px 18px; border: 0; border-radius: 8px; background: #0A6B3D; color: #FFFFFF; font-size: 13.5px; cursor: pointer">Kaydet</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+    </main>
+  </div>
+
+  <sc-if value="{{ navOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 90; display: grid; grid-template-columns: minmax(0, 300px) 1fr">
+      <div style="background: #FFFFFF; border-right: 1px solid #E2E0DA; display: grid; grid-template-rows: auto 1fr; overflow-y: auto">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 16px 14px; border-bottom: 1px solid #E2E0DA">
+          <img src="../uploads/serhan_logo.png" alt="Serhan Turizm" style="height: 26px">
+          <button onClick="{{ closeNav }}" aria-label="Kapat" style="width: 32px; height: 32px; border: 0; background: transparent; font-size: 21px; cursor: pointer">×</button>
+        </div>
+        <nav style="display: grid; align-content: start; gap: 2px; padding: 12px">
+          <sc-for list="{{ navItems }}" as="mn" hint-placeholder-count="7">
+            <button onClick="{{ mn.goClose }}" style="display: grid; grid-template-columns: 26px 1fr auto; gap: 10px; align-items: center; text-align: left; padding: 13px 12px; border: 0; border-radius: 8px; cursor: pointer; background: {{ mn.bg }}; color: {{ mn.fg }}; font-weight: {{ mn.weight }}">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; opacity: 0.65">{{ mn.no }}</span>
+              <span style="font-size: 15px">{{ mn.label }}</span>
+              <span style="min-width: 22px; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; padding: 2px 6px; border-radius: 999px; background: {{ mn.badgeBg }}; color: {{ mn.badgeFg }}; opacity: {{ mn.badgeOp }}">{{ mn.badge }}</span>
+            </button>
+          </sc-for>
+        </nav>
+      </div>
+      <div onClick="{{ closeNav }}" style="background: rgba(28,30,29,0.42)"></div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ detailOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 92; display: grid; grid-template-columns: 1fr minmax(0, 440px)">
+      <div onClick="{{ closeDetail }}" style="background: rgba(28,30,29,0.42)"></div>
+      <div style="background: #FFFFFF; border-left: 1px solid #E2E0DA; display: grid; grid-template-rows: auto 1fr auto; overflow: hidden">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 18px; border-bottom: 1px solid #E2E0DA">
+          <div style="display: grid; gap: 4px; min-width: 0">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8A8A85">{{ detail.ref }}</span>
+            <span style="font-size: 19px; font-weight: 600; letter-spacing: -0.02em">{{ detail.name }}</span>
+            <span style="font-size: 12.5px; color: #8A8A85">{{ detail.school }}</span>
+          </div>
+          <button onClick="{{ closeDetail }}" aria-label="Kapat" style="width: 32px; height: 32px; border: 0; background: transparent; font-size: 21px; cursor: pointer">×</button>
+        </div>
+        <div style="overflow-y: auto; display: grid; align-content: start">
+          <sc-for list="{{ detail.fields }}" as="df" hint-placeholder-count="6">
+            <div style="display: grid; grid-template-columns: 130px 1fr; gap: 14px; align-items: baseline; padding: 14px 18px; border-bottom: 1px solid #EFEDE8">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.08em; color: #8A8A85">{{ df.k }}</span>
+              <span style="font-size: 14px; line-height: 1.5">{{ df.v }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; padding: 16px 18px; border-top: 1px solid #E2E0DA">
+          <button style="flex: 1; min-width: 130px; padding: 11px 16px; border: 0; border-radius: 8px; background: #0A6B3D; color: #FFFFFF; font-size: 13.5px; cursor: pointer">Okundu işaretle</button>
+          <button style="padding: 11px 16px; border: 1px solid #E2E0DA; border-radius: 8px; background: #FFFFFF; font-size: 13.5px; cursor: pointer">Ara</button>
+          <button style="padding: 11px 16px; border: 1px solid #E2E0DA; border-radius: 8px; background: #FFFFFF; font-size: 13.5px; cursor: pointer">Not ekle</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+const PAGES = [
+  { id: "dashboard", no: "01", label: "Dashboard", title: "Yönetim Paneli", sub: "Operasyonel görünürlük için kısa özet." },
+  { id: "requests", no: "02", label: "Talepler", title: "Talepler", sub: "Ön kayıt, teklif ve iletişim talepleri." },
+  { id: "customers", no: "03", label: "Müşteriler", title: "Müşteriler", sub: "Kurum yetkilileri ve veliler." },
+  { id: "schools", no: "04", label: "Okullar", title: "Okullar", sub: "Kayıtlı okullar ve servis lokasyonları." },
+  { id: "qr", no: "05", label: "QR Üret", title: "QR Kod Yönetimi", sub: "Okula özel QR kod ve baskı şablonları." },
+  { id: "content", no: "06", label: "İçerik", title: "İçerik Yönetimi", sub: "Site sayfaları, hizmetler ve blog." },
+  { id: "settings", no: "07", label: "Ayarlar", title: "Site Ayarları", sub: "Şirket bilgileri ve bildirim tercihleri." }
+];
+
+const ROWS = [
+  { ref: "SRV-665082", type: "ON_KAYIT", name: "Ali Can Yılmaz", school: "Abdülhak Hamit Ortaokulu", date: "04.09.2026 16:36", unread: true, parent: "Fatma Yılmaz", phone: "0532 118 44 09", note: "Sabah servisi, Güngören - Merter hattı." },
+  { ref: "SRV-173426", type: "ON_KAYIT", name: "Tarık Özbalkan", school: "Sultangazi Birikim Koleji", date: "07.09.2026 23:41", unread: false, parent: "Kemal Özbalkan", phone: "0543 220 71 15", note: "Çift yön servis talebi." },
+  { ref: "TKL-004411", type: "TEKLIF", name: "Ege Yazılım A.Ş. — 84 personel", school: "Maslak / İstanbul", date: "06.09.2026 11:02", unread: true, parent: "İK Direktörlüğü", phone: "0212 344 90 10", note: "3 vardiya, 5 toplama bölgesi." },
+  { ref: "ISB-009120", type: "IS_BASVURU", name: "Murat Şen — Şoför başvurusu", school: "SRC-2, 12 yıl tecrübe", date: "05.09.2026 09:48", unread: false, parent: "—", phone: "0505 617 22 84", note: "Psikoteknik belgesi güncel." },
+  { ref: "ILT-002233", type: "ILETISIM", name: "Zeynep Aksoy", school: "Genel bilgi talebi", date: "04.09.2026 14:20", unread: false, parent: "—", phone: "0546 900 31 77", note: "Havalimanı transfer fiyatı soruldu." },
+  { ref: "SRV-112567", type: "ON_KAYIT", name: "Era Era", school: "Abdülhak Hamit Ortaokulu", date: "04.09.2026 16:50", unread: false, parent: "Selin Era", phone: "0533 440 18 62", note: "Yalnız akşam servisi." }
+];
+
+const SCHOOLS = [
+  { name: "Firuzköy Mektebim Koleji", district: "Avcılar", slug: "firuzkoy-mektebim-koleji", count: 0 },
+  { name: "Sultangazi Birikim Koleji", district: "Sultangazi", slug: "sultangazi-birikim-koleji", count: 1 },
+  { name: "Uğur Koleji Fatih - Topkapı", district: "Zeytinburnu", slug: "ugur-koleji-fatih-kampus", count: 0 },
+  { name: "Uğur Koleji Güngören", district: "Güngören", slug: "ugur-koleji-gungoren-kampus", count: 0 },
+  { name: "Zinde Okulları Eyüpsultan", district: "Eyüpsultan", slug: "zinde-okullari-eyupsultan", count: 0 },
+  { name: "Merter Asil Koleji", district: "Güngören", slug: "merter-asil-koleji", count: 2 }
+];
+
+const TYPES = ["Tümü", "Ön Kayıt", "Teklif", "İş Başvurusu", "İletişim"];
+const TYPE_KEY = { "Ön Kayıt": "ON_KAYIT", "Teklif": "TEKLIF", "İş Başvurusu": "IS_BASVURU", "İletişim": "ILETISIM" };
+const READS = ["Tümü", "Okunmamış", "Okunmuş"];
+const TEMPLATES = ["Servis Etiketi 6×9", "A4 Poster", "Sticker 10×10"];
+
+class Component extends DCLogic {
+  state = {
+    vw: typeof window !== "undefined" ? window.innerWidth : 1440,
+    page: "dashboard", navOpen: false, type: 0, read: 0, detail: -1,
+    formOpen: false, tpl: 1, picked: [0, 1, 2, 3, 4, 5], notif: [true, true, false]
+  };
+
+  componentDidMount() {
+    this.onResize = () => this.setState({ vw: window.innerWidth });
+    window.addEventListener("resize", this.onResize);
+  }
+
+  componentWillUnmount() { window.removeEventListener("resize", this.onResize); }
+
+  renderVals() {
+    const vw = this.state.vw || 1440;
+    const nar = vw < 1000;
+    const mid = vw < 720;
+    const page = this.state.page;
+    const cur = PAGES.filter((p) => p.id === page)[0] || PAGES[0];
+    const unread = ROWS.filter((r) => r.unread).length;
+    const type = this.state.type;
+    const read = this.state.read;
+    const picked = this.state.picked;
+
+    let rows = ROWS.slice();
+    if (type > 0) rows = rows.filter((r) => r.type === TYPE_KEY[TYPES[type]]);
+    if (read === 1) rows = rows.filter((r) => r.unread);
+    if (read === 2) rows = rows.filter((r) => !r.unread);
+
+    const d = ROWS[this.state.detail];
+    const chartRaw = [3, 5, 2, 6, 4, 7, 5];
+    const days = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
+    const maxV = 7;
+
+    const qrCells = [];
+    const finder = (i, j) => {
+      const inBox = (r, c) => (i >= r && i < r + 3 && j >= c && j < c + 3);
+      const ring = (r, c) => (i >= r - 1 && i <= r + 3 && j >= c - 1 && j <= c + 3);
+      if (inBox(0, 0) || inBox(0, 8) || inBox(8, 0)) return 1;
+      if (ring(0, 0) || ring(0, 8) || ring(8, 0)) return 0;
+      return -1;
+    };
+    for (let i = 0; i < 11; i++) for (let j = 0; j < 11; j++) {
+      const f = finder(i, j);
+      const on = f === -1 ? (((i * 7 + j * 5 + i * j * 3) % 5) < 2) : f === 1;
+      qrCells.push({ bg: on ? "#1C1E1D" : "transparent" });
+    }
+
+    return {
+      shellCols: nar ? "1fr" : "252px 1fr",
+      railShow: nar ? "none" : "grid",
+      burgerShow: nar ? "grid" : "none",
+      topLogoShow: nar ? "block" : "none",
+      topbarCols: mid ? "1fr" : "1fr auto",
+      searchShow: vw < 1180 ? "none" : "flex",
+      dashCols: vw < 1100 ? "1fr" : "1.5fr 1fr",
+      recentCols: mid ? "1fr" : "104px minmax(0, 1.1fr) minmax(0, 1fr) auto",
+      tableCols: mid ? "12px auto 1fr" : "12px 108px minmax(0, 1.4fr) minmax(0, 1fr) 132px",
+      schoolCols: mid ? "1fr 44px 90px" : "minmax(0, 1.3fr) 130px minmax(0, 1fr) 62px 116px",
+      qrCols: vw < 1080 ? "1fr" : "1fr 0.85fr",
+      wideCell: mid ? "none" : "block",
+      narrowCell: mid ? "block" : "none",
+
+      pageTitle: cur.title,
+      pageSub: cur.sub,
+      unreadCount: unread,
+      navOpen: !!this.state.navOpen,
+      openNav: () => this.setState({ navOpen: true }),
+      closeNav: () => this.setState({ navOpen: false }),
+      goRequests: () => this.setState({ page: "requests" }),
+      noop: () => {},
+
+      navItems: PAGES.map((p) => {
+        const on = p.id === page;
+        const badge = p.id === "requests" ? unread : (p.id === "schools" ? SCHOOLS.length : "");
+        return {
+          no: p.no, label: p.label,
+          go: () => this.setState({ page: p.id, detail: -1 }),
+          goClose: () => this.setState({ page: p.id, detail: -1, navOpen: false }),
+          bg: on ? "#EAF3EE" : "transparent",
+          fg: on ? "#0A6B3D" : "#4A4C4B",
+          weight: on ? 600 : 400,
+          badge: badge === "" ? "" : String(badge),
+          badgeBg: badge === "" ? "transparent" : (p.id === "requests" && unread > 0 ? "#C2410C" : "#F0EFEA"),
+          badgeFg: p.id === "requests" && unread > 0 ? "#FFFFFF" : "#8A8A85",
+          badgeOp: badge === "" ? 0 : 1
+        };
+      }),
+
+      isDashboard: page === "dashboard",
+      isRequests: page === "requests",
+      isCustomers: page === "customers",
+      isSchools: page === "schools",
+      isQr: page === "qr",
+      isContent: page === "content",
+      isSettings: page === "settings",
+
+      kpis: [
+        { label: "TOPLAM ÖN KAYIT", value: "3", delta: "Bu hafta +2", deltaFg: "#0A6B3D" },
+        { label: "OKUNMAMIŞ TALEP", value: String(unread), delta: "Yanıt bekliyor", deltaFg: "#C2410C" },
+        { label: "AKTİF OKUL", value: String(SCHOOLS.length), delta: "Tümü yayında", deltaFg: "#0A6B3D" },
+        { label: "AKTİF SÖZLEŞME", value: "12", delta: "3 kurum yenileme", deltaFg: "#8A8A85" }
+      ],
+      weekTotal: chartRaw.reduce((a, b) => a + b, 0),
+      chart: chartRaw.map((v, i) => ({
+        v, d: days[i],
+        h: Math.round(24 + (v / maxV) * 96) + "px",
+        bg: i === 5 ? "#0A6B3D" : "#CFDDD5"
+      })),
+      todos: [
+        { title: "Ege Yazılım teklifi hazırlanacak", meta: "84 personel · 3 vardiya", time: "11:00", dot: "#C2410C" },
+        { title: "Merter Asil Koleji QR baskısı", meta: "A4 poster · 4 adet", time: "13:30", dot: "#0A6B3D" },
+        { title: "34 SRH 118 periyodik bakım", meta: "Sanayi — Güngören", time: "15:00", dot: "#8A8A85" },
+        { title: "Şoför başvurusu görüşmesi", meta: "Murat Şen", time: "16:45", dot: "#8A8A85" }
+      ],
+      recent: ROWS.slice(0, 4).map((r) => ({
+        ref: r.ref, name: r.name, school: r.school,
+        status: r.unread ? "Okunmadı" : "Okundu",
+        bg: r.unread ? "#FDEDE3" : "#EAF3EE",
+        fg: r.unread ? "#9A3412" : "#0A6B3D"
+      })),
+
+      typeTabs: TYPES.map((label, i) => ({
+        label,
+        on: () => this.setState({ type: i }),
+        bg: type === i ? "#1C1E1D" : "#FFFFFF",
+        fg: type === i ? "#FFFFFF" : "#4A4C4B",
+        line: type === i ? "#1C1E1D" : "#E2E0DA"
+      })),
+      readTabs: READS.map((label, i) => ({
+        label: i === 1 ? "Okunmamış (" + unread + ")" : label,
+        on: () => this.setState({ read: i }),
+        bg: read === i ? "#EAF3EE" : "#FFFFFF",
+        fg: read === i ? "#0A6B3D" : "#6B6B66",
+        line: read === i ? "#BFD9CB" : "#E2E0DA"
+      })),
+      rowCountText: rows.length + " KAYIT",
+      rows: rows.map((r) => ({
+        type: r.type, name: r.name, school: r.school, date: r.date,
+        dot: r.unread ? "#0A6B3D" : "#DDDBD5",
+        rowBg: r.unread ? "#FBFDFC" : "#FFFFFF",
+        weight: r.unread ? 600 : 400,
+        open: () => this.setState({ detail: ROWS.indexOf(r) })
+      })),
+
+      detailOpen: this.state.detail > -1,
+      closeDetail: () => this.setState({ detail: -1 }),
+      detail: d ? {
+        ref: d.ref, name: d.name, school: d.school,
+        fields: [
+          { k: "TİP", v: d.type },
+          { k: "OKUL / KURUM", v: d.school },
+          { k: "İLGİLİ KİŞİ", v: d.parent },
+          { k: "TELEFON", v: d.phone },
+          { k: "TARİH", v: d.date },
+          { k: "DURUM", v: d.unread ? "Yeni (okunmadı)" : "Okundu" },
+          { k: "NOT", v: d.note }
+        ]
+      } : { ref: "", name: "", school: "", fields: [] },
+
+      customers: [
+        { initials: "EY", name: "Ege Yazılım A.Ş.", role: "Kurumsal personel servisi", phone: "0212 344 90 10", mail: "ik@egeyazilim.com", tag: "Sözleşmeli", bg: "#EAF3EE", fg: "#0A6B3D", since: "2023" },
+        { initials: "MA", name: "Merter Asil Koleji", role: "Okul servisi", phone: "0212 555 18 20", mail: "info@merterasil.k12.tr", tag: "Sözleşmeli", bg: "#EAF3EE", fg: "#0A6B3D", since: "2021" },
+        { initials: "FY", name: "Fatma Yılmaz", role: "Veli — Abdülhak Hamit Ortaokulu", phone: "0532 118 44 09", mail: "fatma.yilmaz@gmail.com", tag: "Ön kayıt", bg: "#FDEDE3", fg: "#9A3412", since: "2026" },
+        { initials: "KÖ", name: "Kemal Özbalkan", role: "Veli — Sultangazi Birikim", phone: "0543 220 71 15", mail: "kemal.o@gmail.com", tag: "Ön kayıt", bg: "#FDEDE3", fg: "#9A3412", since: "2026" },
+        { initials: "ZA", name: "Zeynep Aksoy", role: "Bireysel transfer", phone: "0546 900 31 77", mail: "zeynep@aksoy.co", tag: "Potansiyel", bg: "#F0EFEA", fg: "#6B6B66", since: "2026" },
+        { initials: "SB", name: "Sultangazi Birikim Koleji", role: "Okul servisi", phone: "0212 667 40 33", mail: "servis@birikimkoleji.com", tag: "Sözleşmeli", bg: "#EAF3EE", fg: "#0A6B3D", since: "2024" }
+      ],
+
+      formOpen: !!this.state.formOpen,
+      formBtnLabel: this.state.formOpen ? "Formu kapat" : "+ Yeni okul ekle",
+      toggleForm: () => this.setState({ formOpen: !this.state.formOpen }),
+      schoolFields: [
+        { label: "Okul adı", ph: "Örn. Başakşehir Asil ve Sinerji Koleji" },
+        { label: "İlçe / Şehir", ph: "Örn. Başakşehir / İstanbul" },
+        { label: "Açık adres", ph: "Örn. Kayabaşı Mah. Ulubatlı Hasan Cad. No: 8C" },
+        { label: "Harita (Google Maps) linki", ph: "https://maps.google.com/?q=…" }
+      ],
+      schools: SCHOOLS.map((s) => ({ name: s.name, district: s.district + " / İstanbul", slug: s.slug, count: s.count })),
+
+      templates: TEMPLATES.map((label, i) => ({
+        label,
+        on: () => this.setState({ tpl: i }),
+        bg: this.state.tpl === i ? "#1C1E1D" : "#FFFFFF",
+        fg: this.state.tpl === i ? "#FFFFFF" : "#4A4C4B",
+        line: this.state.tpl === i ? "#1C1E1D" : "#E2E0DA"
+      })),
+      selectedText: picked.length + " / " + SCHOOLS.length + " SEÇİLİ",
+      qrSchools: SCHOOLS.map((s, i) => {
+        const on = picked.indexOf(i) > -1;
+        return {
+          name: s.name, district: s.district + " / İstanbul", count: s.count,
+          tick: on ? "✓" : "",
+          bg: on ? "#FBFDFC" : "#FFFFFF",
+          boxBg: on ? "#0A6B3D" : "#FFFFFF",
+          boxLine: on ? "#0A6B3D" : "#D6D4CE",
+          on: () => this.setState({ picked: on ? picked.filter((x) => x !== i) : picked.concat([i]) })
+        };
+      }),
+      previewSchool: picked.length ? SCHOOLS[picked.slice().sort((a, b) => a - b)[0]].name : "Okul seçilmedi",
+      qrCells: qrCells,
+
+      contentAreas: [
+        { title: "Sayfalar", count: "6 sayfa", desc: "Ana sayfa, kurumsal, hizmetler, iletişim ve ön kayıt sayfalarının metinleri.", updated: "07.09.2026" },
+        { title: "Hizmetler", count: "6 kayıt", desc: "Personel taşımacılığı, okul servisi, filo kiralama, VIP ve havalimanı transferi.", updated: "05.09.2026" },
+        { title: "Referanslar", count: "40+ kurum", desc: "Okul ve kurum logoları, referans metinleri ve sıralama.", updated: "02.09.2026" },
+        { title: "SSS", count: "14 soru", desc: "Veli ve kurum tarafından en sık sorulan sorular.", updated: "28.08.2026" },
+        { title: "Blog", count: "9 yazı", desc: "Servis güvenliği, mevzuat ve operasyon yazıları.", updated: "21.08.2026" }
+      ],
+
+      settingFields: [
+        { label: "Şirket adı", value: "Serhan Turizm", ph: "" },
+        { label: "Telefon", value: "0543 912 63 49", ph: "" },
+        { label: "E-posta", value: "info@serhanturizm.com", ph: "" },
+        { label: "WhatsApp", value: "", ph: "+90 5xx xxx xx xx" },
+        { label: "Adres", value: "", ph: "Mahalle, cadde, no / ilçe" },
+        { label: "Çalışma saatleri", value: "", ph: "Pazartesi - Cumartesi: 08:00 - 18:00" }
+      ],
+      toggles: [
+        { label: "Yeni ön kayıtta e-posta", desc: "Veli formu gönderdiğinde bildirim gelsin." },
+        { label: "Teklif talebinde SMS", desc: "Kurumsal teklif taleplerinde anlık SMS." },
+        { label: "Haftalık özet raporu", desc: "Pazartesi sabahı geçen haftanın özeti." }
+      ].map((t, i) => ({
+        label: t.label, desc: t.desc,
+        on: () => {
+          const n = this.state.notif.slice();
+          n[i] = !n[i];
+          this.setState({ notif: n });
+        },
+        track: this.state.notif[i] ? "#0A6B3D" : "#D6D4CE",
+        justify: this.state.notif[i] ? "flex-end" : "flex-start"
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

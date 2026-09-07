@@ -61,6 +61,8 @@ export function QrPreview({ schoolId, schoolName, template }: Props) {
     };
   }, [schoolId, template]);
 
+  const [downloadingPdf, setDownloadingPdf] = useState(false);
+
   function handleDownloadSvg() {
     if (!svg) return;
     const blob = new Blob([svg], { type: "image/svg+xml" });
@@ -72,6 +74,35 @@ export function QrPreview({ schoolId, schoolName, template }: Props) {
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
+  }
+
+  async function handleDownloadPdf() {
+    if (!schoolId) return;
+    setDownloadingPdf(true);
+    try {
+      const res = await fetch("/api/admin/qr/pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ schoolIds: [schoolId], template: "poster" }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "PDF indirilemedi.");
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `qr-a4-poster-${schoolName.replace(/\s+/g, "-").toLowerCase()}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "PDF indirilirken hata oluştu.");
+    } finally {
+      setDownloadingPdf(false);
+    }
   }
 
   if (loading) {
@@ -105,11 +136,17 @@ export function QrPreview({ schoolId, schoolName, template }: Props) {
         {schoolName} — {template}
       </p>
       <div className={s.downloadActions}>
-        <button
-          type="button"
-          className={s.downloadButton}
-          onClick={handleDownloadSvg}
-        >
+        {template === "poster" && (
+          <button
+            type="button"
+            className={s.downloadPdfButton}
+            onClick={handleDownloadPdf}
+            disabled={downloadingPdf}
+          >
+            {downloadingPdf ? "PDF Hazırlanıyor…" : "A4 PDF İndir"}
+          </button>
+        )}
+        <button type="button" className={s.downloadButton} onClick={handleDownloadSvg}>
           SVG İndir
         </button>
       </div>

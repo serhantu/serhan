@@ -113,11 +113,15 @@ export default function EditSsuPage() {
 
       {error && <div className={s.errorBox}>{error}</div>}
 
-      <p className={s.statusText}>Durum: <strong>{active ? "Aktif" : "Pasif"}</strong></p>
+      <p className={s.statusText}>
+        Durum: <strong>{active ? "Aktif" : "Pasif"}</strong>
+      </p>
 
       <form onSubmit={handleUpdate}>
         <div className={s.field}>
-          <label htmlFor="question" className={s.label}>Soru *</label>
+          <label htmlFor="question" className={s.label}>
+            Soru *
+          </label>
           <input
             id="question"
             type="text"
@@ -129,7 +133,9 @@ export default function EditSsuPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="answer" className={s.label}>Cevap *</label>
+          <label htmlFor="answer" className={s.label}>
+            Cevap *
+          </label>
           <textarea
             id="answer"
             className={`${s.textarea} ${s.textareaTall}`}

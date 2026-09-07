@@ -37,8 +37,6 @@ export const brand = style({
   inlineSize: "fit-content",
 });
 
-
-
 export const nav = style({
   display: "flex",
   alignItems: "center",

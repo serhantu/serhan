@@ -17,6 +17,7 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Generated and ignored paths:
     "prisma/generated/**",
+    "html/**",
   ]),
 ]);
 

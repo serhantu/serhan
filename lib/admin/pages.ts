@@ -6,11 +6,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { requireAdminSession } from "@/lib/auth";
 import { generateSlug } from "@/lib/slug";
-import {
-  pageCreateSchema,
-  pageUpdateSchema,
-  pagePublishSchema,
-} from "@/lib/validation/cms";
+import { pageCreateSchema, pageUpdateSchema, pagePublishSchema } from "@/lib/validation/cms";
 
 export async function createPage(input: unknown) {
   await requireAdminSession();

@@ -13,7 +13,6 @@ export async function updateSiteSettings(input: unknown) {
   await requireAdminSession();
   const parsed = siteSettingsUpdateSchema.parse(input);
 
-
   await prisma.siteSettings.upsert({
     where: { id: SINGLETON_ID },
     update: {

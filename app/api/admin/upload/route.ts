@@ -125,10 +125,7 @@ export async function POST(req: NextRequest) {
   // 5. Binary magic bytes validation
   const detectedMime = validateImageMagicBytes(rawBuffer);
   if (!detectedMime || !ALLOWED_MIME_TYPES.has(detectedMime)) {
-    return NextResponse.json(
-      { error: "Geçersiz veya bozuk resim dosyası." },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "Geçersiz veya bozuk resim dosyası." }, { status: 400 });
   }
 
   try {

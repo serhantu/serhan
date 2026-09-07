@@ -88,6 +88,16 @@ export const schoolItemSelected = style({
   fontWeight: vars.font.weightMedium,
 });
 
+export const schoolItemText = style({
+  display: "flex",
+  flexDirection: "column",
+});
+
+export const schoolItemDistrict = style({
+  fontSize: vars.font.sizeXs,
+  color: vars.color.mutedForeground,
+});
+
 export const checkbox = style({
   accentColor: vars.color.primary,
 });
@@ -105,12 +115,16 @@ export const templateButton = style({
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
   background: vars.color.background,
+  color: vars.color.foreground,
   cursor: "pointer",
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
+  transition: "background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease",
   selectors: {
     "&:hover": {
       background: vars.color.muted,
+      color: vars.color.foreground,
+      borderColor: vars.color.border,
     },
   },
 });
@@ -119,6 +133,13 @@ export const templateButtonActive = style({
   background: vars.color.primary,
   color: vars.color.primaryForeground,
   borderColor: vars.color.primary,
+  selectors: {
+    "&:hover": {
+      background: "hsl(215 25% 22%)",
+      color: vars.color.primaryForeground,
+      borderColor: "hsl(215 25% 22%)",
+    },
+  },
 });
 
 export const batchActions = style({
@@ -139,7 +160,36 @@ export const batchButton = style({
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
   cursor: "pointer",
+  transition: "background-color 0.15s ease, opacity 0.15s ease",
   selectors: {
+    "&:hover:not(:disabled)": {
+      background: "hsl(215 25% 22%)",
+      color: vars.color.primaryForeground,
+    },
+    "&:disabled": {
+      opacity: "0.5",
+      cursor: "not-allowed",
+    },
+  },
+});
+
+export const batchPdfButton = style({
+  paddingBlock: vars.space.sm,
+  paddingInline: vars.space.lg,
+  inlineSize: "fit-content",
+  border: `1px solid ${vars.color.primary}`,
+  borderRadius: vars.radius.sm,
+  background: vars.color.background,
+  color: vars.color.primary,
+  fontSize: vars.font.sizeSm,
+  fontWeight: vars.font.weightMedium,
+  cursor: "pointer",
+  transition: "all 0.15s ease",
+  selectors: {
+    "&:hover:not(:disabled)": {
+      background: vars.color.primary,
+      color: vars.color.primaryForeground,
+    },
     "&:disabled": {
       opacity: "0.5",
       cursor: "not-allowed",

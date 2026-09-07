@@ -32,31 +32,45 @@ export function IletisimForm() {
 
   return (
     <form onSubmit={handleSubmit} className={s.form}>
-      <input type="text" name="_hp" tabIndex={-1} autoComplete="off" className={s.honeypot} aria-hidden="true" />
+      <input
+        type="text"
+        name="_hp"
+        tabIndex={-1}
+        autoComplete="off"
+        className={s.honeypot}
+        aria-hidden="true"
+      />
       {result?.error && (
         <div className={s.errorBox} role="alert">
           {result.error}
         </div>
       )}
 
-
       <div className={s.field}>
-        <label htmlFor="iletisim-adSoyad" className={s.label}>Ad Soyad *</label>
+        <label htmlFor="iletisim-adSoyad" className={s.label}>
+          Ad Soyad *
+        </label>
         <input id="iletisim-adSoyad" name="adSoyad" type="text" required className={s.input} />
       </div>
 
       <div className={s.field}>
-        <label htmlFor="iletisim-telefon" className={s.label}>Telefon *</label>
+        <label htmlFor="iletisim-telefon" className={s.label}>
+          Telefon *
+        </label>
         <input id="iletisim-telefon" name="telefon" type="tel" required className={s.input} />
       </div>
 
       <div className={s.field}>
-        <label htmlFor="iletisim-eposta" className={s.label}>E-posta</label>
+        <label htmlFor="iletisim-eposta" className={s.label}>
+          E-posta
+        </label>
         <input id="iletisim-eposta" name="eposta" type="email" className={s.input} />
       </div>
 
       <div className={s.field}>
-        <label htmlFor="iletisim-mesaj" className={s.label}>Mesaj *</label>
+        <label htmlFor="iletisim-mesaj" className={s.label}>
+          Mesaj *
+        </label>
         <textarea id="iletisim-mesaj" name="mesaj" required className={s.textarea} />
       </div>
 

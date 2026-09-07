@@ -38,17 +38,17 @@ export type OnKayitNotificationInput = {
   sinifKademe: string;
   veliAdSoyad: string;
   telefon: string;
+  telefon2?: string | null;
   eposta?: string | null;
   adres: string;
   tcKimlikMasked?: string | null;
+  refNo?: string | null;
   status: string;
   createdAt: string;
 };
 
 // A. Company notification → ADMIN_EMAIL.
-export async function sendOnKayitAdminNotification(
-  input: OnKayitNotificationInput,
-): Promise<void> {
+export async function sendOnKayitAdminNotification(input: OnKayitNotificationInput): Promise<void> {
   const from = RESEND_FROM_EMAIL;
   const admin = ADMIN_EMAIL;
   if (!from || !admin) {

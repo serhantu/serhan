@@ -4,7 +4,12 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { updateService, setServiceActive, getServiceForAdmin, deleteService } from "@/lib/admin/services";
+import {
+  updateService,
+  setServiceActive,
+  getServiceForAdmin,
+  deleteService,
+} from "@/lib/admin/services";
 import { ImageUpload } from "@/components/admin/image-upload";
 import * as s from "@/components/cms/admin-cms.css";
 
@@ -120,11 +125,15 @@ export default function EditHizmetPage() {
 
       {error && <div className={s.errorBox}>{error}</div>}
 
-      <p className={s.statusText}>Durum: <strong>{active ? "Aktif" : "Pasif"}</strong></p>
+      <p className={s.statusText}>
+        Durum: <strong>{active ? "Aktif" : "Pasif"}</strong>
+      </p>
 
       <form onSubmit={handleUpdate}>
         <div className={s.field}>
-          <label htmlFor="name" className={s.label}>Ad *</label>
+          <label htmlFor="name" className={s.label}>
+            Ad *
+          </label>
           <input
             id="name"
             type="text"
@@ -136,7 +145,9 @@ export default function EditHizmetPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="shortDescription" className={s.label}>Kısa Açıklama</label>
+          <label htmlFor="shortDescription" className={s.label}>
+            Kısa Açıklama
+          </label>
           <textarea
             id="shortDescription"
             className={`${s.textarea} ${s.textareaShort}`}
@@ -146,7 +157,9 @@ export default function EditHizmetPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="content" className={s.label}>İçerik *</label>
+          <label htmlFor="content" className={s.label}>
+            İçerik *
+          </label>
           <textarea
             id="content"
             className={`${s.textarea} ${s.textareaTall}`}
@@ -163,7 +176,6 @@ export default function EditHizmetPage() {
             label="Hizmet Resmi"
           />
         </div>
-
 
         <div className={s.buttonRow}>
           <button type="submit" disabled={isSubmitting}>

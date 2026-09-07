@@ -24,10 +24,26 @@ export default async function IletisimPage() {
 
       {settings.phone || settings.email || settings.address ? (
         <div>
-          {settings.phone && <p><strong>Telefon:</strong> {settings.phone}</p>}
-          {settings.email && <p><strong>E-posta:</strong> {settings.email}</p>}
-          {settings.address && <p><strong>Adres:</strong> {settings.address}</p>}
-          {settings.workingHours && <p><strong>Çalışma Saatleri:</strong> {settings.workingHours}</p>}
+          {settings.phone && (
+            <p>
+              <strong>Telefon:</strong> {settings.phone}
+            </p>
+          )}
+          {settings.email && (
+            <p>
+              <strong>E-posta:</strong> {settings.email}
+            </p>
+          )}
+          {settings.address && (
+            <p>
+              <strong>Adres:</strong> {settings.address}
+            </p>
+          )}
+          {settings.workingHours && (
+            <p>
+              <strong>Çalışma Saatleri:</strong> {settings.workingHours}
+            </p>
+          )}
         </div>
       ) : null}
 

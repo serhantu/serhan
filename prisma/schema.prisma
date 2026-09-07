@@ -88,6 +88,9 @@ model Okul {
   slug          String   @unique // immutable from the application perspective
   aktif         Boolean  @default(true) // false disables the QR form; URL stays valid
   tcKimlikIster Boolean  @default(false)
+  ilce          String?  // İlçe / Şehir (örn. Yenimahalle / Ankara)
+  adres         String?  // Açık adres
+  haritaUrl     String?  // Google Maps pin/konum bağlantısı
   createdAt     DateTime @default(now())
 
   onKayitlar OnKayit[]
@@ -112,8 +115,12 @@ model OnKayit {
   adres              String       // historical snapshot
   veliAdSoyad        String       // historical snapshot
   telefon            String       // historical snapshot
+  telefon2           String?      // 2. iletişim numarası
   eposta             String?      // historical snapshot
+  refNo              String?      // Başvuru referans no (örn: SRV-824912)
   status             TalepDurumu  @default(YENI)
+  isRead             Boolean      @default(false)
+  readAt             DateTime?
   notificationSent   Boolean      @default(false)
   notificationSentAt DateTime?
   createdAt          DateTime     @default(now())
@@ -128,6 +135,7 @@ model OnKayit {
   @@index([ogrenciId])
   @@index([createdAt])
   @@index([status])
+  @@index([isRead])
 }
 
 // ---------------------------------------------------------------------------
@@ -159,10 +167,13 @@ model Teklif {
   eposta    String
   mesaj     String
   status    TalepDurumu @default(YENI)
+  isRead    Boolean     @default(false)
+  readAt    DateTime?
   createdAt DateTime    @default(now())
 
   @@index([createdAt])
   @@index([status])
+  @@index([isRead])
 }
 
 model IsBasvuru {
@@ -172,10 +183,13 @@ model IsBasvuru {
   eposta    String
   mesaj     String
   status    TalepDurumu @default(YENI)
+  isRead    Boolean     @default(false)
+  readAt    DateTime?
   createdAt DateTime    @default(now())
 
   @@index([createdAt])
   @@index([status])
+  @@index([isRead])
 }
 
 model Iletisim {
@@ -185,10 +199,13 @@ model Iletisim {
   eposta    String
   mesaj     String
   status    TalepDurumu @default(YENI)
+  isRead    Boolean     @default(false)
+  readAt    DateTime?
   createdAt DateTime    @default(now())
 
   @@index([createdAt])
   @@index([status])
+  @@index([isRead])
 }
 
 model AracGeriBildirim {
@@ -198,10 +215,13 @@ model AracGeriBildirim {
   eposta    String
   mesaj     String
   status    TalepDurumu @default(YENI)
+  isRead    Boolean     @default(false)
+  readAt    DateTime?
   createdAt DateTime    @default(now())
 
   @@index([createdAt])
   @@index([status])
+  @@index([isRead])
 }
 
 // ---------------------------------------------------------------------------

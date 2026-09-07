@@ -117,11 +117,15 @@ export default function EditSayfaPage() {
 
       {error && <div className={s.errorBox}>{error}</div>}
 
-      <p className={s.statusText}>Durum: <strong>{status}</strong></p>
+      <p className={s.statusText}>
+        Durum: <strong>{status}</strong>
+      </p>
 
       <form onSubmit={handleUpdate}>
         <div className={s.field}>
-          <label htmlFor="title" className={s.label}>Başlık *</label>
+          <label htmlFor="title" className={s.label}>
+            Başlık *
+          </label>
           <input
             id="title"
             type="text"
@@ -133,7 +137,9 @@ export default function EditSayfaPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="excerpt" className={s.label}>Özet</label>
+          <label htmlFor="excerpt" className={s.label}>
+            Özet
+          </label>
           <textarea
             id="excerpt"
             className={`${s.textarea} ${s.textareaShort}`}
@@ -143,7 +149,9 @@ export default function EditSayfaPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="content" className={s.label}>İçerik *</label>
+          <label htmlFor="content" className={s.label}>
+            İçerik *
+          </label>
           <textarea
             id="content"
             className={`${s.textarea} ${s.textareaTall}`}

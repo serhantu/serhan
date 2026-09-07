@@ -111,3 +111,36 @@ export const inlineLink = style({
   display: "inline-block",
   inlineSize: "fit-content",
 });
+
+export const phoneActions = style({
+  display: "inline-flex",
+  marginInlineStart: vars.space.sm,
+  gap: vars.space.xs,
+  fontSize: vars.font.sizeXs,
+});
+
+export const phoneCallLink = style({
+  color: vars.color.linkBlue,
+  textDecoration: "none",
+  fontWeight: vars.font.weightMedium,
+  inlineSize: "fit-content",
+  ":hover": {
+    textDecoration: "underline",
+  },
+});
+
+export const phoneWaLink = style({
+  color: vars.color.success,
+  textDecoration: "none",
+  fontWeight: vars.font.weightMedium,
+  inlineSize: "fit-content",
+  ":hover": {
+    textDecoration: "underline",
+  },
+});
+
+export const listValueAddress = style({
+  margin: 0,
+  color: vars.color.foreground,
+  whiteSpace: "pre-wrap",
+});

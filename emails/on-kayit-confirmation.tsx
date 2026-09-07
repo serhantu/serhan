@@ -16,9 +16,8 @@ export function OnKayitConfirmationEmail(props: ConfirmationEmailProps) {
       <h2 style={{ fontSize: "18px" }}>Ön Kayıt Talebiniz Alınmıştır</h2>
       <p>Sayın {props.veliAdSoyad},</p>
       <p>
-        {props.okulAd} okulu için {props.ogrenciAd} adlı öğrenciye ait ön kayıt
-        talebiniz alınmıştır. Talebiniz incelendikten sonra sizinle iletişime
-        geçilecektir.
+        {props.okulAd} okulu için {props.ogrenciAd} adlı öğrenciye ait ön kayıt talebiniz
+        alınmıştır. Talebiniz incelendikten sonra sizinle iletişime geçilecektir.
       </p>
       <p style={{ marginTop: "16px", fontSize: "12px", color: "#666" }}>
         Bu otomatik bir bilgilendirme e-postasıdır.

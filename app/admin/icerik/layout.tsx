@@ -13,11 +13,7 @@ const navItems = [
   { href: "/admin/icerik/blog", label: "Blog" },
 ];
 
-export default async function IcerikLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function IcerikLayout({ children }: { children: React.ReactNode }) {
   await requireAdminSession();
 
   return (

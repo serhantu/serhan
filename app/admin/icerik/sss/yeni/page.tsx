@@ -47,7 +47,9 @@ export default function YeniSsuPage() {
 
       <form onSubmit={handleSubmit}>
         <div className={s.field}>
-          <label htmlFor="question" className={s.label}>Soru *</label>
+          <label htmlFor="question" className={s.label}>
+            Soru *
+          </label>
           <input
             id="question"
             type="text"
@@ -59,7 +61,9 @@ export default function YeniSsuPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="answer" className={s.label}>Cevap *</label>
+          <label htmlFor="answer" className={s.label}>
+            Cevap *
+          </label>
           <textarea
             id="answer"
             className={`${s.textarea} ${s.textareaTall}`}

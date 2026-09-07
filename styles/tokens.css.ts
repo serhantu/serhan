@@ -27,6 +27,36 @@ export const vars = createGlobalTheme(":root", {
     danger: "hsl(0 70% 45%)",
     dangerBg: "hsl(0 70% 96%)",
     success: "hsl(140 50% 38%)",
+
+    // Sand palette tokens (QR On-Kayıt system) — 100% HSL
+    sandBg: "hsl(39 44% 93%)",
+    sandBgTranslucent: "hsl(39 44% 93% / 0.88)",
+    sandBgFooter: "hsl(39 44% 93% / 0.75)",
+    sandSurface: "hsl(40 50% 97%)",
+    sandCardBg: "hsl(0 0% 100%)",
+    sandCardTranslucent: "hsl(0 0% 100% / 0.6)",
+    sandInk: "hsl(143 18% 14%)",
+    sandInkMuted: "hsl(143 18% 14% / 0.75)",
+    sandInkSubtle: "hsl(143 18% 14% / 0.55)",
+    sandInkFaint: "hsl(143 18% 14% / 0.38)",
+    sandInkJadeHover: "hsl(143 18% 14% / 0.05)",
+    sandInkJadePressed: "hsl(143 18% 14% / 0.04)",
+    sandLine: "hsl(143 18% 14% / 0.14)",
+    sandLineSubtle: "hsl(143 18% 14% / 0.12)",
+    sandLineMedium: "hsl(143 18% 14% / 0.22)",
+    sandLineStrong: "hsl(143 18% 14% / 0.25)",
+    sandLineHover: "hsl(143 18% 14% / 0.4)",
+    sandLineFocus: "hsl(143 18% 14% / 0.5)",
+    sandLineDashed: "hsl(143 18% 14% / 0.3)",
+    sandAccent: "hsl(157 55% 27%)",
+    sandAccentSoft: "hsl(157 55% 27% / 0.09)",
+    sandAccentInk: "hsl(0 0% 100%)",
+    sandError: "hsl(4 67% 51%)",
+    sandErrorBg: "hsl(4 67% 51% / 0.1)",
+    sandErrorLine: "hsl(4 67% 51% / 0.25)",
+    whatsapp: "hsl(142 70% 49%)",
+    whatsappInk: "hsl(149 78% 11%)",
+    linkBlue: "hsl(217 91% 60%)",
   },
 
   font: {
@@ -66,7 +96,6 @@ export const vars = createGlobalTheme(":root", {
     full: "999rem",
   },
 
-
   shadow: {
     sm: "0 1px 2px hsl(0 0% 0% / 0.06)",
     md: "0 2px 8px hsl(0 0% 0% / 0.08)",
@@ -95,5 +124,3 @@ export const breakpoints = {
   lg: "64rem",
   xl: "80rem",
 } as const;
-
-

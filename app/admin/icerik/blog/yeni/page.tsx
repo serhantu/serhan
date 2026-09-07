@@ -9,7 +9,6 @@ import { BlogPostCreateInput, blogPostCreateSchema } from "@/lib/validation/cms"
 import { ImageUpload } from "@/components/admin/image-upload";
 import * as s from "@/components/cms/admin-cms.css";
 
-
 export default function YeniBlogPage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -55,7 +54,9 @@ export default function YeniBlogPage() {
 
       <form onSubmit={handleSubmit}>
         <div className={s.field}>
-          <label htmlFor="title" className={s.label}>Başlık *</label>
+          <label htmlFor="title" className={s.label}>
+            Başlık *
+          </label>
           <input
             id="title"
             type="text"
@@ -67,7 +68,9 @@ export default function YeniBlogPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="slug" className={s.label}>Slug *</label>
+          <label htmlFor="slug" className={s.label}>
+            Slug *
+          </label>
           <input
             id="slug"
             type="text"
@@ -79,7 +82,9 @@ export default function YeniBlogPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="excerpt" className={s.label}>Özet</label>
+          <label htmlFor="excerpt" className={s.label}>
+            Özet
+          </label>
           <textarea
             id="excerpt"
             className={`${s.textarea} ${s.textareaShort}`}
@@ -89,7 +94,9 @@ export default function YeniBlogPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="content" className={s.label}>İçerik *</label>
+          <label htmlFor="content" className={s.label}>
+            İçerik *
+          </label>
           <textarea
             id="content"
             className={`${s.textarea} ${s.textareaTall}`}
@@ -106,7 +113,6 @@ export default function YeniBlogPage() {
             label="Kapak Resmi"
           />
         </div>
-
 
         <div className={s.buttonRow}>
           <button type="submit" disabled={isSubmitting}>

@@ -4,11 +4,7 @@ import { requireAdminSession } from "@/lib/auth";
 import { getCustomerDetail } from "@/lib/admin/crm";
 import * as styles from "./page.css";
 
-export default async function CustomerDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function CustomerDetailPage({ params }: { params: Promise<{ id: string }> }) {
   await requireAdminSession();
   const { id } = await params;
 

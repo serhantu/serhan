@@ -9,7 +9,6 @@ import { ReferenceCreateInput, referenceCreateSchema } from "@/lib/validation/cm
 import { ImageUpload } from "@/components/admin/image-upload";
 import * as s from "@/components/cms/admin-cms.css";
 
-
 export default function YeniReferansPage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,7 +52,9 @@ export default function YeniReferansPage() {
 
       <form onSubmit={handleSubmit}>
         <div className={s.field}>
-          <label htmlFor="name" className={s.label}>Ad *</label>
+          <label htmlFor="name" className={s.label}>
+            Ad *
+          </label>
           <input
             id="name"
             type="text"
@@ -72,9 +73,10 @@ export default function YeniReferansPage() {
           />
         </div>
 
-
         <div className={s.field}>
-          <label htmlFor="websiteUrl" className={s.label}>Website URL</label>
+          <label htmlFor="websiteUrl" className={s.label}>
+            Website URL
+          </label>
           <input
             id="websiteUrl"
             type="text"
@@ -85,7 +87,9 @@ export default function YeniReferansPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="description" className={s.label}>Açıklama</label>
+          <label htmlFor="description" className={s.label}>
+            Açıklama
+          </label>
           <textarea
             id="description"
             className={`${s.textarea} ${s.textareaMid}`}

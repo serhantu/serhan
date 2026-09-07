@@ -26,13 +26,20 @@ export async function createSchool(input: SchoolCreateInput): Promise<{
   if (!parsed.success) {
     return { ok: false, error: "Geçersiz okul bilgileri." };
   }
-  const { ad, tcKimlikIster } = parsed.data;
+  const { ad, tcKimlikIster, ilce, adres, haritaUrl } = parsed.data;
 
   const existing = await prisma.okul.findMany({ select: { slug: true } });
   const slug = uniqueSlug(ad, new Set(existing.map((e) => e.slug)));
 
   const created = await prisma.okul.create({
-    data: { ad, slug, tcKimlikIster },
+    data: {
+      ad,
+      slug,
+      tcKimlikIster,
+      ilce: ilce || null,
+      adres: adres || null,
+      haritaUrl: haritaUrl || null,
+    },
     select: { id: true },
   });
 
@@ -40,8 +47,7 @@ export async function createSchool(input: SchoolCreateInput): Promise<{
   return { ok: true, id: created.id };
 }
 
-// Update a school. Only `ad`, `aktif`, `tcKimlikIster` may change. The slug and
-// every other field are deliberately excluded from the write.
+// Update a school. Only `ad`, `aktif`, `tcKimlikIster`, `ilce`, `adres`, `haritaUrl` may change.
 export async function updateSchool(input: SchoolUpdateInput): Promise<{
   ok: boolean;
   error?: string;
@@ -51,7 +57,7 @@ export async function updateSchool(input: SchoolUpdateInput): Promise<{
   if (!parsed.success) {
     return { ok: false, error: "Geçersiz okul bilgileri." };
   }
-  const { id, ad, aktif, tcKimlikIster } = parsed.data;
+  const { id, ad, aktif, tcKimlikIster, ilce, adres, haritaUrl } = parsed.data;
 
   const exists = await prisma.okul.findUnique({
     where: { id },
@@ -63,7 +69,14 @@ export async function updateSchool(input: SchoolUpdateInput): Promise<{
 
   await prisma.okul.update({
     where: { id },
-    data: { ad, aktif, tcKimlikIster },
+    data: {
+      ad,
+      aktif,
+      tcKimlikIster,
+      ilce: ilce || null,
+      adres: adres || null,
+      haritaUrl: haritaUrl || null,
+    },
   });
 
   revalidatePath("/admin/okullar");

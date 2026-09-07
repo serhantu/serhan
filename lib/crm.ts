@@ -20,7 +20,6 @@ import "server-only";
 import { prisma } from "@/lib/db";
 import { requireAdminSession } from "@/lib/auth";
 
-
 // Normalize phone for matching: remove spaces, dashes, parentheses, etc.
 // Return as digits only. This allows flexible input while matching deterministically.
 function normalizePhone(phone: string): string {
@@ -203,4 +202,3 @@ export async function getCustomerStudents(musteriId: string) {
     orderBy: { createdAt: "desc" },
   });
 }
-

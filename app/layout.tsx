@@ -9,9 +9,7 @@ export const metadata: Metadata = {
   description: "Serhan Turizm kurumsal web sitesi.",
 };
 
-export default function RootLayout({
-  children,
-}: LayoutProps<"/">) {
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="tr">
       <body>{children}</body>

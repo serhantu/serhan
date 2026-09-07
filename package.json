@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --webpack -p 3009",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "seed:schools": "tsx --env-file=.env scripts/seed-schools.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1121.0",
@@ -16,6 +19,7 @@
     "@vanilla-extract/css": "^1.21.2",
     "@vanilla-extract/next-plugin": "^2.5.2",
     "next": "16.3.0",
+    "pdf-lib": "^1.17.1",
     "pg": "^8.23.0",
     "qrcode": "^1.5.4",
     "react": "19.2.8",

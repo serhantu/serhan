@@ -27,12 +27,20 @@ export const title = style({
   marginBlockEnd: vars.space.md,
 });
 
-
-
 export const helper = style({
   color: vars.color.mutedForeground,
   marginBlockEnd: vars.space.lg,
   lineHeight: vars.font.lineNormal,
+});
+
+export const errorMessage = style({
+  padding: vars.space.sm,
+  borderRadius: vars.radius.md,
+  backgroundColor: vars.color.dangerBg,
+  color: vars.color.danger,
+  border: `1px solid ${vars.color.danger}`,
+  fontSize: vars.font.sizeSm,
+  marginBlockEnd: vars.space.md,
 });
 
 export const form = style({

@@ -4,10 +4,14 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { updateReference, setReferenceActive, getReferenceForAdmin, deleteReference } from "@/lib/admin/references";
+import {
+  updateReference,
+  setReferenceActive,
+  getReferenceForAdmin,
+  deleteReference,
+} from "@/lib/admin/references";
 import { ImageUpload } from "@/components/admin/image-upload";
 import * as s from "@/components/cms/admin-cms.css";
-
 
 export default function EditReferansPage() {
   const router = useRouter();
@@ -121,11 +125,15 @@ export default function EditReferansPage() {
 
       {error && <div className={s.errorBox}>{error}</div>}
 
-      <p className={s.statusText}>Durum: <strong>{active ? "Aktif" : "Pasif"}</strong></p>
+      <p className={s.statusText}>
+        Durum: <strong>{active ? "Aktif" : "Pasif"}</strong>
+      </p>
 
       <form onSubmit={handleUpdate}>
         <div className={s.field}>
-          <label htmlFor="name" className={s.label}>Ad *</label>
+          <label htmlFor="name" className={s.label}>
+            Ad *
+          </label>
           <input
             id="name"
             type="text"
@@ -144,9 +152,10 @@ export default function EditReferansPage() {
           />
         </div>
 
-
         <div className={s.field}>
-          <label htmlFor="websiteUrl" className={s.label}>Website URL</label>
+          <label htmlFor="websiteUrl" className={s.label}>
+            Website URL
+          </label>
           <input
             id="websiteUrl"
             type="text"
@@ -157,7 +166,9 @@ export default function EditReferansPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="description" className={s.label}>Açıklama</label>
+          <label htmlFor="description" className={s.label}>
+            Açıklama
+          </label>
           <textarea
             id="description"
             className={`${s.textarea} ${s.textareaMid}`}

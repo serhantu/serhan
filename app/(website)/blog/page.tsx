@@ -27,9 +27,7 @@ export default async function BlogPage() {
           {posts.map((post) => (
             <article key={post.id} className={s.blogItem}>
               <h2>
-                <Link href={`/blog/${post.slug}`}>
-                  {post.title}
-                </Link>
+                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
               </h2>
               {post.excerpt && <p>{post.excerpt}</p>}
               {post.publishedAt && (

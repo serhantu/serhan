@@ -12,19 +12,13 @@ const navItems = [
   { href: "/admin/ayarlar", label: "Ayarlar" },
 ];
 
-
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className={page}>
       <header className={nav}>
         <nav aria-label="Admin navigasyonu" className={links}>
           {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={link}
-              prefetch={true}
-            >
+            <Link key={item.href} href={item.href} className={link} prefetch={true}>
               {item.label}
             </Link>
           ))}

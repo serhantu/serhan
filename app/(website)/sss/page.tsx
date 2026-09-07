@@ -24,7 +24,9 @@ export default async function SssPage() {
         <div className={s.listBlock}>
           {faqs.map((faq, index) => (
             <div key={faq.id} className={s.faqItem}>
-              <h3>{index + 1}. {faq.question}</h3>
+              <h3>
+                {index + 1}. {faq.question}
+              </h3>
               <p>{faq.answer}</p>
             </div>
           ))}

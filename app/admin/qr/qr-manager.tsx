@@ -11,9 +11,7 @@ type Props = {
 };
 
 export function QrManager({ schools }: Props) {
-  const [selectedSchoolId, setSelectedSchoolId] = useState<string>(
-    schools[0]?.id ?? "",
-  );
+  const [selectedSchoolId, setSelectedSchoolId] = useState<string>(schools[0]?.id ?? "");
   const [template, setTemplate] = useState<TemplateType>("label");
   const [checkedSchoolIds, setCheckedSchoolIds] = useState<Set<string>>(
     new Set(schools.map((sc) => sc.id)),
@@ -84,6 +82,41 @@ export function QrManager({ schools }: Props) {
     }
   }
 
+  async function handleBatchPdfDownload() {
+    if (checkedSchoolIds.size === 0) return;
+    setDownloadingBatch(true);
+
+    try {
+      const res = await fetch("/api/admin/qr/pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          schoolIds: Array.from(checkedSchoolIds),
+          template: "poster",
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Toplu PDF indirme başarısız oldu.");
+      }
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `qr-a4-posterlar-toplu-${checkedSchoolIds.size}-okul.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Toplu PDF indirme hatası.");
+    } finally {
+      setDownloadingBatch(false);
+    }
+  }
+
   if (schools.length === 0) {
     return (
       <div className={s.emptyState}>
@@ -117,7 +150,7 @@ export function QrManager({ schools }: Props) {
               className={`${s.templateButton} ${template === "sticker" ? s.templateButtonActive : ""}`}
               onClick={() => setTemplate("sticker")}
             >
-              Sticker (5x5 cm)
+              Sticker (10x10 cm)
             </button>
           </div>
         </div>
@@ -132,7 +165,9 @@ export function QrManager({ schools }: Props) {
                 checked={checkedSchoolIds.size === schools.length}
                 onChange={toggleAll}
               />
-              <span>Tümünü Seç ({checkedSchoolIds.size}/{schools.length})</span>
+              <span>
+                Tümünü Seç ({checkedSchoolIds.size}/{schools.length})
+              </span>
             </label>
           </div>
           <div className={s.schoolList}>
@@ -154,7 +189,12 @@ export function QrManager({ schools }: Props) {
                       toggleCheck(school.id);
                     }}
                   />
-                  <span>{school.ad}</span>
+                  <div className={s.schoolItemText}>
+                    <span>{school.ad}</span>
+                    {school.ilce ? (
+                      <span className={s.schoolItemDistrict}>{school.ilce}</span>
+                    ) : null}
+                  </div>
                 </div>
               );
             })}
@@ -171,6 +211,18 @@ export function QrManager({ schools }: Props) {
                 ? "İndiriliyor..."
                 : `Seçili Okulları İndir (${checkedSchoolIds.size})`}
             </button>
+            {template === "poster" && (
+              <button
+                type="button"
+                className={s.batchPdfButton}
+                onClick={handleBatchPdfDownload}
+                disabled={downloadingBatch || checkedSchoolIds.size === 0}
+              >
+                {downloadingBatch
+                  ? "PDF Hazırlanıyor..."
+                  : `Toplu A4 PDF İndir (${checkedSchoolIds.size})`}
+              </button>
+            )}
           </div>
         </div>
       </section>

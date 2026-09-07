@@ -4,11 +4,7 @@ import * as s from "./layout.css";
 
 export const dynamic = "force-dynamic";
 
-export default async function WebsiteLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function WebsiteLayout({ children }: { children: React.ReactNode }) {
   const settings = await getSiteSettings();
 
   return (
@@ -18,8 +14,6 @@ export default async function WebsiteLayout({
           <Link href="/" className={s.brand}>
             {settings.companyName || "Serhan Turizm"}
           </Link>
-
-
 
           <nav className={s.nav} aria-label="Ana Navigasyon">
             <Link href="/" className={s.navLink}>
@@ -60,12 +54,8 @@ export default async function WebsiteLayout({
               {settings.aboutShort ||
                 "Öğrenci ve personel taşımacılığında güvenli, konforlu ve zamanında hizmet anlayışı."}
             </p>
-            {settings.phone && (
-              <p className={s.footerText}>Tel: {settings.phone}</p>
-            )}
-            {settings.email && (
-              <p className={s.footerText}>E-posta: {settings.email}</p>
-            )}
+            {settings.phone && <p className={s.footerText}>Tel: {settings.phone}</p>}
+            {settings.email && <p className={s.footerText}>E-posta: {settings.email}</p>}
           </div>
 
           <div className={s.footerCol}>
@@ -150,7 +140,8 @@ export default async function WebsiteLayout({
 
         <div className={s.footerBottom}>
           <span>
-            © {new Date().getFullYear()} {settings.companyName || "Serhan Turizm"}. Tüm hakları saklıdır.
+            © {new Date().getFullYear()} {settings.companyName || "Serhan Turizm"}. Tüm hakları
+            saklıdır.
           </span>
           <span>Güvenli & Konforlu Ulaşım</span>
         </div>

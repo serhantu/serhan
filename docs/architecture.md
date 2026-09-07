@@ -62,17 +62,17 @@ Both share the same `lib/`, `prisma/`, and `styles/`.
 
 ## Tech stack
 
-| Concern        | Choice                                    |
-| -------------- | ----------------------------------------- |
-| Framework      | Next.js (App Router)                      |
-| UI             | React + TypeScript (strict)               |
-| Styling        | Vanilla Extract (design tokens only)      |
-| Database       | PostgreSQL                                |
-| ORM            | Prisma                                    |
-| Validation     | Zod (shared client/server schemas)        |
-| Email          | Resend                                    |
-| QR codes       | `qrcode`                                  |
-| Deployment     | Vercel                                    |
+| Concern    | Choice                               |
+| ---------- | ------------------------------------ |
+| Framework  | Next.js (App Router)                 |
+| UI         | React + TypeScript (strict)          |
+| Styling    | Vanilla Extract (design tokens only) |
+| Database   | PostgreSQL                           |
+| ORM        | Prisma                               |
+| Validation | Zod (shared client/server schemas)   |
+| Email      | Resend                               |
+| QR codes   | `qrcode`                             |
+| Deployment | Vercel                               |
 
 ### Prisma (v7) specifics
 

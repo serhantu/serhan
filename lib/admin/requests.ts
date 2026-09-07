@@ -6,7 +6,6 @@ import { requireAdminSession } from "@/lib/auth";
 import { maskStoredTcKimlik } from "@/lib/tc-kimlik";
 import { sendOnKayitAdminNotification } from "@/lib/resend";
 
-
 export const requestTypes = [
   "TEKLIF",
   "IS_BASVURUSU",
@@ -22,12 +21,15 @@ export type RequestListItem = {
   type: UnifiedRequestType;
   summary: string;
   status: "YENI" | "INCELENIYOR" | "ILETISIME_GECILDI" | "TAMAMLANDI";
+  isRead: boolean;
+  readAt?: Date | null;
   createdAt: Date;
 };
 
 export type RequestListResponse = {
   items: RequestListItem[];
   total: number;
+  unreadTotal: number;
   page: number;
   limit: number;
   totalPages: number;
@@ -45,8 +47,13 @@ const requestSummary = {
     `${row.adSoyad || "İletişim"} · ${row.eposta || row.telefon || "İletişim bilgisi yok"}`,
   ARAC_GERI_BILDIRIM: (row: { adSoyad: string; eposta: string | null; telefon: string | null }) =>
     `${row.adSoyad || "Araç geri bildirim"} · ${row.eposta || row.telefon || "İletişim bilgisi yok"}`,
-  ON_KAYIT: (row: { ogrenciAd: string; ogrenciSoyad: string; okul: { ad: string } | null }) =>
-    `${row.ogrenciAd} ${row.ogrenciSoyad} · ${row.okul?.ad ?? "Okul"}`,
+  ON_KAYIT: (row: {
+    ogrenciAd: string;
+    ogrenciSoyad: string;
+    refNo?: string | null;
+    okul: { ad: string } | null;
+  }) =>
+    `${row.refNo ? `[${row.refNo}] ` : ""}${row.ogrenciAd} ${row.ogrenciSoyad} · ${row.okul?.ad ?? "Okul"}`,
 } as const;
 
 function mapStatus(value: string): RequestListItem["status"] {
@@ -76,6 +83,7 @@ export async function listRequests(input?: {
   limit?: number;
   type?: UnifiedRequestType | "TUMU";
   status?: RequestListItem["status"] | "TUMU";
+  readStatus?: "TUMU" | "OKUNMAMIS" | "OKUNMUS";
   search?: string;
 }): Promise<RequestListResponse> {
   await requireAdminSession();
@@ -84,6 +92,7 @@ export async function listRequests(input?: {
   const limit = Math.min(100, Math.max(1, Number(input?.limit ?? 20)));
   const typeFilter = input?.type ?? "TUMU";
   const statusFilter = input?.status ?? "TUMU";
+  const readFilter = input?.readStatus ?? "TUMU";
   const search = (input?.search ?? "").trim();
 
   const selectedTypes: UnifiedRequestType[] =
@@ -101,10 +110,12 @@ export async function listRequests(input?: {
       if (search) {
         if (type === "ON_KAYIT") {
           base.where.OR = [
+            { refNo: { contains: search, mode: searchMode } },
             { ogrenciAd: { contains: search, mode: searchMode } },
             { ogrenciSoyad: { contains: search, mode: searchMode } },
             { veliAdSoyad: { contains: search, mode: searchMode } },
             { telefon: { contains: search, mode: searchMode } },
+            { telefon2: { contains: search, mode: searchMode } },
             { eposta: { contains: search, mode: searchMode } },
             { adres: { contains: search, mode: searchMode } },
             { okul: { ad: { contains: search, mode: searchMode } } },
@@ -128,6 +139,8 @@ export async function listRequests(input?: {
             telefon: true,
             eposta: true,
             status: true,
+            isRead: true,
+            readAt: true,
             createdAt: true,
           },
           orderBy: { createdAt: "desc" },
@@ -138,6 +151,8 @@ export async function listRequests(input?: {
           type: "TEKLIF" as const,
           summary: requestSummary.TEKLIF(row),
           status: mapStatus(row.status),
+          isRead: row.isRead || row.status !== "YENI",
+          readAt: row.readAt,
           createdAt: row.createdAt,
         }));
       }
@@ -151,6 +166,8 @@ export async function listRequests(input?: {
             telefon: true,
             eposta: true,
             status: true,
+            isRead: true,
+            readAt: true,
             createdAt: true,
           },
           orderBy: { createdAt: "desc" },
@@ -161,6 +178,8 @@ export async function listRequests(input?: {
           type: "IS_BASVURUSU" as const,
           summary: requestSummary.IS_BASVURUSU(row),
           status: mapStatus(row.status),
+          isRead: row.isRead || row.status !== "YENI",
+          readAt: row.readAt,
           createdAt: row.createdAt,
         }));
       }
@@ -174,6 +193,8 @@ export async function listRequests(input?: {
             telefon: true,
             eposta: true,
             status: true,
+            isRead: true,
+            readAt: true,
             createdAt: true,
           },
           orderBy: { createdAt: "desc" },
@@ -184,6 +205,8 @@ export async function listRequests(input?: {
           type: "ILETISIM" as const,
           summary: requestSummary.ILETISIM(row),
           status: mapStatus(row.status),
+          isRead: row.isRead || row.status !== "YENI",
+          readAt: row.readAt,
           createdAt: row.createdAt,
         }));
       }
@@ -197,6 +220,8 @@ export async function listRequests(input?: {
             telefon: true,
             eposta: true,
             status: true,
+            isRead: true,
+            readAt: true,
             createdAt: true,
           },
           orderBy: { createdAt: "desc" },
@@ -207,6 +232,8 @@ export async function listRequests(input?: {
           type: "ARAC_GERI_BILDIRIM" as const,
           summary: requestSummary.ARAC_GERI_BILDIRIM(row),
           status: mapStatus(row.status),
+          isRead: row.isRead || row.status !== "YENI",
+          readAt: row.readAt,
           createdAt: row.createdAt,
         }));
       }
@@ -217,7 +244,10 @@ export async function listRequests(input?: {
           id: true,
           ogrenciAd: true,
           ogrenciSoyad: true,
+          refNo: true,
           status: true,
+          isRead: true,
+          readAt: true,
           createdAt: true,
           okul: { select: { ad: true } },
         },
@@ -229,20 +259,35 @@ export async function listRequests(input?: {
         type: "ON_KAYIT" as const,
         summary: requestSummary.ON_KAYIT(row),
         status: mapStatus(row.status),
+        isRead: row.isRead || row.status !== "YENI",
+        readAt: row.readAt,
         createdAt: row.createdAt,
       }));
     }),
   );
 
-  const allItems = perTypeItems.flat().sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
-  const total = allItems.length;
+  const allItems = perTypeItems
+    .flat()
+    .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
+  const unreadTotal = allItems.filter((item) => !item.isRead).length;
+
+  const filteredItems =
+    readFilter === "OKUNMAMIS"
+      ? allItems.filter((item) => !item.isRead)
+      : readFilter === "OKUNMUS"
+        ? allItems.filter((item) => item.isRead)
+        : allItems;
+
+  const total = filteredItems.length;
   const totalPages = Math.max(1, Math.ceil(total / limit));
   const pageStart = (page - 1) * limit;
-  const items = allItems.slice(pageStart, pageStart + limit);
+  const items = filteredItems.slice(pageStart, pageStart + limit);
 
   return {
     items,
     total,
+    unreadTotal,
     page,
     limit,
     totalPages,
@@ -252,8 +297,7 @@ export async function listRequests(input?: {
 export async function getRequestDetail(type: UnifiedRequestType, id: string) {
   await requireAdminSession();
   if (type === "TEKLIF") {
-
-    return prisma.teklif.findUnique({
+    const item = await prisma.teklif.findUnique({
       where: { id },
       select: {
         id: true,
@@ -262,13 +306,26 @@ export async function getRequestDetail(type: UnifiedRequestType, id: string) {
         eposta: true,
         mesaj: true,
         status: true,
+        isRead: true,
+        readAt: true,
         createdAt: true,
       },
     });
+    if (item && !item.isRead) {
+      await prisma.teklif.update({
+        where: { id },
+        data: { isRead: true, readAt: new Date() },
+      });
+      item.isRead = true;
+      item.readAt = new Date();
+      revalidatePath("/admin/talepler");
+      revalidatePath("/admin");
+    }
+    return item;
   }
 
   if (type === "IS_BASVURUSU") {
-    return prisma.isBasvuru.findUnique({
+    const item = await prisma.isBasvuru.findUnique({
       where: { id },
       select: {
         id: true,
@@ -277,13 +334,26 @@ export async function getRequestDetail(type: UnifiedRequestType, id: string) {
         eposta: true,
         mesaj: true,
         status: true,
+        isRead: true,
+        readAt: true,
         createdAt: true,
       },
     });
+    if (item && !item.isRead) {
+      await prisma.isBasvuru.update({
+        where: { id },
+        data: { isRead: true, readAt: new Date() },
+      });
+      item.isRead = true;
+      item.readAt = new Date();
+      revalidatePath("/admin/talepler");
+      revalidatePath("/admin");
+    }
+    return item;
   }
 
   if (type === "ILETISIM") {
-    return prisma.iletisim.findUnique({
+    const item = await prisma.iletisim.findUnique({
       where: { id },
       select: {
         id: true,
@@ -292,13 +362,26 @@ export async function getRequestDetail(type: UnifiedRequestType, id: string) {
         eposta: true,
         mesaj: true,
         status: true,
+        isRead: true,
+        readAt: true,
         createdAt: true,
       },
     });
+    if (item && !item.isRead) {
+      await prisma.iletisim.update({
+        where: { id },
+        data: { isRead: true, readAt: new Date() },
+      });
+      item.isRead = true;
+      item.readAt = new Date();
+      revalidatePath("/admin/talepler");
+      revalidatePath("/admin");
+    }
+    return item;
   }
 
   if (type === "ARAC_GERI_BILDIRIM") {
-    return prisma.aracGeriBildirim.findUnique({
+    const item = await prisma.aracGeriBildirim.findUnique({
       where: { id },
       select: {
         id: true,
@@ -307,16 +390,31 @@ export async function getRequestDetail(type: UnifiedRequestType, id: string) {
         eposta: true,
         mesaj: true,
         status: true,
+        isRead: true,
+        readAt: true,
         createdAt: true,
       },
     });
+    if (item && !item.isRead) {
+      await prisma.aracGeriBildirim.update({
+        where: { id },
+        data: { isRead: true, readAt: new Date() },
+      });
+      item.isRead = true;
+      item.readAt = new Date();
+      revalidatePath("/admin/talepler");
+      revalidatePath("/admin");
+    }
+    return item;
   }
 
-  return prisma.onKayit.findUnique({
+  const item = await prisma.onKayit.findUnique({
     where: { id },
     include: {
       okul: { select: { ad: true, slug: true } },
-      musteri: { select: { id: true, adSoyad: true, telefon: true, eposta: true, createdAt: true } },
+      musteri: {
+        select: { id: true, adSoyad: true, telefon: true, eposta: true, createdAt: true },
+      },
       ogrenci: {
         select: {
           id: true,
@@ -329,6 +427,19 @@ export async function getRequestDetail(type: UnifiedRequestType, id: string) {
       consent: true,
     },
   });
+
+  if (item && !item.isRead) {
+    await prisma.onKayit.update({
+      where: { id },
+      data: { isRead: true, readAt: new Date() },
+    });
+    item.isRead = true;
+    item.readAt = new Date();
+    revalidatePath("/admin/talepler");
+    revalidatePath("/admin");
+  }
+
+  return item;
 }
 
 export async function updateRequestStatus(input: {
@@ -338,7 +449,6 @@ export async function updateRequestStatus(input: {
 }): Promise<{ ok: boolean; error?: string }> {
   await requireAdminSession();
   const parsed = z
-
     .object({
       id: z.string().min(1),
       type: actionTypeSchema,
@@ -351,32 +461,106 @@ export async function updateRequestStatus(input: {
   }
 
   const { id, type, status } = parsed.data;
+  const updateData = { status, isRead: true, readAt: new Date() };
 
   if (type === "TEKLIF") {
     const exists = await prisma.teklif.findUnique({ where: { id }, select: { id: true } });
     if (!exists) return { ok: false, error: "Talep bulunamadı." };
-    await prisma.teklif.update({ where: { id }, data: { status } });
+    await prisma.teklif.update({ where: { id }, data: updateData });
   } else if (type === "IS_BASVURUSU") {
     const exists = await prisma.isBasvuru.findUnique({ where: { id }, select: { id: true } });
     if (!exists) return { ok: false, error: "Talep bulunamadı." };
-    await prisma.isBasvuru.update({ where: { id }, data: { status } });
+    await prisma.isBasvuru.update({ where: { id }, data: updateData });
   } else if (type === "ILETISIM") {
     const exists = await prisma.iletisim.findUnique({ where: { id }, select: { id: true } });
     if (!exists) return { ok: false, error: "Talep bulunamadı." };
-    await prisma.iletisim.update({ where: { id }, data: { status } });
+    await prisma.iletisim.update({ where: { id }, data: updateData });
   } else if (type === "ARAC_GERI_BILDIRIM") {
-    const exists = await prisma.aracGeriBildirim.findUnique({ where: { id }, select: { id: true } });
+    const exists = await prisma.aracGeriBildirim.findUnique({
+      where: { id },
+      select: { id: true },
+    });
     if (!exists) return { ok: false, error: "Talep bulunamadı." };
-    await prisma.aracGeriBildirim.update({ where: { id }, data: { status } });
+    await prisma.aracGeriBildirim.update({ where: { id }, data: updateData });
   } else {
     const exists = await prisma.onKayit.findUnique({ where: { id }, select: { id: true } });
     if (!exists) return { ok: false, error: "Talep bulunamadı." };
-    await prisma.onKayit.update({ where: { id }, data: { status } });
+    await prisma.onKayit.update({ where: { id }, data: updateData });
   }
 
   revalidatePath("/admin/talepler");
   revalidatePath("/admin");
   return { ok: true };
+}
+
+export async function toggleRequestReadStatus(input: {
+  id: string;
+  type: UnifiedRequestType;
+  isRead: boolean;
+}): Promise<{ ok: boolean; error?: string }> {
+  await requireAdminSession();
+  const parsed = z
+    .object({
+      id: z.string().min(1),
+      type: actionTypeSchema,
+      isRead: z.boolean(),
+    })
+    .safeParse(input);
+
+  if (!parsed.success) {
+    return { ok: false, error: "Geçersiz parametreler." };
+  }
+
+  const { id, type, isRead } = parsed.data;
+  const updateData = { isRead, readAt: isRead ? new Date() : null };
+
+  if (type === "TEKLIF") {
+    const exists = await prisma.teklif.findUnique({ where: { id }, select: { id: true } });
+    if (!exists) return { ok: false, error: "Talep bulunamadı." };
+    await prisma.teklif.update({ where: { id }, data: updateData });
+  } else if (type === "IS_BASVURUSU") {
+    const exists = await prisma.isBasvuru.findUnique({ where: { id }, select: { id: true } });
+    if (!exists) return { ok: false, error: "Talep bulunamadı." };
+    await prisma.isBasvuru.update({ where: { id }, data: updateData });
+  } else if (type === "ILETISIM") {
+    const exists = await prisma.iletisim.findUnique({ where: { id }, select: { id: true } });
+    if (!exists) return { ok: false, error: "Talep bulunamadı." };
+    await prisma.iletisim.update({ where: { id }, data: updateData });
+  } else if (type === "ARAC_GERI_BILDIRIM") {
+    const exists = await prisma.aracGeriBildirim.findUnique({
+      where: { id },
+      select: { id: true },
+    });
+    if (!exists) return { ok: false, error: "Talep bulunamadı." };
+    await prisma.aracGeriBildirim.update({ where: { id }, data: updateData });
+  } else {
+    const exists = await prisma.onKayit.findUnique({ where: { id }, select: { id: true } });
+    if (!exists) return { ok: false, error: "Talep bulunamadı." };
+    await prisma.onKayit.update({ where: { id }, data: updateData });
+  }
+
+  revalidatePath("/admin/talepler");
+  revalidatePath("/admin");
+  revalidatePath(`/admin/talepler/${type.toLowerCase().replace(/_/g, "-")}/${id}`);
+  return { ok: true };
+}
+
+export async function toggleRequestReadAction(formData: FormData): Promise<void> {
+  "use server";
+
+  const id = String(formData.get("id") ?? "");
+  const type = String(formData.get("type") ?? "");
+  const isRead = formData.get("isRead") === "true";
+
+  const result = await toggleRequestReadStatus({
+    id,
+    type: actionTypeSchema.parse(type),
+    isRead,
+  });
+
+  if (!result.ok) {
+    throw new Error(result.error ?? "Okunma durumu değiştirilemedi.");
+  }
 }
 
 export async function changeRequestStatus(formData: FormData): Promise<void> {
@@ -401,7 +585,9 @@ export async function changeRequestStatus(formData: FormData): Promise<void> {
   revalidatePath("/admin/talepler");
 }
 
-export async function resendOnKayitNotification(input: { id: string }): Promise<{ ok: boolean; error?: string }> {
+export async function resendOnKayitNotification(input: {
+  id: string;
+}): Promise<{ ok: boolean; error?: string }> {
   await requireAdminSession();
   const parsed = z.object({ id: z.string().min(1) }).safeParse(input);
 

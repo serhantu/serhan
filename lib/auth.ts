@@ -39,10 +39,7 @@ function getSessionSecret(): string {
 }
 
 function signPayload(payloadBase64: string): string {
-  return crypto
-    .createHmac("sha256", getSessionSecret())
-    .update(payloadBase64)
-    .digest("hex");
+  return crypto.createHmac("sha256", getSessionSecret()).update(payloadBase64).digest("hex");
 }
 
 function timingSafeMatch(a: string, b: string): boolean {
@@ -107,21 +104,21 @@ export async function loginAdmin(formData: FormData): Promise<void> {
   });
 
   if (!parsed.success) {
-    throw new Error("E-posta ve şifre gereklidir.");
+    redirect("/admin/login?error=missing");
   }
 
   const configuredEmail = process.env.ADMIN_LOGIN_EMAIL;
   const configuredPassword = process.env.ADMIN_LOGIN_PASSWORD;
 
   if (!configuredEmail || !configuredPassword) {
-    throw new Error("Admin authentication is not configured for this environment.");
+    redirect("/admin/login?error=config");
   }
 
   const emailMatches = timingSafeMatch(parsed.data.email, configuredEmail);
   const passwordMatches = timingSafeMatch(parsed.data.password, configuredPassword);
 
   if (!emailMatches || !passwordMatches) {
-    throw new Error("Geçersiz admin bilgileri.");
+    redirect("/admin/login?error=invalid");
   }
 
   const session: AdminSession = {

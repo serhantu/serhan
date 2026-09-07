@@ -22,19 +22,22 @@ export type EmailValue = z.infer<typeof emailSchema>;
 export const schoolCreateSchema = z.object({
   ad: z.string().trim().min(1, "Okul adı gereklidir.").max(120),
   tcKimlikIster: z.boolean(),
+  ilce: z.string().trim().max(100).optional(),
+  adres: z.string().trim().max(255).optional(),
+  haritaUrl: z.string().trim().max(500).optional(),
 });
 
 export type SchoolCreateInput = z.infer<typeof schoolCreateSchema>;
 
-// Update allows only: name, active state, TC requirement.
-// `id` is validated as a non-empty string and is used only to locate the record;
-// it is never trusted as authorization (auth lands in a later phase) and the
-// slug is never accepted.
+// Update allows only: name, active state, TC requirement, district, address, and map URL.
 export const schoolUpdateSchema = z.object({
   id: z.string().min(1),
   ad: z.string().trim().min(1, "Okul adı gereklidir.").max(120),
   aktif: z.boolean(),
   tcKimlikIster: z.boolean(),
+  ilce: z.string().trim().max(100).optional(),
+  adres: z.string().trim().max(255).optional(),
+  haritaUrl: z.string().trim().max(500).optional(),
 });
 
 export type SchoolUpdateInput = z.infer<typeof schoolUpdateSchema>;
@@ -65,6 +68,7 @@ export type OnKayitFormValues = {
   tcKimlikNo?: string;
   veliAdSoyad: string;
   telefon: string;
+  telefon2?: string;
   eposta?: string;
   adres: string;
   privacyAcknowledged: boolean;
@@ -82,12 +86,18 @@ export function onKayitSchema(
     sinifKademe: z.string().trim().min(1, "Sınıf/kademe gereklidir.").max(40),
     tcKimlikNo: z.string().trim().optional().default(""),
     veliAdSoyad: z.string().trim().min(1, "Veli ad soyad gereklidir.").max(120),
-    telefon: z.string().trim().min(1, "Telefon gereklidir.").max(20),
+    telefon: z.string().trim().min(1, "İletişim numarası gereklidir.").max(25),
+    telefon2: z
+      .string()
+      .trim()
+      .max(25)
+      .optional()
+      .transform((v) => (v === "" || v === undefined ? undefined : v)),
     eposta: z
       .union([z.literal(""), z.string().trim().email("Geçerli bir e-posta giriniz.")])
       .optional()
       .transform((v) => (v === "" || v === undefined ? undefined : v)),
-    adres: z.string().trim().min(1, "Adres gereklidir.").max(300),
+    adres: z.string().trim().min(1, "Öğrencinin alınacağı adres gereklidir.").max(300),
     // Privacy acknowledgement is always required and is separate from explicit
     // consent: it reflects being informed, not generic approval.
     privacyAcknowledged: z.literal(true),
@@ -111,5 +121,8 @@ export function onKayitSchema(
   }
 
   // Not required: drop any client-supplied TC value so it is never stored.
-  return base.transform((data) => ({ ...data, tcKimlikNo: undefined })) as z.ZodType<OnKayitFormValues>;
+  return base.transform((data) => ({
+    ...data,
+    tcKimlikNo: undefined,
+  })) as z.ZodType<OnKayitFormValues>;
 }

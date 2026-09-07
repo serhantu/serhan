@@ -43,9 +43,7 @@ export function SettingsForm({ initialData }: Props) {
     <div>
       {message && (
         <div
-          className={
-            message.type === "success" ? s.successMessage : s.errorMessage
-          }
+          className={message.type === "success" ? s.successMessage : s.errorMessage}
           role="status"
         >
           {message.text}

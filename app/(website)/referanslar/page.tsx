@@ -25,17 +25,16 @@ export default async function ReferanslarPage() {
         <div className={s.grid}>
           {references.map((ref) => (
             <div key={ref.id} className={s.refCard}>
-              {ref.logoUrl && (
-                <img
-                  src={ref.logoUrl}
-                  alt={ref.name}
-                  className={s.refLogo}
-                />
-              )}
+              {ref.logoUrl && <img src={ref.logoUrl} alt={ref.name} className={s.refLogo} />}
               <h3>{ref.name}</h3>
               {ref.description && <p>{ref.description}</p>}
               {ref.websiteUrl && (
-                <a href={ref.websiteUrl} target="_blank" rel="noopener noreferrer" className={s.refLink}>
+                <a
+                  href={ref.websiteUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={s.refLink}
+                >
                   Web Sitesi
                 </a>
               )}

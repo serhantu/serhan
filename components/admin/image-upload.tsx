@@ -116,13 +116,7 @@ export function ImageUpload({ value, onChange, label = "Resim" }: Props) {
             if (e.key === "Enter" || e.key === " ") handleClick();
           }}
         >
-          <input
-            ref={inputRef}
-            type="file"
-            accept="image/*"
-            hidden
-            onChange={handleFileChange}
-          />
+          <input ref={inputRef} type="file" accept="image/*" hidden onChange={handleFileChange} />
           <p>{uploading ? "Yükleniyor…" : "Resim yüklemek için sürükleyin veya tıklayın"}</p>
         </div>
       )}

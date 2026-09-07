@@ -40,9 +40,7 @@ export default async function HizmetPage({ params }: Props) {
       {service.imageUrl && (
         <img src={service.imageUrl} alt={service.name} className={s.coverImage} />
       )}
-      <article className={s.article}>
-        {service.content}
-      </article>
+      <article className={s.article}>{service.content}</article>
     </main>
   );
 }

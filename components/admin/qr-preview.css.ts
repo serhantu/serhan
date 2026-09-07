@@ -39,13 +39,44 @@ export const downloadButton = style({
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
   background: vars.color.background,
+  color: vars.color.foreground,
   cursor: "pointer",
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
+  transition: "all 0.15s ease",
   selectors: {
-    "&:hover": {
+    "&:hover:not(:disabled)": {
       background: vars.color.accent,
       borderColor: vars.color.primary,
+      color: vars.color.foreground,
+    },
+    "&:disabled": {
+      opacity: 0.5,
+      cursor: "not-allowed",
+    },
+  },
+});
+
+export const downloadPdfButton = style({
+  display: "inline-flex",
+  alignItems: "center",
+  gap: vars.space.xs,
+  inlineSize: "fit-content",
+  paddingBlock: vars.space.xs,
+  paddingInline: vars.space.md,
+  border: `1px solid ${vars.color.primary}`,
+  borderRadius: vars.radius.sm,
+  background: vars.color.primary,
+  color: vars.color.primaryForeground,
+  cursor: "pointer",
+  fontSize: vars.font.sizeSm,
+  fontWeight: vars.font.weightMedium,
+  transition: "all 0.15s ease",
+  selectors: {
+    "&:hover:not(:disabled)": {
+      background: "hsl(215 25% 22%)",
+      borderColor: "hsl(215 25% 22%)",
+      color: vars.color.primaryForeground,
     },
     "&:disabled": {
       opacity: 0.5,

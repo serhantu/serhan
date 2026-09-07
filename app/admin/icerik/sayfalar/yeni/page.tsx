@@ -51,7 +51,9 @@ export default function YeniSayfaPage() {
 
       <form onSubmit={handleSubmit}>
         <div className={s.field}>
-          <label htmlFor="title" className={s.label}>Başlık *</label>
+          <label htmlFor="title" className={s.label}>
+            Başlık *
+          </label>
           <input
             id="title"
             type="text"
@@ -63,7 +65,9 @@ export default function YeniSayfaPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="slug" className={s.label}>Slug *</label>
+          <label htmlFor="slug" className={s.label}>
+            Slug *
+          </label>
           <input
             id="slug"
             type="text"
@@ -75,7 +79,9 @@ export default function YeniSayfaPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="excerpt" className={s.label}>Özet</label>
+          <label htmlFor="excerpt" className={s.label}>
+            Özet
+          </label>
           <textarea
             id="excerpt"
             className={`${s.textarea} ${s.textareaShort}`}
@@ -85,7 +91,9 @@ export default function YeniSayfaPage() {
         </div>
 
         <div className={s.field}>
-          <label htmlFor="content" className={s.label}>İçerik *</label>
+          <label htmlFor="content" className={s.label}>
+            İçerik *
+          </label>
           <textarea
             id="content"
             className={`${s.textarea} ${s.textareaTall}`}

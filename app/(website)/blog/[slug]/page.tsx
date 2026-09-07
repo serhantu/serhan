@@ -36,7 +36,9 @@ export default async function BlogDetailPage({ params }: Props) {
 
   return (
     <main className={s.main}>
-      <Link href="/blog" className={s.backLink}>← Geri Dön</Link>
+      <Link href="/blog" className={s.backLink}>
+        ← Geri Dön
+      </Link>
 
       <h1 className={s.headline}>{post.title}</h1>
 
@@ -50,21 +52,15 @@ export default async function BlogDetailPage({ params }: Props) {
         </p>
       )}
 
-      {post.coverImage && (
-        <img
-          src={post.coverImage}
-          alt={post.title}
-          className={s.coverImage}
-        />
-      )}
+      {post.coverImage && <img src={post.coverImage} alt={post.title} className={s.coverImage} />}
 
       {post.excerpt && <p className={s.excerpt}>{post.excerpt}</p>}
 
-      <article className={s.article}>
-        {post.content}
-      </article>
+      <article className={s.article}>{post.content}</article>
 
-      <Link href="/blog" className={s.backLink}>← Geri Dön</Link>
+      <Link href="/blog" className={s.backLink}>
+        ← Geri Dön
+      </Link>
     </main>
   );
 }

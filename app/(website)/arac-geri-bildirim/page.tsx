@@ -13,7 +13,8 @@ export default function AracGeriBildirimPage() {
       <div>
         <h1 className={s.title}>Araç Geri Bildirim</h1>
         <p className={s.description}>
-          Hizmet kalitemizi artırmak için servis araçlarımız, sürücülerimiz ve yolculuk deneyiminizle ilgili görüşlerinizi paylaşabilirsiniz.
+          Hizmet kalitemizi artırmak için servis araçlarımız, sürücülerimiz ve yolculuk
+          deneyiminizle ilgili görüşlerinizi paylaşabilirsiniz.
         </p>
       </div>
       <AracGeriBildirimForm />

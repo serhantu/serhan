@@ -24,19 +24,18 @@ import { getClientIp } from "@/lib/ip";
 import { LEGAL_VERSIONS, REGISTRATION_LEGAL_CONFIG } from "@/lib/legal/config";
 import { maskTcKimlik } from "@/lib/tc-kimlik";
 import { onKayitSchema } from "@/lib/validation";
-import {
-  sendOnKayitAdminNotification,
-  sendOnKayitParentConfirmation,
-} from "@/lib/resend";
+import { sendOnKayitAdminNotification, sendOnKayitParentConfirmation } from "@/lib/resend";
 import { resolveOrCreateCustomer, resolveOrCreateStudent } from "@/lib/crm";
 
 export type SubmitOnKayitInput = Record<string, string | undefined>;
 
 export type SubmitOnKayitResult =
-  | { ok: true; id: string }
+  | { ok: true; id: string; refNo: string }
   | { ok: false; error: string; fieldErrors?: Record<string, string> };
 
-function fieldErrorsFromZod(issue: { path: (string | number)[]; message: string }[]): Record<string, string> {
+function fieldErrorsFromZod(
+  issue: { path: (string | number)[]; message: string }[],
+): Record<string, string> {
   const out: Record<string, string> = {};
   for (const i of issue) {
     const key = String(i.path[0] ?? "_");
@@ -62,16 +61,36 @@ export async function submitOnKayit(
     return { ok: false, error: "Bu okul için ön kayıt şu anda kapalı." };
   }
 
+  // Pre-process friendly form mappings if passed
+  const preprocessed: Record<string, string | undefined> = { ...formData };
+
+  // If ogrenciAdSoyad provided instead of split names
+  if (!preprocessed.ogrenciAd && !preprocessed.ogrenciSoyad && preprocessed.ogrenciAdSoyad) {
+    const parts = preprocessed.ogrenciAdSoyad.trim().split(/\s+/);
+    if (parts.length > 1) {
+      preprocessed.ogrenciSoyad = parts.pop();
+      preprocessed.ogrenciAd = parts.join(" ");
+    } else {
+      preprocessed.ogrenciAd = parts[0] || "";
+      preprocessed.ogrenciSoyad = parts[0] || "";
+    }
+  }
+
+  // If kademe + sinif are provided separately
+  if (!preprocessed.sinifKademe) {
+    if (preprocessed.kademe && preprocessed.sinif) {
+      preprocessed.sinifKademe = `${preprocessed.kademe} — ${preprocessed.sinif}`;
+    } else {
+      preprocessed.sinifKademe = preprocessed.sinif || preprocessed.kademe;
+    }
+  }
+
   // 3. Pick the schema based on the school's TC requirement AND the
-  //    server-controlled explicit-consent requirement. The explicit-consent
-  //    flag comes from REGISTRATION_LEGAL_CONFIG (never from the client).
-  //    FormData delivers checkbox/boolean values as strings ("true" when
-  //    checked, absent when unchecked). Coerce the known boolean fields to
-  //    real booleans before validation so Zod's `literal(true)` checks hold.
+  //    server-controlled explicit-consent requirement.
   const BOOLEAN_FIELDS = ["privacyAcknowledged", "explicitConsent", "marketingConsent"] as const;
-  const normalized: Record<string, string | boolean | undefined> = { ...formData };
+  const normalized: Record<string, string | boolean | undefined> = { ...preprocessed };
   for (const key of BOOLEAN_FIELDS) {
-    const raw = formData[key];
+    const raw = preprocessed[key];
     normalized[key] = raw === "true";
   }
 
@@ -93,16 +112,13 @@ export async function submitOnKayit(
   const v = parsed.data;
 
   // 5. TC minimization: store last 4 digits only when the school requires it.
-  //    When not required, the schema already dropped tcKimlikNo to undefined.
   const tcKimlikNo = okul.tcKimlikIster && v.tcKimlikNo ? v.tcKimlikNo.slice(-4) : null;
 
   const ip = getClientIp(await headers());
   const consentAt = new Date();
+  const refNo = "SRV-" + Math.floor(100000 + Math.random() * 900000);
 
-  // 6 (new). CRM: Resolve or create customer and student before transaction.
-  // This happens outside the transaction so we can handle phone normalization
-  // and matching deterministically. If resolution fails, the entire submission
-  // fails; we do not create OnKayit without clear customer identity.
+  // 6. CRM: Resolve or create customer and student before transaction.
   let musteriId: string;
   let ogrenciId: string;
 
@@ -127,7 +143,7 @@ export async function submitOnKayit(
     return { ok: false, error: "Müşteri ve öğrenci kimliği çözümlenemedi." };
   }
 
-  // 7 (formerly 6). Single transaction: OnKayit + Consent (atomic).
+  // 7. Single transaction: OnKayit + Consent (atomic).
   const kayit = await prisma.$transaction(async (tx) => {
     const created = await tx.onKayit.create({
       data: {
@@ -141,7 +157,9 @@ export async function submitOnKayit(
         adres: v.adres,
         veliAdSoyad: v.veliAdSoyad,
         telefon: v.telefon,
+        telefon2: v.telefon2 ?? null,
         eposta: v.eposta ?? null,
+        refNo,
         status: "YENI",
       },
     });
@@ -151,14 +169,9 @@ export async function submitOnKayit(
         onKayitId: created.id,
         privacyNoticeVersion: LEGAL_VERSIONS.privacyNotice,
         privacyAcknowledgedAt: consentAt,
-        // Explicit consent is stored as given. When the flow does NOT require
-        // it, the value may be false/absent and the timestamp is left null —
-        // the database model is preserved without adding unnecessary legal state.
         explicitConsent: v.explicitConsent,
         explicitConsentAt:
-          REGISTRATION_LEGAL_CONFIG.explicitConsentRequired && v.explicitConsent
-            ? consentAt
-            : null,
+          REGISTRATION_LEGAL_CONFIG.explicitConsentRequired && v.explicitConsent ? consentAt : null,
         marketingConsent: v.marketingConsent,
         marketingConsentAt: v.marketingConsent ? consentAt : null,
         ipAddress: ip ?? "",
@@ -168,7 +181,7 @@ export async function submitOnKayit(
     return created;
   });
 
-  // 8 (formerly 7). Email notifications OUTSIDE the transaction.
+  // 8. Email notifications OUTSIDE the transaction.
   try {
     await sendOnKayitAdminNotification({
       okulAd: okul.ad,
@@ -177,9 +190,11 @@ export async function submitOnKayit(
       sinifKademe: v.sinifKademe,
       veliAdSoyad: v.veliAdSoyad,
       telefon: v.telefon,
+      telefon2: v.telefon2 ?? null,
       eposta: v.eposta ?? null,
       adres: v.adres,
       tcKimlikMasked: tcKimlikNo ? maskTcKimlik(tcKimlikNo.padStart(11, "0")) : null,
+      refNo,
       status: "YENI",
       createdAt: kayit.createdAt.toLocaleString("tr-TR"),
     });
@@ -198,12 +213,8 @@ export async function submitOnKayit(
       data: { notificationSent: true, notificationSentAt: new Date() },
     });
   } catch {
-    // Keep notificationSent = false. Do NOT roll back OnKayit/Consent.
-    // Log server-side without any sensitive form data.
-    console.error(
-      `[on-kayit] notification email failed for kayit ${kayit.id} (school ${okul.id})`,
-    );
+    console.error(`[on-kayit] notification email failed for kayit ${kayit.id} (school ${okul.id})`);
   }
 
-  return { ok: true, id: kayit.id };
+  return { ok: true, id: kayit.id, refNo };
 }
