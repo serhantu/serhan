@@ -55,6 +55,15 @@ export async function submitTeklif(formData: FormData): Promise<FormSubmitResult
   // Best-effort notification
   try {
     await sendFormAdminNotification("TEKLIF", parsed.data);
+    if (parsed.data.eposta) {
+      const { sendTemplateEmail } = await import("@/lib/email-templates");
+      await sendTemplateEmail({
+        to: parsed.data.eposta,
+        template: "TALEBINIZI_ALDIK",
+        data: { name: parsed.data.adSoyad },
+        subject: "Talebiniz Alındı — Serhan Turizm",
+      });
+    }
   } catch {
     // Notification failure does not block form submission
   }
@@ -86,6 +95,15 @@ export async function submitIletisim(formData: FormData): Promise<FormSubmitResu
 
   try {
     await sendFormAdminNotification("ILETISIM", parsed.data);
+    if (parsed.data.eposta) {
+      const { sendTemplateEmail } = await import("@/lib/email-templates");
+      await sendTemplateEmail({
+        to: parsed.data.eposta,
+        template: "TALEBINIZI_ALDIK",
+        data: { name: parsed.data.adSoyad },
+        subject: "İletişim Talebiniz Alındı — Serhan Turizm",
+      });
+    }
   } catch {
     // Notification failure does not block form submission
   }
@@ -117,6 +135,15 @@ export async function submitIsBasvuru(formData: FormData): Promise<FormSubmitRes
 
   try {
     await sendFormAdminNotification("IS_BASVURUSU", parsed.data);
+    if (parsed.data.eposta) {
+      const { sendTemplateEmail } = await import("@/lib/email-templates");
+      await sendTemplateEmail({
+        to: parsed.data.eposta,
+        template: "IS_BASVURUSU",
+        data: { name: parsed.data.adSoyad },
+        subject: "İş Başvurunuz Alındı — Serhan Turizm",
+      });
+    }
   } catch {
     // Notification failure does not block form submission
   }
@@ -148,6 +175,19 @@ export async function submitAracGeriBildirim(formData: FormData): Promise<FormSu
 
   try {
     await sendFormAdminNotification("ARAC_GERI_BILDIRIM", parsed.data);
+    if (parsed.data.eposta) {
+      const { sendTemplateEmail } = await import("@/lib/email-templates");
+      await sendTemplateEmail({
+        to: parsed.data.eposta,
+        template: "TALEBINIZI_ALDIK",
+        data: {
+          name: parsed.data.adSoyad,
+          customMessage:
+            "Araç geri bildiriminiz başarıyla alındı. Kalite ve güvenlik standartlarımız gereği geri bildiriminiz titizlikle incelenecektir.",
+        },
+        subject: "Geri Bildiriminiz Alındı — Serhan Turizm",
+      });
+    }
   } catch {
     // Notification failure does not block form submission
   }

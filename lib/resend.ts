@@ -9,7 +9,6 @@
 
 import { Resend } from "resend";
 import { OnKayitAdminEmail } from "@/emails/on-kayit-admin";
-import { OnKayitConfirmationEmail } from "@/emails/on-kayit-confirmation";
 
 let cached: Resend | null = null;
 
@@ -28,8 +27,9 @@ export function getResendClient(): Resend {
   return cached;
 }
 
-export const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL;
-export const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+export const RESEND_FROM_EMAIL =
+  process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+export const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "serhanturdev@gmail.com";
 
 export type OnKayitNotificationInput = {
   okulAd: string;
@@ -70,19 +70,14 @@ export async function sendOnKayitParentConfirmation(input: {
   veliAdSoyad: string;
   eposta: string;
 }): Promise<void> {
-  const from = RESEND_FROM_EMAIL;
-  if (!from) {
-    throw new Error("RESEND_FROM_EMAIL is not configured.");
-  }
-
-  await getResendClient().emails.send({
-    from,
+  const { sendTemplateEmail } = await import("@/lib/email-templates");
+  await sendTemplateEmail({
     to: input.eposta,
+    template: "OKUL_SERVISI",
+    data: {
+      name: input.veliAdSoyad,
+      customMessage: `${input.okulAd} okulu için ${input.ogrenciAd} adlı öğrenciye ait ön kayıt talebiniz alınmıştır. Operasyon ekibimiz talebinizi inceleyecek ve en kısa sürede sizinle iletişime geçecektir.`,
+    },
     subject: `Ön Kayıt Talebiniz Alınmıştır — ${input.okulAd}`,
-    react: OnKayitConfirmationEmail({
-      okulAd: input.okulAd,
-      ogrenciAd: input.ogrenciAd,
-      veliAdSoyad: input.veliAdSoyad,
-    }),
   });
 }

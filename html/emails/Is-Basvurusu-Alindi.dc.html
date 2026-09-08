@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #F2F1EE; font-family: 'Schibsted Grotesk', system-ui, sans-serif; }
+    * { box-sizing: border-box; }
+    a { color: #0A6B3D; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</helmet>
+
+<div style="background: #F2F1EE; padding: 40px 20px">
+  <table width="100%" style="max-width: 600px; margin: 0 auto; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04)">
+    <tr>
+      <td style="padding: 40px 32px; color: #1C1E1D; line-height: 1.6">
+
+        <div style="text-align: center; margin-bottom: 36px">
+          <img src="../uploads/serhan_logo-55534f86.png" alt="Serhan Turizm" style="max-width: 200px; height: auto">
+        </div>
+
+        <h1 style="font-size: 24px; font-weight: 600; letter-spacing: -0.02em; text-align: center; margin: 0 0 12px 0">İş başvurunuz alındı</h1>
+        <p style="font-size: 15px; color: #6B6B66; text-align: center; margin: 0 0 32px 0">Başvurunuz başarıyla kaydedildi. Kısa sürede sizinle iletişime geçeceğiz.</p>
+
+        <div style="background: #EAF3EE; border-left: 4px solid #0A6B3D; padding: 16px; margin-bottom: 32px; border-radius: 4px">
+          <p style="font-size: 14px; color: #4A4C4B; margin: 0">
+            <strong>Başvuru numaranız:</strong><br>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">#{{ appNo }}</span>
+          </p>
+        </div>
+
+        <p style="font-size: 15px; color: #4A4C4B; margin: 0 0 20px 0">
+          Merhaba <strong>{{ name }}</strong>,
+        </p>
+
+        <p style="font-size: 15px; color: #4A4C4B; margin: 0 0 20px 0; line-height: 1.7">
+          Serhan Turizm'e başvurunuz için teşekkür ederiz. İK ekibimiz başvurunuzu inceleyecek ve uygun olması halinde sizi mülakata davet edecektir.
+        </p>
+
+        <div style="text-align: center; margin: 32px 0">
+          <a href="https://serhanturizm.com/basvuru-takip" style="display: inline-block; background: #0A6B3D; color: #FFFFFF; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; text-decoration: none">Başvuruyu Takip Et</a>
+        </div>
+
+        <p style="font-size: 14px; color: #6B6B66; margin: 32px 0 0 0; padding-top: 24px; border-top: 1px solid #D6D4CE">
+          <strong>Serhan Turizm</strong><br>
+          Bahçelievler Mah. Hareket Ordusu Sok. No: 7A<br>
+          Bahçelievler / İstanbul<br><br>
+          <a href="tel:05439126349">0543 912 63 49</a><br>
+          <a href="mailto:info@serhanturizm.com">info@serhanturizm.com</a>
+        </p>
+
+        <p style="font-size: 12px; color: #A8A8A2; margin: 16px 0 0 0; text-align: center">
+          © 2026 Serhan Turizm. Tüm hakları saklıdır.
+        </p>
+
+      </td>
+    </tr>
+  </table>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:600,&quot;height&quot;:800},&quot;name&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Başvuran&quot;},&quot;appNo&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;STZ-APP-20260908-001&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      name: this.props.name ?? "Başvuran",
+      appNo: this.props.appNo ?? "STZ-APP-20260908-001"
+    };
+  }
+}
+</script>
+</body>
+</html>
