@@ -119,10 +119,10 @@ export function AdminShell({ children, unreadCount = 0, totalSchools = 0, onLogo
         <div className={s.brandArea}>
           <Link href="/admin">
             <Image
-              src="/images/logo.svg"
+              src="/images/logo.png"
               alt="Serhan Turizm"
               width={168}
-              height={48}
+              height={43}
               className={s.brandLogo}
               priority
             />
@@ -180,10 +180,10 @@ export function AdminShell({ children, unreadCount = 0, totalSchools = 0, onLogo
             </button>
 
             <Image
-              src="/images/logo.svg"
+              src="/images/logo.png"
               alt="Serhan Turizm"
               width={120}
-              height={32}
+              height={30}
               className={s.topbarMobileLogo}
             />
 
@@ -243,10 +243,10 @@ export function AdminShell({ children, unreadCount = 0, totalSchools = 0, onLogo
           <div className={s.mobileDrawerContent}>
             <div className={s.mobileDrawerHeader}>
               <Image
-                src="/images/logo.svg"
+                src="/images/logo.png"
                 alt="Serhan Turizm"
                 width={130}
-                height={38}
+                height={33}
                 className={s.brandLogo}
               />
               <button

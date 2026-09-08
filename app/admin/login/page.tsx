@@ -26,10 +26,10 @@ export default async function AdminLoginPage({
       <aside className={s.heroPanel} aria-label="Serhan Turizm Yönetim Paneli">
         <div>
           <Image
-            src="/images/logo-white.svg"
+            src="/images/logo-white.png"
             alt="Serhan Turizm"
             width={200}
-            height={58}
+            height={51}
             className={s.heroLogo}
             priority
           />
@@ -78,10 +78,10 @@ export default async function AdminLoginPage({
         <div className={s.formCard}>
           <div className={s.formHeader}>
             <Image
-              src="/images/logo.svg"
+              src="/images/logo.png"
               alt="Serhan Turizm"
               width={160}
-              height={46}
+              height={40}
               className={s.mobileLogo}
               priority
             />

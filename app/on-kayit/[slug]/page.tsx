@@ -36,10 +36,10 @@ export default async function OnKayitPage(props: { params: Promise<{ slug: strin
       <header className={s.header}>
         <Link href="/" className={s.logoLink} aria-label="Serhan Turizm Ana Sayfa">
           <Image
-            src="/images/logo.svg"
+            src="/images/logo.png"
             alt="Serhan Turizm"
             width={140}
-            height={28}
+            height={35}
             className={s.logoImg}
             priority
           />
