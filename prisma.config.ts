@@ -1,9 +1,12 @@
 import "dotenv/config";
-import { defineConfig, env } from "prisma/config";
+import { defineConfig } from "prisma/config";
 
 // Central Prisma configuration (Prisma ORM v7).
-// The database URL is resolved from the environment via the type-safe `env()`
-// helper; it is intentionally NOT hardcoded in schema.prisma.
+// For migrations, use the direct/unpooled connection (DATABASE_URL_UNPOOLED) if available
+// to avoid transaction/advisory lock limitations of connection poolers (PgBouncer).
+const migrationUrl =
+  process.env.DATABASE_URL_UNPOOLED || process.env.DATABASE_URL || "";
+
 export default defineConfig({
   // Main schema entry point.
   schema: "prisma/schema.prisma",
@@ -13,6 +16,6 @@ export default defineConfig({
   },
   // Database connection string (PostgreSQL).
   datasource: {
-    url: env("DATABASE_URL"),
+    url: migrationUrl,
   },
 });
