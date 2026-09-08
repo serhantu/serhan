@@ -4,6 +4,9 @@ import { vars, breakpoints } from "@/styles/tokens.css";
 export const page = style({
   display: "grid",
   gap: "1.125rem",
+  minInlineSize: 0,
+  inlineSize: "100%",
+  maxInlineSize: "100%",
 });
 
 // KPI Cards
@@ -11,6 +14,7 @@ export const kpiGrid = style({
   display: "grid",
   gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 12rem), 1fr))",
   gap: "0.75rem",
+  minInlineSize: 0,
 });
 
 export const kpiCard = style({
@@ -20,6 +24,7 @@ export const kpiCard = style({
   background: vars.color.adminSurface,
   border: `1px solid ${vars.color.adminBorder}`,
   borderRadius: "0.75rem",
+  minInlineSize: 0,
 });
 
 export const kpiLabel = style({
@@ -70,12 +75,13 @@ export const kpiDotGray = style({
 // Middle Section: Chart + Tasks (1.5fr / 1fr)
 export const middleGrid = style({
   display: "grid",
-  gridTemplateColumns: "1fr",
+  gridTemplateColumns: "minmax(0, 1fr)",
   gap: "0.75rem",
   alignItems: "start",
+  minInlineSize: 0,
   "@media": {
     [`(min-width: ${breakpoints.lg})`]: {
-      gridTemplateColumns: "1.5fr 1fr",
+      gridTemplateColumns: "minmax(0, 1.5fr) minmax(0, 1fr)",
     },
   },
 });

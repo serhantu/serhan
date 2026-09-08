@@ -179,14 +179,6 @@ export function AdminShell({ children, unreadCount = 0, totalSchools = 0, onLogo
               </svg>
             </button>
 
-            <Image
-              src="/images/logo.png"
-              alt="Serhan Turizm"
-              width={120}
-              height={30}
-              className={s.topbarMobileLogo}
-            />
-
             <div className={s.pageTitleGroup}>
               <h1 className={s.pageTitle}>{currentNav.label === "Dashboard" ? "Yönetim Paneli" : currentNav.label}</h1>
               <p className={s.pageSubtitle}>{currentNav.sub}</p>

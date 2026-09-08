@@ -103,7 +103,7 @@ export function SchoolManager({ schools }: Props) {
       </div>
 
       {/* Full-width Horizontal Table */}
-      <section aria-label="Okul Listesi">
+      <section aria-label="Okul Listesi" className={s.tableSection}>
         <SchoolTable schools={filteredSchools} />
       </section>
     </div>

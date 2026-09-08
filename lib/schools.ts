@@ -30,7 +30,7 @@ export type SchoolRow = {
 // a load of every OnKayit row).
 export async function listSchools(): Promise<SchoolRow[]> {
   const schools = await prisma.okul.findMany({
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: "asc" },
     select: {
       id: true,
       ad: true,
@@ -61,8 +61,9 @@ export async function listSchools(): Promise<SchoolRow[]> {
 
 // Lookup a single school by slug (used by the public /on-kayit/[slug] entry).
 export async function getSchoolBySlug(slug: string) {
+  const normalizedSlug = slug === "eyuz-zinde-koleji" ? "eyup-zinde-koleji" : slug;
   return prisma.okul.findUnique({
-    where: { slug },
+    where: { slug: normalizedSlug },
     select: {
       id: true,
       ad: true,

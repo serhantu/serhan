@@ -4,16 +4,22 @@ import { vars, breakpoints } from "@/styles/tokens.css";
 export const page = style({
   display: "grid",
   gap: "0.875rem",
+  minInlineSize: 0,
+  inlineSize: "100%",
+  maxInlineSize: "100%",
 });
 
 export const layout = style({
   display: "grid",
-  gridTemplateColumns: "1fr",
+  gridTemplateColumns: "minmax(0, 1fr)",
   gap: "0.875rem",
   alignItems: "start",
+  minInlineSize: 0,
+  inlineSize: "100%",
+  maxInlineSize: "100%",
   "@media": {
     [`(min-width: ${breakpoints.lg})`]: {
-      gridTemplateColumns: "1fr 0.85fr",
+      gridTemplateColumns: "minmax(0, 1fr) minmax(0, 0.85fr)",
     },
   },
 });

@@ -4,6 +4,15 @@ import { vars } from "@/styles/tokens.css";
 export const page = style({
   display: "grid",
   gap: "0.875rem",
+  minInlineSize: 0,
+  inlineSize: "100%",
+  maxInlineSize: "100%",
+});
+
+export const tableSection = style({
+  minInlineSize: 0,
+  inlineSize: "100%",
+  maxInlineSize: "100%",
 });
 
 export const header = style({

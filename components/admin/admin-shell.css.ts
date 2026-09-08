@@ -7,10 +7,13 @@ export const layout = style({
   color: vars.color.adminText,
   fontFamily: vars.font.sans,
   display: "grid",
-  gridTemplateColumns: "1fr",
+  gridTemplateColumns: "minmax(0, 1fr)",
+  inlineSize: "100%",
+  maxInlineSize: "100vw",
+  overflowX: "clip",
   "@media": {
     [`(min-width: ${breakpoints.lg})`]: {
-      gridTemplateColumns: "15.75rem 1fr",
+      gridTemplateColumns: "15.75rem minmax(0, 1fr)",
     },
   },
 });
@@ -201,6 +204,9 @@ export const mainColumn = style({
   display: "grid",
   gridTemplateRows: "auto 1fr",
   minInlineSize: 0,
+  inlineSize: "100%",
+  maxInlineSize: "100%",
+  overflowX: "clip",
 });
 
 // Sticky Topbar
@@ -209,7 +215,7 @@ export const topbar = style({
   insetBlockStart: 0,
   zIndex: vars.zIndex.sticky,
   display: "grid",
-  gridTemplateColumns: "1fr auto",
+  gridTemplateColumns: "minmax(0, 1fr) auto",
   gap: "0.875rem",
   alignItems: "center",
   paddingBlock: "0.75rem",
@@ -241,17 +247,6 @@ export const hamburgerButton = style({
       outlineOffset: "2px",
     },
   },
-  "@media": {
-    [`(min-width: ${breakpoints.lg})`]: {
-      display: "none",
-    },
-  },
-});
-
-export const topbarMobileLogo = style({
-  display: "block",
-  blockSize: "1.625rem",
-  inlineSize: "auto",
   "@media": {
     [`(min-width: ${breakpoints.lg})`]: {
       display: "none",
@@ -405,6 +400,9 @@ export const contentWrapper = style({
   alignContent: "start",
   gap: "1.125rem",
   minInlineSize: 0,
+  inlineSize: "100%",
+  maxInlineSize: "100%",
+  boxSizing: "border-box",
 });
 
 // Mobile Drawer

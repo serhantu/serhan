@@ -2,8 +2,18 @@ import { prisma } from "../lib/db";
 
 const SCHOOLS = [
   {
-    ad: "Başakşehir Asil ve Sinerji Koleji",
-    slug: "basaksehir-asil-ve-sinerji-koleji",
+    ad: "Başakşehir Asil",
+    slug: "basaksehir-asil",
+    ilce: "Başakşehir / İstanbul",
+    adres: "Kayabaşı Mah. Ulubatlı Hasan Cad. No: 8C, Başakşehir / İstanbul",
+    haritaUrl:
+      "https://maps.google.com/?q=Kayabaşı+Mahallesi+Ulubatlı+Hasan+Caddesi+No:8C+Başakşehir+İstanbul",
+    tcKimlikIster: false,
+    aktif: true,
+  },
+  {
+    ad: "Başakşehir Sinerji Koleji",
+    slug: "basaksehir-sinerji-koleji",
     ilce: "Başakşehir / İstanbul",
     adres: "Kayabaşı Mah. Ulubatlı Hasan Cad. No: 8C, Başakşehir / İstanbul",
     haritaUrl:
@@ -23,8 +33,8 @@ const SCHOOLS = [
     aktif: true,
   },
   {
-    ad: "Zinde Okulları Eyüpsultan",
-    slug: "zinde-okullari-eyupsultan",
+    ad: "Eyüp Zinde Koleji",
+    slug: "eyup-zinde-koleji",
     ilce: "Eyüpsultan / İstanbul",
     adres: "Düğmeciler Mah. Düğmeciler Cad. No: 8-10, Eyüpsultan / İstanbul",
     haritaUrl:
@@ -33,8 +43,8 @@ const SCHOOLS = [
     aktif: true,
   },
   {
-    ad: "Uğur Koleji Güngören Kampüsü",
-    slug: "ugur-koleji-gungoren-kampus",
+    ad: "Uğur Koleji Güngören",
+    slug: "ugur-koleji-gungoren",
     ilce: "Güngören / İstanbul",
     adres: "Sanayi Mah. Davutpaşa Cad. No: 24, Güngören / İstanbul",
     haritaUrl: "https://maps.google.com/?q=Sanayi+Mah.+Davutpaşa+Cad.+No:24+Güngören+İstanbul",
@@ -42,12 +52,12 @@ const SCHOOLS = [
     aktif: true,
   },
   {
-    ad: "Uğur Koleji Fatih - Topkapı Kampüsü",
-    slug: "ugur-koleji-fatih-kampus",
-    ilce: "Fatih - Zeytinburnu / İstanbul",
-    adres: "Maltepe Mah. Cebe Ali Bey Sok. No: 12, Zeytinburnu (Topkapı - Fatih) / İstanbul",
+    ad: "Fatih Sınav Koleji",
+    slug: "fatih-sinav-koleji",
+    ilce: "Fatih / İstanbul",
+    adres: "Topkapı Mah. Şeyhülislam Sok. No: 28/1, Fatih / İstanbul",
     haritaUrl:
-      "https://maps.google.com/?q=Maltepe+Mah.+Cebe+Ali+Bey+Sok.+No:12+Zeytinburnu+İstanbul",
+      "https://maps.google.com/?q=Topkapı+Mahallesi+Şeyhülislam+Sokak+No:28/1+Fatih+İstanbul",
     tcKimlikIster: false,
     aktif: true,
   },
@@ -70,6 +80,16 @@ const SCHOOLS = [
     tcKimlikIster: false,
     aktif: true,
   },
+  {
+    ad: "Fatih Birikim Koleji",
+    slug: "fatih-birikim-koleji",
+    ilce: "Fatih / İstanbul",
+    adres: "Topkapı Mah. Şeyhülislam Sok. No: 24, Fatih / İstanbul",
+    haritaUrl:
+      "https://maps.google.com/?q=Topkapı+Mahallesi+Şeyhülislam+Sokak+No:24+Fatih+İstanbul",
+    tcKimlikIster: false,
+    aktif: true,
+  },
 ];
 
 async function main() {
@@ -81,7 +101,32 @@ async function main() {
     data: { aktif: false },
   });
 
-  for (const school of SCHOOLS) {
+  // Clean up legacy unused slugs that have zero registrations
+  const legacySlugs = [
+    "basaksehir-asil-ve-sinerji-koleji",
+    "zinde-okullari-eyupsultan",
+    "ugur-koleji-gungoren-kampus",
+    "ugur-koleji-fatih-kampus",
+  ];
+
+  for (const slug of legacySlugs) {
+    const school = await prisma.okul.findUnique({
+      where: { slug },
+      include: { _count: { select: { onKayitlar: true } } },
+    });
+    if (school && school._count.onKayitlar === 0) {
+      await prisma.okul.delete({ where: { slug } });
+      console.log(`Cleaned up obsolete school: ${slug}`);
+    }
+  }
+
+  // Upsert all 9 current schools with sequential timestamps
+  const baseTime = new Date("2026-09-08T09:00:00Z").getTime();
+
+  for (let i = 0; i < SCHOOLS.length; i++) {
+    const school = SCHOOLS[i];
+    const itemDate = new Date(baseTime + i * 60000);
+
     const upserted = await prisma.okul.upsert({
       where: { slug: school.slug },
       update: {
@@ -92,12 +137,15 @@ async function main() {
         tcKimlikIster: school.tcKimlikIster,
         aktif: school.aktif,
       },
-      create: school,
+      create: {
+        ...school,
+        createdAt: itemDate,
+      },
     });
-    console.log(`✓ [${upserted.slug}] ${upserted.ad}`);
+    console.log(`${i + 1}. [${upserted.slug}] ${upserted.ad}`);
   }
 
-  console.log("All schools seeded successfully!");
+  console.log("All 9 schools seeded successfully!");
   process.exit(0);
 }
 

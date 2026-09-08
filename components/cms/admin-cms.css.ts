@@ -7,6 +7,9 @@ export const page = style({
   display: "block",
   color: vars.color.adminText,
   fontFamily: vars.font.sans,
+  minInlineSize: 0,
+  inlineSize: "100%",
+  maxInlineSize: "100%",
 });
 
 export const headerRow = style({

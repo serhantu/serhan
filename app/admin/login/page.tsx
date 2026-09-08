@@ -139,16 +139,6 @@ export default async function AdminLoginPage({
             </button>
           </form>
 
-          <div className={s.divider}>
-            <span className={s.dividerLine} aria-hidden="true" />
-            <span className={s.dividerText}>VE</span>
-            <span className={s.dividerLine} aria-hidden="true" />
-          </div>
-
-          <button type="button" className={s.ssoButton} disabled title="SSO entegrasyonu yakında">
-            <span aria-hidden="true">👤</span>
-            <span>SSO ile giriş yap</span>
-          </button>
 
           <div className={s.infoCard}>
             <span className={s.infoCardTitle}>Sistem Yöneticisi Girişi:</span>

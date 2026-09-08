@@ -4,6 +4,9 @@ import { vars, breakpoints } from "@/styles/tokens.css";
 export const page = style({
   display: "grid",
   gap: "0.875rem",
+  minInlineSize: 0,
+  inlineSize: "100%",
+  maxInlineSize: "100%",
 });
 
 // Top Type Filter Pills Row
@@ -122,10 +125,12 @@ export const rowCountText = style({
   color: vars.color.adminTextCaption,
 });
 
-// Table Styles
 export const tableContainer = style({
   inlineSize: "100%",
+  maxInlineSize: "100%",
+  minInlineSize: 0,
   overflowX: "auto",
+  WebkitOverflowScrolling: "touch",
 });
 
 export const table = style({

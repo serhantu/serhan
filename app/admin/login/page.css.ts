@@ -294,48 +294,6 @@ export const errorBox = style({
   lineHeight: 1.5,
 });
 
-export const divider = style({
-  display: "grid",
-  gridTemplateColumns: "1fr auto 1fr",
-  alignItems: "center",
-  gap: vars.space.sm,
-});
-
-export const dividerLine = style({
-  blockSize: "1px",
-  background: vars.color.adminBorder,
-});
-
-export const dividerText = style({
-  fontSize: "0.75rem",
-  color: vars.color.adminTextSubtle,
-  whiteSpace: "nowrap",
-});
-
-export const ssoButton = style({
-  paddingBlock: "0.75rem",
-  paddingInline: "1rem",
-  border: `1px solid ${vars.color.adminBorder}`,
-  borderRadius: vars.radius.md,
-  background: vars.color.adminSurface,
-  fontSize: "0.875rem",
-  cursor: "pointer",
-  color: vars.color.adminText,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: "0.5rem",
-  transition: "background 0.2s ease",
-  selectors: {
-    "&:hover": {
-      background: vars.color.adminSurfaceSoft,
-    },
-    "&:focus-visible": {
-      outline: `2px solid ${vars.color.adminPrimary}`,
-      outlineOffset: "2px",
-    },
-  },
-});
 
 export const infoCard = style({
   display: "grid",
