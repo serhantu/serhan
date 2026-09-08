@@ -265,14 +265,7 @@ export default async function RequestDetailPage({
               <div className={styles.listRow}>
                 <dt className={styles.listLabel}>Okunma Durumu</dt>
                 <dd className={styles.listValue}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.75rem",
-                      flexWrap: "wrap",
-                    }}
-                  >
+                  <div className={styles.statusRow}>
                     <span>
                       {detail.isRead ? "Okundu" : "Okunmadı"}
                       {detail.readAt ? ` (${new Date(detail.readAt).toLocaleString("tr-TR")})` : ""}
@@ -283,16 +276,7 @@ export default async function RequestDetailPage({
                       <input type="hidden" name="isRead" value={detail.isRead ? "false" : "true"} />
                       <button
                         type="submit"
-                        style={{
-                          fontSize: "0.75rem",
-                          fontWeight: 500,
-                          padding: "0.2rem 0.6rem",
-                          borderRadius: "0.375rem",
-                          border: "1px solid hsl(214 32% 85%)",
-                          backgroundColor: detail.isRead ? "hsl(215 16% 94%)" : "hsl(142 76% 92%)",
-                          color: detail.isRead ? "hsl(215 16% 35%)" : "hsl(142 76% 25%)",
-                          cursor: "pointer",
-                        }}
+                        className={detail.isRead ? styles.statusButtonRead : styles.statusButtonUnread}
                       >
                         {detail.isRead ? "Okunmadı olarak işaretle" : "Okundu olarak işaretle"}
                       </button>
@@ -400,14 +384,7 @@ export default async function RequestDetailPage({
             <div className={styles.listRow}>
               <dt className={styles.listLabel}>Okunma Durumu</dt>
               <dd className={styles.listValue}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.75rem",
-                    flexWrap: "wrap",
-                  }}
-                >
+                <div className={styles.statusRow}>
                   <span>
                     {detail.isRead ? "Okundu" : "Okunmadı"}
                     {detail.readAt ? ` (${new Date(detail.readAt).toLocaleString("tr-TR")})` : ""}
@@ -418,16 +395,7 @@ export default async function RequestDetailPage({
                     <input type="hidden" name="isRead" value={detail.isRead ? "false" : "true"} />
                     <button
                       type="submit"
-                      style={{
-                        fontSize: "0.75rem",
-                        fontWeight: 500,
-                        padding: "0.2rem 0.6rem",
-                        borderRadius: "0.375rem",
-                        border: "1px solid hsl(214 32% 85%)",
-                        backgroundColor: detail.isRead ? "hsl(215 16% 94%)" : "hsl(142 76% 92%)",
-                        color: detail.isRead ? "hsl(215 16% 35%)" : "hsl(142 76% 25%)",
-                        cursor: "pointer",
-                      }}
+                      className={detail.isRead ? styles.statusButtonRead : styles.statusButtonUnread}
                     >
                       {detail.isRead ? "Okunmadı olarak işaretle" : "Okundu olarak işaretle"}
                     </button>

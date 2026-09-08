@@ -1,35 +1,51 @@
-import Link from "next/link";
-import { logoutAdmin } from "@/lib/auth";
-import { page, nav, links, link, actions } from "./layout.css";
+import { getAdminSession, logoutAdmin } from "@/lib/auth";
+import { AdminShell } from "@/components/admin/admin-shell";
+import { prisma } from "@/lib/db";
 
-const navItems = [
-  { href: "/admin", label: "Dashboard" },
-  { href: "/admin/talepler", label: "Talepler" },
-  { href: "/admin/musteriler", label: "Müşteriler" },
-  { href: "/admin/okullar", label: "Okullar" },
-  { href: "/admin/qr", label: "QR Üret" },
-  { href: "/admin/icerik", label: "İçerik" },
-  { href: "/admin/ayarlar", label: "Ayarlar" },
-];
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  const session = await getAdminSession();
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  let unreadCount = 0;
+  let totalSchools = 0;
+
+  if (session) {
+    try {
+      const [
+        schoolsCount,
+        onKayitUnread,
+        teklifUnread,
+        isBasvuruUnread,
+        iletisimUnread,
+        aracUnread,
+      ] = await Promise.all([
+        prisma.okul.count(),
+        prisma.onKayit.count({ where: { isRead: false } }),
+        prisma.teklif.count({ where: { isRead: false } }),
+        prisma.isBasvuru.count({ where: { isRead: false } }),
+        prisma.iletisim.count({ where: { isRead: false } }),
+        prisma.aracGeriBildirim.count({ where: { isRead: false } }),
+      ]);
+
+      totalSchools = schoolsCount;
+      unreadCount =
+        onKayitUnread + teklifUnread + isBasvuruUnread + iletisimUnread + aracUnread;
+    } catch {
+      // In case of query error, fall back gracefully
+    }
+  }
+
+  async function handleLogout() {
+    "use server";
+    await logoutAdmin();
+  }
+
   return (
-    <div className={page}>
-      <header className={nav}>
-        <nav aria-label="Admin navigasyonu" className={links}>
-          {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className={link} prefetch={true}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <form action={logoutAdmin} className={actions}>
-          <button type="submit">Çıkış</button>
-        </form>
-      </header>
-
-      <main>{children}</main>
-    </div>
+    <AdminShell
+      unreadCount={unreadCount}
+      totalSchools={totalSchools}
+      onLogout={handleLogout}
+    >
+      {children}
+    </AdminShell>
   );
 }

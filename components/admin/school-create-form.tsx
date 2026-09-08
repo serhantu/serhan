@@ -49,7 +49,7 @@ export function SchoolCreateForm({ onCancel, onSuccess }: Props) {
           <span className={s.successBadge}>✓</span>
           <div>
             <strong>Okul başarıyla eklendi.</strong>
-            <p style={{ margin: 0, color: "var(--muted-foreground, #666)" }}>Liste güncellendi.</p>
+            <p className={s.successDesc}>Liste güncellendi.</p>
           </div>
         </div>
         <button
@@ -94,7 +94,7 @@ export function SchoolCreateForm({ onCancel, onSuccess }: Props) {
       <div className={s.grid}>
         <div className={`${s.field} ${s.fullWidth}`}>
           <label htmlFor="ad" className={s.label}>
-            Okul adı <span style={{ color: "hsl(4 67% 51%)" }}>*</span>
+            Okul adı <span className={s.requiredMark}>*</span>
           </label>
           <input
             id="ad"

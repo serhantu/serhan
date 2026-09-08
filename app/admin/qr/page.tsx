@@ -10,9 +10,8 @@ export default async function AdminQrPage() {
   const schools = await listSchools();
 
   return (
-    <main className={s.page}>
-      <h1 className={s.heading}>QR Kod Yönetimi & Baskı</h1>
+    <div className={s.page}>
       <QrManager schools={schools} />
-    </main>
+    </div>
   );
 }

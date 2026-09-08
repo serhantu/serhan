@@ -1,57 +1,52 @@
 import { style } from "@vanilla-extract/css";
-import { vars, breakpoints } from "@/styles/tokens.css";
+import { vars } from "@/styles/tokens.css";
 
 export const page = style({
-  maxInlineSize: "min(100%, 84rem)",
-  marginInline: "auto",
-  paddingBlock: vars.space.xl,
-  paddingInline: "clamp(1rem, 3vw, 2.5rem)",
-  display: "flex",
-  flexDirection: "column",
-  gap: vars.space.lg,
+  display: "grid",
+  gap: "0.875rem",
 });
 
 export const header = style({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  gap: vars.space.md,
+  gap: "0.75rem",
   flexWrap: "wrap",
 });
 
 export const titleGroup = style({
-  display: "flex",
-  flexDirection: "column",
-  gap: vars.space.xs,
+  display: "grid",
+  gap: "0.25rem",
 });
 
 export const titleRow = style({
   display: "flex",
   alignItems: "center",
-  gap: vars.space.sm,
+  gap: "0.5rem",
 });
 
 export const heading = style({
-  fontSize: "clamp(1.5rem, 3vw, 2rem)",
+  fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)",
   fontWeight: vars.font.weightBold,
-  color: vars.color.foreground,
+  color: vars.color.adminText,
   margin: 0,
 });
 
 export const countPill = style({
-  fontSize: vars.font.sizeXs,
+  fontFamily: vars.font.mono,
+  fontSize: "0.71875rem",
   fontWeight: vars.font.weightMedium,
-  paddingBlock: "0.2rem",
-  paddingInline: "0.6rem",
+  paddingBlock: "0.1875rem",
+  paddingInline: "0.5rem",
   borderRadius: vars.radius.full,
-  backgroundColor: vars.color.accent,
-  color: vars.color.primary,
-  border: `1px solid ${vars.color.border}`,
+  backgroundColor: vars.color.adminSurfaceSoft,
+  color: vars.color.adminTextCaption,
+  border: `1px solid ${vars.color.adminBorder}`,
 });
 
 export const subheading = style({
-  fontSize: vars.font.sizeSm,
-  color: vars.color.mutedForeground,
+  fontSize: "0.8125rem",
+  color: vars.color.adminTextCaption,
   margin: 0,
 });
 
@@ -60,76 +55,86 @@ export const toggleButton = style({
   alignItems: "center",
   gap: "0.4rem",
   paddingBlock: "0.625rem",
-  paddingInline: vars.space.lg,
-  borderRadius: vars.radius.md,
-  backgroundColor: vars.color.primary,
-  color: vars.color.primaryForeground,
+  paddingInline: "1.125rem",
+  borderRadius: "0.5rem",
+  backgroundColor: vars.color.adminPrimary,
+  color: vars.color.adminPrimaryForeground,
   fontWeight: vars.font.weightMedium,
-  fontSize: vars.font.sizeSm,
-  border: `1px solid ${vars.color.primary}`,
+  fontSize: "0.84375rem",
+  border: "none",
   cursor: "pointer",
-  transition: "all 0.15s ease",
-  ":hover": {
-    backgroundColor: "hsl(215 25% 22%)",
+  inlineSize: "fit-content",
+  transition: "background 0.18s ease",
+  selectors: {
+    "&:hover": {
+      backgroundColor: vars.color.adminPrimaryHover,
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
   },
 });
 
 export const toggleButtonActive = style({
-  backgroundColor: vars.color.background,
-  color: vars.color.foreground,
-  borderColor: vars.color.border,
-  ":hover": {
-    backgroundColor: vars.color.muted,
+  backgroundColor: vars.color.adminSurface,
+  color: vars.color.adminText,
+  border: `1px solid ${vars.color.adminBorder}`,
+  selectors: {
+    "&:hover": {
+      backgroundColor: vars.color.adminSurfaceSoft,
+    },
   },
 });
 
 export const formCollapse = style({
-  marginBlockEnd: vars.space.md,
+  marginBlockEnd: "0.25rem",
 });
 
 export const toolbar = style({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  gap: vars.space.md,
+  gap: "0.75rem",
   flexWrap: "wrap",
-  paddingBottom: vars.space.xs,
 });
 
 export const searchWrap = style({
   display: "flex",
   alignItems: "center",
-  gap: vars.space.xs,
+  gap: "0.5rem",
   inlineSize: "100%",
-  maxInlineSize: "22rem",
-  "@media": {
-    [`screen and (max-width: ${breakpoints.sm})`]: {
-      maxInlineSize: "100%",
+  maxInlineSize: "23.75rem",
+  backgroundColor: vars.color.adminSurface,
+  border: `1px solid ${vars.color.adminBorder}`,
+  borderRadius: "0.5rem",
+  paddingBlock: "0.5625rem",
+  paddingInline: "0.8125rem",
+  transition: "border-color 0.15s ease",
+  selectors: {
+    "&:focus-within": {
+      borderColor: vars.color.adminPrimary,
     },
   },
 });
 
 export const searchInput = style({
+  border: "none",
+  outline: "none",
   inlineSize: "100%",
-  paddingBlock: "0.5rem",
-  paddingInline: vars.space.md,
-  fontSize: vars.font.sizeSm,
-  color: vars.color.foreground,
-  backgroundColor: vars.color.background,
-  border: `1px solid ${vars.color.border}`,
-  borderRadius: vars.radius.md,
-  transition: "border-color 0.15s ease, box-shadow 0.15s ease",
-  ":focus-visible": {
-    outline: "none",
-    borderColor: vars.color.primary,
-    boxShadow: `0 0 0 1px ${vars.color.primary}`,
-  },
-  "::placeholder": {
-    color: vars.color.mutedForeground,
+  fontSize: "0.84375rem",
+  fontFamily: vars.font.sans,
+  color: vars.color.adminText,
+  backgroundColor: "transparent",
+  selectors: {
+    "&::placeholder": {
+      color: vars.color.adminTextSubtle,
+    },
   },
 });
 
 export const tableSummary = style({
-  fontSize: vars.font.sizeSm,
-  color: vars.color.mutedForeground,
+  fontFamily: vars.font.mono,
+  fontSize: "0.6875rem",
+  color: vars.color.adminTextCaption,
 });

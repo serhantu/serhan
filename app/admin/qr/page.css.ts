@@ -1,215 +1,271 @@
 import { style } from "@vanilla-extract/css";
-import { vars } from "@/styles/tokens.css";
+import { vars, breakpoints } from "@/styles/tokens.css";
 
 export const page = style({
-  paddingBlock: vars.space.xl,
-  paddingInline: "clamp(1rem, 3vw, 2rem)",
-});
-
-export const heading = style({
-  fontSize: "clamp(1.25rem, 2.5vw, 1.65rem)",
-  fontWeight: vars.font.weightBold,
-  marginBlockEnd: vars.space.lg,
+  display: "grid",
+  gap: "0.875rem",
 });
 
 export const layout = style({
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 22rem), 1fr))",
-  gap: vars.space.xl,
-});
-
-export const panel = style({
-  display: "flex",
-  flexDirection: "column",
-  gap: vars.space.md,
-});
-
-export const sectionTitle = style({
-  fontSize: vars.font.sizeLg,
-  fontWeight: vars.font.weightMedium,
-  borderBottom: `1px solid ${vars.color.border}`,
-  paddingBlockEnd: vars.space.sm,
-});
-
-export const fieldLabel = style({
-  fontSize: vars.font.sizeSm,
-  fontWeight: vars.font.weightMedium,
-  color: vars.color.foreground,
-  marginBlockEnd: vars.space.xs,
-  display: "block",
-  inlineSize: "fit-content",
-});
-
-export const select = style({
-  inlineSize: "100%",
-  paddingBlock: vars.space.sm,
-  paddingInline: vars.space.md,
-  border: `1px solid ${vars.color.border}`,
-  borderRadius: vars.radius.sm,
-  fontSize: vars.font.sizeMd,
-  fontFamily: vars.font.sans,
-  selectors: {
-    "&:focus": {
-      outline: `2px solid ${vars.color.primary}`,
-      outlineOffset: "1px",
+  gridTemplateColumns: "1fr",
+  gap: "0.875rem",
+  alignItems: "start",
+  "@media": {
+    [`(min-width: ${breakpoints.lg})`]: {
+      gridTemplateColumns: "1fr 0.85fr",
     },
   },
 });
 
-export const schoolList = style({
+export const leftCol = style({
+  display: "grid",
+  gap: "0.875rem",
+});
+
+export const card = style({
+  background: vars.color.adminSurface,
+  border: `1px solid ${vars.color.adminBorder}`,
+  borderRadius: "0.75rem",
+  overflow: "hidden",
+});
+
+export const cardHeader = style({
   display: "flex",
-  flexDirection: "column",
-  gap: vars.space.xs,
-  maxBlockSize: "20rem",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: "0.75rem",
+  paddingBlock: "1rem",
+  paddingInline: "1.125rem",
+  borderBlockEnd: `1px solid ${vars.color.adminBorder}`,
+});
+
+export const cardTitle = style({
+  fontSize: "0.9375rem",
+  fontWeight: vars.font.weightBold,
+  color: vars.color.adminText,
+  margin: 0,
+});
+
+export const cardHeaderMeta = style({
+  fontFamily: vars.font.mono,
+  fontSize: "0.6875rem",
+  color: vars.color.adminTextCaption,
+});
+
+// Template Pills
+export const templatePills = style({
+  display: "flex",
+  gap: "0.5rem",
+  flexWrap: "wrap",
+  padding: "1.125rem",
+});
+
+export const templatePill = style({
+  paddingBlock: "0.5625rem",
+  paddingInline: "0.9375rem",
+  borderRadius: "0.5rem",
+  cursor: "pointer",
+  fontSize: "0.8125rem",
+  border: `1px solid ${vars.color.adminBorder}`,
+  background: vars.color.adminSurface,
+  color: vars.color.adminTextBody,
+  inlineSize: "fit-content",
+  transition: "all 0.18s ease",
+  fontWeight: vars.font.weightNormal,
+  selectors: {
+    "&:hover": {
+      background: vars.color.adminSurfaceSoft,
+      color: vars.color.adminText,
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
+  },
+});
+
+export const templatePillActive = style({
+  background: vars.color.adminText,
+  color: vars.color.adminPrimaryForeground,
+  borderColor: vars.color.adminText,
+  fontWeight: vars.font.weightMedium,
+  selectors: {
+    "&:hover": {
+      background: vars.color.adminText,
+      color: vars.color.adminPrimaryForeground,
+    },
+  },
+});
+
+// School Selection List
+export const schoolList = style({
+  display: "grid",
+  maxBlockSize: "24rem",
   overflowY: "auto",
-  border: `1px solid ${vars.color.border}`,
-  borderRadius: vars.radius.sm,
-  padding: vars.space.sm,
 });
 
 export const schoolItem = style({
-  display: "flex",
+  inlineSize: "100%",
+  display: "grid",
+  gridTemplateColumns: "1.25rem 1fr auto",
+  gap: "0.75rem",
   alignItems: "center",
-  gap: vars.space.sm,
-  paddingBlock: vars.space.xs,
-  paddingInline: vars.space.sm,
-  borderRadius: vars.radius.sm,
-  fontSize: vars.font.sizeSm,
-  cursor: "pointer",
-  selectors: {
-    "&:hover": {
-      background: vars.color.muted,
-    },
-  },
-});
-
-export const schoolItemSelected = style({
-  background: vars.color.accent,
-  fontWeight: vars.font.weightMedium,
-});
-
-export const schoolItemText = style({
-  display: "flex",
-  flexDirection: "column",
-});
-
-export const schoolItemDistrict = style({
-  fontSize: vars.font.sizeXs,
-  color: vars.color.mutedForeground,
-});
-
-export const checkbox = style({
-  accentColor: vars.color.primary,
-});
-
-export const templateOptions = style({
-  display: "flex",
-  gap: vars.space.sm,
-  flexWrap: "wrap",
-});
-
-export const templateButton = style({
-  paddingBlock: vars.space.sm,
-  paddingInline: vars.space.md,
-  inlineSize: "fit-content",
-  border: `1px solid ${vars.color.border}`,
-  borderRadius: vars.radius.sm,
-  background: vars.color.background,
-  color: vars.color.foreground,
-  cursor: "pointer",
-  fontSize: vars.font.sizeSm,
-  fontWeight: vars.font.weightMedium,
-  transition: "background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease",
-  selectors: {
-    "&:hover": {
-      background: vars.color.muted,
-      color: vars.color.foreground,
-      borderColor: vars.color.border,
-    },
-  },
-});
-
-export const templateButtonActive = style({
-  background: vars.color.primary,
-  color: vars.color.primaryForeground,
-  borderColor: vars.color.primary,
-  selectors: {
-    "&:hover": {
-      background: "hsl(215 25% 22%)",
-      color: vars.color.primaryForeground,
-      borderColor: "hsl(215 25% 22%)",
-    },
-  },
-});
-
-export const batchActions = style({
-  display: "flex",
-  gap: vars.space.sm,
-  marginBlockStart: vars.space.md,
-  flexWrap: "wrap",
-});
-
-export const batchButton = style({
-  paddingBlock: vars.space.sm,
-  paddingInline: vars.space.lg,
-  inlineSize: "fit-content",
+  textAlign: "left",
+  paddingBlock: "0.8125rem",
+  paddingInline: "1.125rem",
   border: "none",
-  borderRadius: vars.radius.sm,
-  background: vars.color.primary,
-  color: vars.color.primaryForeground,
-  fontSize: vars.font.sizeSm,
-  fontWeight: vars.font.weightMedium,
+  borderBlockEnd: `1px solid ${vars.color.adminBorderLight}`,
   cursor: "pointer",
-  transition: "background-color 0.15s ease, opacity 0.15s ease",
+  background: vars.color.adminSurface,
+  transition: "background 0.15s ease",
   selectors: {
-    "&:hover:not(:disabled)": {
-      background: "hsl(215 25% 22%)",
-      color: vars.color.primaryForeground,
+    "&:hover": {
+      background: vars.color.adminSurfaceSoft,
     },
-    "&:disabled": {
-      opacity: "0.5",
-      cursor: "not-allowed",
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
+    "&:last-child": {
+      borderBlockEnd: "none",
     },
   },
 });
 
-export const batchPdfButton = style({
-  paddingBlock: vars.space.sm,
-  paddingInline: vars.space.lg,
-  inlineSize: "fit-content",
-  border: `1px solid ${vars.color.primary}`,
-  borderRadius: vars.radius.sm,
-  background: vars.color.background,
-  color: vars.color.primary,
-  fontSize: vars.font.sizeSm,
-  fontWeight: vars.font.weightMedium,
-  cursor: "pointer",
-  transition: "all 0.15s ease",
-  selectors: {
-    "&:hover:not(:disabled)": {
-      background: vars.color.primary,
-      color: vars.color.primaryForeground,
-    },
-    "&:disabled": {
-      opacity: "0.5",
-      cursor: "not-allowed",
-    },
-  },
+export const schoolItemActive = style({
+  background: vars.color.adminRowUnread,
 });
 
-export const previewSection = style({
+export const checkSquare = style({
+  inlineSize: "1.125rem",
+  blockSize: "1.125rem",
+  borderRadius: "0.3125rem",
+  display: "grid",
+  placeItems: "center",
+  fontSize: "0.6875rem",
+  border: `1px solid ${vars.color.adminBorder}`,
+  background: vars.color.adminSurface,
+  color: vars.color.adminPrimaryForeground,
+  fontWeight: vars.font.weightBold,
+});
+
+export const checkSquareActive = style({
+  background: vars.color.adminPrimary,
+  borderColor: vars.color.adminPrimary,
+});
+
+export const schoolTextGroup = style({
+  display: "grid",
+  gap: "0.125rem",
+  minInlineSize: 0,
+});
+
+export const schoolName = style({
+  fontSize: "0.84375rem",
+  fontWeight: vars.font.weightMedium,
+  color: vars.color.adminText,
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+});
+
+export const schoolDistrict = style({
+  fontSize: "0.71875rem",
+  color: vars.color.adminTextCaption,
+});
+
+export const schoolMeta = style({
+  fontFamily: vars.font.mono,
+  fontSize: "0.6875rem",
+  color: vars.color.adminTextSubtle,
+});
+
+export const actionsArea = style({
   display: "flex",
-  flexDirection: "column",
-  gap: vars.space.md,
+  gap: "0.5rem",
+  flexWrap: "wrap",
+  padding: "1rem 1.125rem",
+  borderBlockStart: `1px solid ${vars.color.adminBorder}`,
 });
 
-export const selectAllWrap = style({
-  marginBlockEnd: vars.space.sm,
+export const primaryActionBtn = style({
+  paddingBlock: "0.625rem",
+  paddingInline: "1rem",
+  border: "none",
+  borderRadius: "0.5rem",
+  background: vars.color.adminPrimary,
+  color: vars.color.adminPrimaryForeground,
+  fontSize: "0.8125rem",
+  fontWeight: vars.font.weightMedium,
+  cursor: "pointer",
+  inlineSize: "fit-content",
+  transition: "background 0.18s ease",
+  selectors: {
+    "&:hover": {
+      background: vars.color.adminPrimaryHover,
+    },
+    "&:disabled": {
+      opacity: 0.5,
+      cursor: "not-allowed",
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
+  },
+});
+
+export const secondaryActionBtn = style({
+  paddingBlock: "0.625rem",
+  paddingInline: "1rem",
+  border: `1px solid ${vars.color.adminBorder}`,
+  borderRadius: "0.5rem",
+  background: vars.color.adminSurface,
+  color: vars.color.adminText,
+  fontSize: "0.8125rem",
+  cursor: "pointer",
+  inlineSize: "fit-content",
+  transition: "background 0.18s ease",
+  selectors: {
+    "&:hover": {
+      background: vars.color.adminSurfaceSoft,
+    },
+    "&:disabled": {
+      opacity: 0.5,
+      cursor: "not-allowed",
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
+  },
+});
+
+// Right Column: Live Sticky Preview
+export const stickyPreviewWrap = style({
+  background: vars.color.adminSurface,
+  border: `1px solid ${vars.color.adminBorder}`,
+  borderRadius: "0.75rem",
+  overflow: "hidden",
+  "@media": {
+    [`(min-width: ${breakpoints.lg})`]: {
+      position: "sticky",
+      insetBlockStart: "4.5rem",
+    },
+  },
+});
+
+export const previewSurface = style({
+  padding: "1.5rem",
+  display: "grid",
+  placeItems: "center",
+  background: vars.color.adminSurfaceSoft,
 });
 
 export const emptyState = style({
-  color: vars.color.mutedForeground,
-  fontSize: vars.font.sizeSm,
+  padding: "2rem",
   textAlign: "center",
-  padding: vars.space.xl,
+  color: vars.color.adminTextCaption,
+  fontSize: "0.875rem",
 });

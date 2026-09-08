@@ -26,7 +26,7 @@ export function SchoolTable({ schools }: { schools: SchoolRow[] }) {
             <th scope="col">Slug</th>
             <th scope="col">Durum</th>
             <th scope="col">TC Kimlik</th>
-            <th scope="col" style={{ textAlign: "center" }}>
+            <th scope="col" className={t.centerCell}>
               Kayıt
             </th>
             <th scope="col">Kayıt Tarihi</th>
@@ -109,7 +109,7 @@ export function SchoolTable({ schools }: { schools: SchoolRow[] }) {
                 </span>
               </td>
 
-              <td style={{ textAlign: "center" }}>
+              <td className={t.centerCell}>
                 <span className={t.countBadge}>{s.kayitSayisi}</span>
               </td>
 

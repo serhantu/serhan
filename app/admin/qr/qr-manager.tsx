@@ -12,7 +12,7 @@ type Props = {
 
 export function QrManager({ schools }: Props) {
   const [selectedSchoolId, setSelectedSchoolId] = useState<string>(schools[0]?.id ?? "");
-  const [template, setTemplate] = useState<TemplateType>("label");
+  const [template, setTemplate] = useState<TemplateType>("poster");
   const [checkedSchoolIds, setCheckedSchoolIds] = useState<Set<string>>(
     new Set(schools.map((sc) => sc.id)),
   );
@@ -30,14 +30,6 @@ export function QrManager({ schools }: Props) {
       }
       return next;
     });
-  }
-
-  function toggleAll() {
-    if (checkedSchoolIds.size === schools.length) {
-      setCheckedSchoolIds(new Set());
-    } else {
-      setCheckedSchoolIds(new Set(schools.map((sc) => sc.id)));
-    }
   }
 
   async function handleBatchDownload() {
@@ -62,7 +54,6 @@ export function QrManager({ schools }: Props) {
       const results: Array<{ schoolId: string; schoolName: string; svg: string }> =
         data.results ?? [];
 
-      // Download each SVG with a small stagger
       for (const item of results) {
         const blob = new Blob([item.svg], { type: "image/svg+xml" });
         const url = URL.createObjectURL(blob);
@@ -119,7 +110,7 @@ export function QrManager({ schools }: Props) {
 
   if (schools.length === 0) {
     return (
-      <div className={s.emptyState}>
+      <div className={`${s.card} ${s.emptyState}`}>
         Henüz tanımlı okul bulunmuyor. Önce Okullar sayfasından okul ekleyin.
       </div>
     );
@@ -127,108 +118,108 @@ export function QrManager({ schools }: Props) {
 
   return (
     <div className={s.layout}>
-      <section className={s.panel}>
-        <div>
-          <h2 className={s.sectionTitle}>Şablon Seçimi</h2>
-          <div className={s.templateOptions}>
+      {/* Left Column: Template + Schools List */}
+      <div className={s.leftCol}>
+        {/* Template Card */}
+        <div className={s.card}>
+          <div className={s.cardHeader}>
+            <h2 className={s.cardTitle}>Şablon</h2>
+          </div>
+          <div className={s.templatePills}>
             <button
               type="button"
-              className={`${s.templateButton} ${template === "label" ? s.templateButtonActive : ""}`}
+              className={`${s.templatePill} ${template === "label" ? s.templatePillActive : ""}`}
               onClick={() => setTemplate("label")}
             >
-              Servis Etiketi (6x9 cm)
+              Servis Etiketi 6×9
             </button>
             <button
               type="button"
-              className={`${s.templateButton} ${template === "poster" ? s.templateButtonActive : ""}`}
+              className={`${s.templatePill} ${template === "poster" ? s.templatePillActive : ""}`}
               onClick={() => setTemplate("poster")}
             >
               A4 Poster
             </button>
             <button
               type="button"
-              className={`${s.templateButton} ${template === "sticker" ? s.templateButtonActive : ""}`}
+              className={`${s.templatePill} ${template === "sticker" ? s.templatePillActive : ""}`}
               onClick={() => setTemplate("sticker")}
             >
-              Sticker (10x10 cm)
+              Sticker 10×10
             </button>
           </div>
         </div>
 
-        <div>
-          <h2 className={s.sectionTitle}>Okul Listesi & Seçim</h2>
-          <div className={s.selectAllWrap}>
-            <label className={s.schoolItem}>
-              <input
-                type="checkbox"
-                className={s.checkbox}
-                checked={checkedSchoolIds.size === schools.length}
-                onChange={toggleAll}
-              />
-              <span>
-                Tümünü Seç ({checkedSchoolIds.size}/{schools.length})
-              </span>
-            </label>
+        {/* School Selection Card */}
+        <div className={s.card}>
+          <div className={s.cardHeader}>
+            <h2 className={s.cardTitle}>Okul seçimi</h2>
+            <span className={s.cardHeaderMeta}>
+              {checkedSchoolIds.size} / {schools.length} SEÇİLİ
+            </span>
           </div>
+
           <div className={s.schoolList}>
             {schools.map((school) => {
-              const isSelectedForPreview = school.id === selectedSchoolId;
               const isChecked = checkedSchoolIds.has(school.id);
+              const isPreviewed = school.id === selectedSchoolId;
+
               return (
-                <div
+                <button
                   key={school.id}
-                  className={`${s.schoolItem} ${isSelectedForPreview ? s.schoolItemSelected : ""}`}
-                  onClick={() => setSelectedSchoolId(school.id)}
+                  type="button"
+                  className={`${s.schoolItem} ${isPreviewed ? s.schoolItemActive : ""}`}
+                  onClick={() => {
+                    setSelectedSchoolId(school.id);
+                    toggleCheck(school.id);
+                  }}
                 >
-                  <input
-                    type="checkbox"
-                    className={s.checkbox}
-                    checked={isChecked}
-                    onChange={(e) => {
-                      e.stopPropagation();
-                      toggleCheck(school.id);
-                    }}
-                  />
-                  <div className={s.schoolItemText}>
-                    <span>{school.ad}</span>
-                    {school.ilce ? (
-                      <span className={s.schoolItemDistrict}>{school.ilce}</span>
-                    ) : null}
+                  <span
+                    className={`${s.checkSquare} ${isChecked ? s.checkSquareActive : ""}`}
+                    aria-hidden="true"
+                  >
+                    {isChecked ? "✓" : ""}
+                  </span>
+                  <div className={s.schoolTextGroup}>
+                    <span className={s.schoolName}>{school.ad}</span>
+                    <span className={s.schoolDistrict}>
+                      {school.ilce ? `${school.ilce} / İstanbul` : "İstanbul"}
+                    </span>
                   </div>
-                </div>
+                  <span className={s.schoolMeta}>aktif</span>
+                </button>
               );
             })}
           </div>
 
-          <div className={s.batchActions}>
+          <div className={s.actionsArea}>
             <button
               type="button"
-              className={s.batchButton}
+              className={s.primaryActionBtn}
               onClick={handleBatchDownload}
               disabled={downloadingBatch || checkedSchoolIds.size === 0}
             >
               {downloadingBatch
-                ? "İndiriliyor..."
-                : `Seçili Okulları İndir (${checkedSchoolIds.size})`}
+                ? "İndiriliyor…"
+                : `Seçili okulları indir (${checkedSchoolIds.size})`}
             </button>
-            {template === "poster" && (
-              <button
-                type="button"
-                className={s.batchPdfButton}
-                onClick={handleBatchPdfDownload}
-                disabled={downloadingBatch || checkedSchoolIds.size === 0}
-              >
-                {downloadingBatch
-                  ? "PDF Hazırlanıyor..."
-                  : `Toplu A4 PDF İndir (${checkedSchoolIds.size})`}
-              </button>
-            )}
+            <button
+              type="button"
+              className={s.secondaryActionBtn}
+              onClick={handleBatchPdfDownload}
+              disabled={downloadingBatch || checkedSchoolIds.size === 0}
+            >
+              {downloadingBatch ? "Hazırlanıyor…" : "Toplu A4 PDF"}
+            </button>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className={s.previewSection}>
-        <h2 className={s.sectionTitle}>Canlı Önizleme</h2>
+      {/* Right Column: Live Sticky Preview Card */}
+      <div className={s.stickyPreviewWrap}>
+        <div className={s.cardHeader}>
+          <h2 className={s.cardTitle}>Canlı önizleme</h2>
+        </div>
         {selectedSchool ? (
           <QrPreview
             schoolId={selectedSchool.id}
@@ -236,9 +227,11 @@ export function QrManager({ schools }: Props) {
             template={template}
           />
         ) : (
-          <div className={s.emptyState}>Önizleme için okul seçin.</div>
+          <div className={s.emptyState}>
+            Önizleme için okul seçin.
+          </div>
         )}
-      </section>
+      </div>
     </div>
   );
 }

@@ -9,24 +9,29 @@ export const toggle = style({
   paddingBlock: vars.space.xs,
   paddingInline: vars.space.md,
   inlineSize: "fit-content",
-  border: `1px solid ${vars.color.border}`,
+  border: `1px solid ${vars.color.adminBorder}`,
   cursor: "pointer",
-  color: vars.color.mutedForeground,
-  backgroundColor: vars.color.muted,
-  ":disabled": {
-    opacity: 0.6,
-    cursor: "not-allowed",
-  },
+  color: vars.color.adminTextCaption,
+  backgroundColor: vars.color.adminSurfaceSoft,
+  transition: "all 0.15s ease",
   selectors: {
+    "&:disabled": {
+      opacity: 0.6,
+      cursor: "not-allowed",
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
     "&[data-active='true']": {
       color: vars.color.success,
-      backgroundColor: "hsl(140 50% 92%)",
-      borderColor: "hsl(140 50% 70%)",
+      backgroundColor: vars.color.adminSuccessBg,
+      borderColor: vars.color.adminSuccessBorder,
     },
     "&[data-active='false']": {
-      color: vars.color.danger,
-      backgroundColor: "hsl(0 70% 94%)",
-      borderColor: "hsl(0 70% 80%)",
+      color: vars.color.adminAlertText,
+      backgroundColor: vars.color.adminDangerBg,
+      borderColor: vars.color.adminDangerBorder,
     },
   },
 });

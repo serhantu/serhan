@@ -5,7 +5,7 @@ import { vars } from "@/styles/tokens.css";
 
 export const page = style({
   display: "block",
-  color: vars.color.foreground,
+  color: vars.color.adminText,
   fontFamily: vars.font.sans,
 });
 
@@ -33,25 +33,27 @@ export const th = style({
   textAlign: "left",
   paddingBlock: vars.space.sm,
   paddingInline: vars.space.sm,
-  borderBottom: `1px solid ${vars.color.border}`,
+  borderBlockEnd: `1px solid ${vars.color.adminBorder}`,
   fontWeight: vars.font.weightMedium,
+  color: vars.color.adminTextCaption,
 });
 
 export const td = style({
   paddingBlock: vars.space.sm,
   paddingInline: vars.space.sm,
+  color: vars.color.adminText,
 });
 
 export const rowSeparator = style({
-  borderBottom: `1px solid ${vars.color.border}`,
+  borderBlockEnd: `1px solid ${vars.color.adminBorderLight}`,
 });
 
 export const errorBox = style({
   padding: vars.space.md,
-  backgroundColor: vars.color.dangerBg,
-  color: vars.color.danger,
+  backgroundColor: vars.color.adminAlertSoft,
+  color: vars.color.adminAlertText,
   borderRadius: vars.radius.sm,
-  border: `1px solid ${vars.color.danger}`,
+  border: `1px solid ${vars.color.adminAlertBorder}`,
   marginBlockEnd: vars.space.md,
 });
 
@@ -67,6 +69,7 @@ export const label = style({
   display: "block",
   marginBlockEnd: vars.space.xs,
   fontWeight: vars.font.weightMedium,
+  color: vars.color.adminText,
   inlineSize: "fit-content",
 });
 
@@ -76,12 +79,20 @@ export const input = style({
   marginBlockStart: vars.space.xs,
   paddingBlock: vars.space.sm,
   paddingInline: vars.space.md,
-  border: `1px solid ${vars.color.border}`,
+  border: `1px solid ${vars.color.adminBorder}`,
   borderRadius: vars.radius.sm,
   fontFamily: vars.font.sans,
   fontSize: vars.font.sizeMd,
-  color: vars.color.foreground,
-  backgroundColor: vars.color.background,
+  color: vars.color.adminText,
+  backgroundColor: vars.color.adminSurface,
+  transition: "border-color 0.15s ease, box-shadow 0.15s ease",
+  selectors: {
+    "&:focus-visible": {
+      outline: "none",
+      borderColor: vars.color.adminPrimary,
+      boxShadow: `0 0 0 1px ${vars.color.adminPrimary}`,
+    },
+  },
 });
 
 export const textarea = style([
@@ -110,10 +121,26 @@ export const buttonRow = style({
 });
 
 export const deleteButton = style({
-  backgroundColor: vars.color.dangerBg,
-  color: vars.color.danger,
-  border: `1px solid ${vars.color.danger}`,
+  backgroundColor: vars.color.adminAlertSoft,
+  color: vars.color.adminAlertText,
+  border: `1px solid ${vars.color.adminAlertBorder}`,
+  borderRadius: vars.radius.sm,
+  paddingBlock: vars.space.xs,
+  paddingInline: vars.space.md,
+  cursor: "pointer",
   inlineSize: "fit-content",
+  fontFamily: vars.font.sans,
+  fontSize: vars.font.sizeSm,
+  transition: "all 0.15s ease",
+  selectors: {
+    "&:hover": {
+      backgroundColor: vars.color.adminDangerBg,
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminAlert}`,
+      outlineOffset: "2px",
+    },
+  },
 });
 
 export const loading = style({
@@ -128,7 +155,7 @@ export const layout = style({
 export const nav = style({
   inlineSize: "min(100%, 13rem)",
   flexShrink: 0,
-  borderInlineEnd: `1px solid ${vars.color.border}`,
+  borderInlineEnd: `1px solid ${vars.color.adminBorder}`,
 });
 
 export const navList = style({

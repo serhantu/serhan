@@ -2,10 +2,10 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "@/styles/tokens.css";
 
 export const wrapper = style({
-  border: `1px solid ${vars.color.border}`,
+  border: `1px solid ${vars.color.adminBorder}`,
   borderRadius: vars.radius.md,
   padding: vars.space.lg,
-  background: vars.color.muted,
+  background: vars.color.adminSurfaceSoft,
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -21,7 +21,7 @@ export const svgContainer = style({
 
 export const info = style({
   fontSize: vars.font.sizeSm,
-  color: vars.color.mutedForeground,
+  color: vars.color.adminTextCaption,
   textAlign: "center",
 });
 
@@ -36,23 +36,27 @@ export const downloadButton = style({
   inlineSize: "fit-content",
   paddingBlock: vars.space.xs,
   paddingInline: vars.space.md,
-  border: `1px solid ${vars.color.border}`,
+  border: `1px solid ${vars.color.adminBorder}`,
   borderRadius: vars.radius.sm,
-  background: vars.color.background,
-  color: vars.color.foreground,
+  background: vars.color.adminSurface,
+  color: vars.color.adminText,
   cursor: "pointer",
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
   transition: "all 0.15s ease",
   selectors: {
     "&:hover:not(:disabled)": {
-      background: vars.color.accent,
-      borderColor: vars.color.primary,
-      color: vars.color.foreground,
+      background: vars.color.adminSurfaceSoft,
+      borderColor: vars.color.adminTextSubtle,
+      color: vars.color.adminText,
     },
     "&:disabled": {
       opacity: 0.5,
       cursor: "not-allowed",
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
     },
   },
 });
@@ -64,23 +68,27 @@ export const downloadPdfButton = style({
   inlineSize: "fit-content",
   paddingBlock: vars.space.xs,
   paddingInline: vars.space.md,
-  border: `1px solid ${vars.color.primary}`,
+  border: `1px solid ${vars.color.adminPrimary}`,
   borderRadius: vars.radius.sm,
-  background: vars.color.primary,
-  color: vars.color.primaryForeground,
+  background: vars.color.adminPrimary,
+  color: vars.color.adminPrimaryForeground,
   cursor: "pointer",
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
   transition: "all 0.15s ease",
   selectors: {
     "&:hover:not(:disabled)": {
-      background: "hsl(215 25% 22%)",
-      borderColor: "hsl(215 25% 22%)",
-      color: vars.color.primaryForeground,
+      background: vars.color.adminPrimaryHover,
+      borderColor: vars.color.adminPrimaryHover,
+      color: vars.color.adminPrimaryForeground,
     },
     "&:disabled": {
       opacity: 0.5,
       cursor: "not-allowed",
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
     },
   },
 });

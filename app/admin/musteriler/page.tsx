@@ -1,9 +1,15 @@
-"use server";
-
 import Link from "next/link";
 import { requireAdminSession } from "@/lib/auth";
-import { searchCustomers } from "@/lib/admin/crm";
-import * as styles from "./page.css";
+import { searchCustomers, getAllCustomers } from "@/lib/admin/crm";
+import * as s from "./page.css";
+
+export const dynamic = "force-dynamic";
+
+function getInitials(name: string) {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
 
 export default async function MusterilerPage({
   searchParams,
@@ -13,52 +19,63 @@ export default async function MusterilerPage({
   await requireAdminSession();
   const { q } = await searchParams;
 
-  const customers = q ? await searchCustomers(q) : [];
+  const query = q?.trim() ?? "";
+  const customers = query ? await searchCustomers(query) : await getAllCustomers(60);
 
   return (
-    <main className={styles.page}>
-      <div className={styles.header}>
-        <div>
-          <h1 className={styles.title}>Müşteriler</h1>
-          <p className={styles.note}>Ad, telefon veya e-posta ile müşteri ara.</p>
-        </div>
-      </div>
-
-      <form method="GET" className={styles.searchForm}>
+    <div className={s.page}>
+      {/* Search Input */}
+      <form method="GET" action="/admin/musteriler" className={s.searchBar}>
+        <span className={s.searchIcon} aria-hidden="true">
+          ⌕
+        </span>
         <input
-          type="text"
+          type="search"
           name="q"
-          defaultValue={q ?? ""}
-          placeholder="Ad, telefon veya e-posta..."
-          className={styles.searchInput}
+          defaultValue={query}
+          placeholder="Ad, telefon veya e-posta…"
+          className={s.searchInput}
+          aria-label="Müşteri ara"
         />
-        <button type="submit" className={styles.searchButton}>
-          Ara
-        </button>
       </form>
 
-      {customers.length === 0 && q ? (
-        <div className={styles.emptyState}>
-          <p>Sonuç bulunamadı.</p>
+      {/* Results or Empty State */}
+      {customers.length === 0 ? (
+        <div className={s.emptyState}>
+          {query ? "Arama kriterine uygun müşteri bulunamadı." : "Henüz kayıtlı müşteri bulunmuyor."}
         </div>
-      ) : null}
+      ) : (
+        <div className={s.grid}>
+          {customers.map((c) => {
+            const initials = getInitials(c.adSoyad);
+            const since = new Date(c.createdAt).getFullYear();
 
-      {customers.length > 0 ? (
-        <div className={styles.customerList}>
-          {customers.map((customer) => (
-            <div key={customer.id} className={styles.customerCard}>
-              <p className={styles.customerName}>{customer.adSoyad}</p>
-              <p className={styles.customerMeta}>
-                Telefon: {customer.telefon}
-                {customer.eposta && ` · E-posta: ${customer.eposta}`}
-              </p>
-              <Link href={`/admin/musteriler/${customer.id}`} className={styles.customerLink}>
-                Detayları gör
+            return (
+              <Link key={c.id} href={`/admin/musteriler/${c.id}`} className={s.card}>
+                <div className={s.cardHeader}>
+                  <span className={s.avatar} aria-hidden="true">
+                    {initials}
+                  </span>
+                  <div className={s.headerText}>
+                    <span className={s.customerName}>{c.adSoyad}</span>
+                    <span className={s.customerRole}>Müşteri / Veli</span>
+                  </div>
+                </div>
+
+                <div className={s.contactDetails}>
+                  <span className={s.contactLine}>{c.telefon}</span>
+                  <span className={s.contactLine}>{c.eposta || "—"}</span>
+                </div>
+
+                <div className={s.cardFooter}>
+                  <span className={s.statusTag}>Kayıtlı</span>
+                  <span className={s.sinceYear}>{since}</span>
+                </div>
               </Link>
-            </div>
-          ))}
+            );
+          })}
         </div>
-      ) : null}
-    </main>
+      )}
+    </div>
   );
 }

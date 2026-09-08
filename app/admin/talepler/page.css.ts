@@ -1,315 +1,332 @@
 import { style } from "@vanilla-extract/css";
-import { vars } from "@/styles/tokens.css";
+import { vars, breakpoints } from "@/styles/tokens.css";
 
 export const page = style({
-  maxInlineSize: "min(100%, 80rem)",
-  marginInline: "auto",
-  paddingBlock: vars.space.xl,
-  paddingInline: "clamp(1rem, 3vw, 2rem)",
-  display: "flex",
-  flexDirection: "column",
-  gap: vars.space.xl,
+  display: "grid",
+  gap: "0.875rem",
 });
 
-export const title = style({
-  fontSize: "clamp(1.5rem, 3vw, 2rem)",
-  fontWeight: vars.font.weightBold,
-  color: vars.color.foreground,
-});
-
-export const topBar = style({
+// Top Type Filter Pills Row
+export const typePillsRow = style({
   display: "flex",
-  justifyContent: "space-between",
   alignItems: "center",
-  gap: vars.space.md,
+  gap: "0.5rem",
   flexWrap: "wrap",
 });
 
-export const tabs = style({
-  display: "flex",
-  gap: vars.space.xs,
-  flexWrap: "wrap",
-  borderBottom: `1px solid ${vars.color.border}`,
-  paddingBottom: vars.space.sm,
-});
-
-export const tab = style({
-  paddingBlock: vars.space.xs,
-  paddingInline: vars.space.md,
+export const typePill = style({
+  paddingBlock: "0.5rem",
+  paddingInline: "0.9375rem",
   borderRadius: vars.radius.full,
-  fontSize: vars.font.sizeSm,
-  fontWeight: vars.font.weightMedium,
-  textDecoration: "none",
-  color: vars.color.mutedForeground,
-  backgroundColor: "transparent",
-  border: `1px solid transparent`,
-  transition: "all 0.2s ease",
-  ":hover": {
-    color: vars.color.foreground,
-    backgroundColor: vars.color.muted,
-  },
-});
-
-export const tabActive = style({
-  color: vars.color.primaryForeground,
-  backgroundColor: vars.color.primary,
-  borderColor: vars.color.primary,
-  ":hover": {
-    color: vars.color.primaryForeground,
-    backgroundColor: vars.color.primary,
-  },
-});
-
-export const form = style({
-  display: "flex",
-  flexWrap: "wrap",
-  gap: vars.space.sm,
-  alignItems: "center",
-});
-
-export const input = style({
-  border: `1px solid ${vars.color.border}`,
-  borderRadius: vars.radius.md,
-  paddingBlock: vars.space.sm,
-  paddingInline: vars.space.md,
-  minInlineSize: "min(100%, 12rem)",
-  fontFamily: vars.font.sans,
-});
-
-export const select = style({
-  border: `1px solid ${vars.color.border}`,
-  borderRadius: vars.radius.md,
-  paddingBlock: vars.space.sm,
-  paddingInline: vars.space.md,
-  fontFamily: vars.font.sans,
-});
-
-export const button = style({
-  border: `1px solid ${vars.color.border}`,
-  background: vars.color.primary,
-  color: vars.color.primaryForeground,
-  borderRadius: vars.radius.md,
-  paddingBlock: vars.space.sm,
-  paddingInline: vars.space.md,
-  fontWeight: vars.font.weightMedium,
-  inlineSize: "fit-content",
   cursor: "pointer",
+  fontSize: "0.8125rem",
+  textDecoration: "none",
+  inlineSize: "fit-content",
+  transition: "background 0.18s ease, color 0.18s ease, border-color 0.18s ease",
+  border: `1px solid ${vars.color.adminBorder}`,
+  background: vars.color.adminSurface,
+  color: vars.color.adminTextBody,
+  fontWeight: vars.font.weightNormal,
+  selectors: {
+    "&:hover": {
+      background: vars.color.adminSurfaceSoft,
+      color: vars.color.adminText,
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
+  },
 });
 
-export const tableWrap = style({
+export const typePillActive = style({
+  background: vars.color.adminText,
+  color: vars.color.adminPrimaryForeground,
+  borderColor: vars.color.adminText,
+  fontWeight: vars.font.weightMedium,
+  selectors: {
+    "&:hover": {
+      background: vars.color.adminText,
+      color: vars.color.adminPrimaryForeground,
+    },
+  },
+});
+
+// Main Card
+export const cardBox = style({
+  background: vars.color.adminSurface,
+  border: `1px solid ${vars.color.adminBorder}`,
+  borderRadius: "0.75rem",
+  overflow: "hidden",
+});
+
+// Card Toolbar
+export const cardToolbar = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: "0.75rem",
+  flexWrap: "wrap",
+  paddingBlock: "0.875rem",
+  paddingInline: "1.125rem",
+  borderBlockEnd: `1px solid ${vars.color.adminBorder}`,
+});
+
+export const readFilterGroup = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "0.5rem",
+  flexWrap: "wrap",
+});
+
+export const readTab = style({
+  paddingBlock: "0.4375rem",
+  paddingInline: "0.8125rem",
+  borderRadius: "0.4375rem",
+  fontSize: "0.78125rem",
+  textDecoration: "none",
+  cursor: "pointer",
+  inlineSize: "fit-content",
+  transition: "all 0.18s ease",
+  border: `1px solid ${vars.color.adminBorder}`,
+  background: vars.color.adminSurface,
+  color: vars.color.adminTextMuted,
+  selectors: {
+    "&:hover": {
+      background: vars.color.adminSurfaceSoft,
+      color: vars.color.adminText,
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
+  },
+});
+
+export const readTabActive = style({
+  background: vars.color.adminPrimarySoft,
+  color: vars.color.adminPrimary,
+  borderColor: vars.color.adminFilterLine,
+  fontWeight: vars.font.weightMedium,
+  selectors: {
+    "&:hover": {
+      background: vars.color.adminPrimarySoft,
+      color: vars.color.adminPrimary,
+    },
+  },
+});
+
+export const rowCountText = style({
+  fontFamily: vars.font.mono,
+  fontSize: "0.6875rem",
+  color: vars.color.adminTextCaption,
+});
+
+// Table Styles
+export const tableContainer = style({
   inlineSize: "100%",
   overflowX: "auto",
-  border: `1px solid ${vars.color.border}`,
-  borderRadius: vars.radius.md,
 });
 
 export const table = style({
   inlineSize: "100%",
   borderCollapse: "collapse",
-  background: vars.color.background,
+  textAlign: "left",
+});
+
+export const thead = style({
+  background: vars.color.adminSurfaceSoft,
+  borderBlockEnd: `1px solid ${vars.color.adminBorder}`,
+  fontFamily: vars.font.mono,
+  fontSize: "0.625rem",
+  letterSpacing: "0.1em",
+  color: vars.color.adminTextCaption,
+  textTransform: "uppercase",
 });
 
 export const th = style({
-  textAlign: "left",
-  paddingBlock: vars.space.md,
-  paddingInline: vars.space.md,
-  borderBottom: `1px solid ${vars.color.border}`,
-  fontSize: vars.font.sizeSm,
-  color: vars.color.mutedForeground,
-  background: vars.color.muted,
-});
-
-export const thStatus = style({
-  inlineSize: "2.5rem",
-  textAlign: "center",
-  paddingBlock: vars.space.md,
-  paddingInline: vars.space.xs,
-  borderBottom: `1px solid ${vars.color.border}`,
-  fontSize: vars.font.sizeSm,
-  color: vars.color.mutedForeground,
-  background: vars.color.muted,
+  paddingBlock: "0.6875rem",
+  paddingInline: "1.125rem",
+  fontWeight: vars.font.weightMedium,
+  selectors: {
+    "&:first-child": {
+      inlineSize: "2rem",
+      paddingInlineEnd: "0.25rem",
+      textAlign: "center",
+    },
+  },
 });
 
 export const tr = style({
-  transition: "background-color 0.15s ease",
-  ":hover": {
-    backgroundColor: "hsl(210 20% 98%)",
+  borderBlockEnd: `1px solid ${vars.color.adminBorderLight}`,
+  transition: "background 0.15s ease",
+  selectors: {
+    "&:hover": {
+      background: vars.color.adminRowHover,
+    },
+    "&:last-child": {
+      borderBlockEnd: "none",
+    },
   },
 });
 
 export const trUnread = style({
-  backgroundColor: "hsl(142 60% 98% / 0.8)",
-  transition: "background-color 0.15s ease",
-  ":hover": {
-    backgroundColor: "hsl(142 55% 95%)",
-  },
+  background: vars.color.adminRowUnread,
 });
 
 export const td = style({
-  paddingBlock: vars.space.md,
-  paddingInline: vars.space.md,
-  borderBottom: `1px solid ${vars.color.border}`,
+  paddingBlock: "0.9375rem",
+  paddingInline: "1.125rem",
   verticalAlign: "middle",
+  fontSize: "0.875rem",
+  color: vars.color.adminText,
+  selectors: {
+    "&:first-child": {
+      paddingInlineEnd: "0.25rem",
+      textAlign: "center",
+    },
+  },
 });
 
-export const tdStatus = style({
-  inlineSize: "2.5rem",
-  textAlign: "center",
-  paddingBlock: vars.space.md,
-  paddingInline: vars.space.xs,
-  borderBottom: `1px solid ${vars.color.border}`,
-  verticalAlign: "middle",
-});
-
-export const dotWrap = style({
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  inlineSize: "1.25rem",
-  blockSize: "1.25rem",
+export const statusDot = style({
+  inlineSize: "0.5625rem",
+  blockSize: "0.5625rem",
+  borderRadius: vars.radius.full,
+  display: "inline-block",
 });
 
 export const statusDotUnread = style({
-  display: "inline-block",
-  inlineSize: "0.625rem",
-  blockSize: "0.625rem",
-  borderRadius: vars.radius.full,
-  backgroundColor: "hsl(142 71% 45%)",
-  boxShadow: "0 0 0 3px hsl(142 71% 45% / 0.25)",
+  background: vars.color.adminPrimary,
+  boxShadow: `0 0 0 3px ${vars.color.adminPrimarySoft}`,
 });
 
 export const statusDotRead = style({
-  display: "inline-block",
-  inlineSize: "0.5rem",
-  blockSize: "0.5rem",
-  borderRadius: vars.radius.full,
-  border: "1.5px solid hsl(215 16% 75%)",
-  backgroundColor: "transparent",
-});
-
-export const link = style({
-  color: vars.color.primary,
-  textDecoration: "none",
-  fontWeight: vars.font.weightMedium,
-  inlineSize: "fit-content",
-  ":hover": {
-    textDecoration: "underline",
-  },
-});
-
-export const linkUnread = style({
-  color: vars.color.foreground,
-  textDecoration: "none",
-  fontWeight: vars.font.weightBold,
-  fontSize: vars.font.sizeMd,
-  display: "inline-block",
-  ":hover": {
-    color: vars.color.primary,
-    textDecoration: "underline",
-  },
-});
-
-export const linkRead = style({
-  color: "hsl(215 20% 35%)",
-  textDecoration: "none",
-  fontWeight: vars.font.weightNormal,
-  fontSize: vars.font.sizeMd,
-  display: "inline-block",
-  ":hover": {
-    color: vars.color.primary,
-    textDecoration: "underline",
-  },
+  background: vars.color.adminBorder,
 });
 
 export const typeBadge = style({
   display: "inline-block",
-  fontSize: "0.75rem",
-  fontWeight: vars.font.weightMedium,
-  paddingBlock: "0.2rem",
-  paddingInline: "0.5rem",
-  borderRadius: vars.radius.sm,
-  backgroundColor: vars.color.muted,
-  color: vars.color.foreground,
-  letterSpacing: "0.02em",
-});
-
-export const statusBadge = style({
-  display: "inline-flex",
-  alignItems: "center",
-  gap: "0.35rem",
-  fontSize: "0.75rem",
-  fontWeight: vars.font.weightBold,
+  fontFamily: vars.font.mono,
+  fontSize: "0.65625rem",
   paddingBlock: "0.25rem",
-  paddingInline: "0.6rem",
-  borderRadius: vars.radius.full,
+  paddingInline: "0.5rem",
+  borderRadius: "0.3125rem",
+  background: vars.color.adminSurfaceSoft,
+  color: vars.color.adminTextMuted,
   whiteSpace: "nowrap",
 });
 
-export const statusBadgeYeniUnread = style({
-  backgroundColor: "hsl(142 76% 90%)",
-  color: "hsl(142 76% 22%)",
-  border: "1px solid hsl(142 71% 75%)",
+export const summaryCol = style({
+  display: "grid",
+  gap: "0.125rem",
+  minInlineSize: 0,
 });
 
-export const statusBadgeYeniRead = style({
-  backgroundColor: "hsl(215 20% 93%)",
-  color: "hsl(215 20% 35%)",
-  border: "1px solid hsl(215 16% 85%)",
-});
-
-export const statusBadgeInceleniyor = style({
-  backgroundColor: "hsl(217 91% 94%)",
-  color: "hsl(217 91% 35%)",
-  border: "1px solid hsl(217 91% 85%)",
-});
-
-export const statusBadgeIletisimeGecildi = style({
-  backgroundColor: "hsl(43 96% 90%)",
-  color: "hsl(38 92% 28%)",
-  border: "1px solid hsl(43 96% 80%)",
-});
-
-export const statusBadgeTamamlandi = style({
-  backgroundColor: "hsl(215 16% 92%)",
-  color: "hsl(215 16% 40%)",
-  border: "1px solid hsl(215 16% 85%)",
-});
-
-export const countBadge = style({
-  display: "inline-flex",
-  alignItems: "center",
-  fontSize: "0.8rem",
-  fontWeight: vars.font.weightBold,
-  color: "hsl(142 76% 22%)",
-  backgroundColor: "hsl(142 76% 92%)",
-  border: "1px solid hsl(142 71% 75%)",
-  borderRadius: vars.radius.full,
-  paddingBlock: "0.15rem",
-  paddingInline: "0.6rem",
-});
-
-export const meta = style({
-  color: vars.color.mutedForeground,
-  fontSize: vars.font.sizeSm,
-  whiteSpace: "nowrap",
-});
-
-export const pagination = style({
-  display: "flex",
-  gap: vars.space.sm,
-  flexWrap: "wrap",
-  alignItems: "center",
-});
-
-export const pageLink = style({
-  border: `1px solid ${vars.color.border}`,
-  borderRadius: vars.radius.md,
-  paddingBlock: vars.space.xs,
-  paddingInline: vars.space.sm,
+export const summaryLink = style({
+  color: vars.color.adminText,
   textDecoration: "none",
-  color: vars.color.foreground,
-  inlineSize: "fit-content",
-  ":hover": {
-    backgroundColor: vars.color.muted,
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+  fontWeight: vars.font.weightNormal,
+  selectors: {
+    "&:hover": {
+      color: vars.color.adminPrimary,
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
   },
+});
+
+export const summaryLinkUnread = style({
+  fontWeight: vars.font.weightBold,
+});
+
+export const mobileMeta = style({
+  fontSize: "0.71875rem",
+  color: vars.color.adminTextCaption,
+  "@media": {
+    [`(min-width: ${breakpoints.md})`]: {
+      display: "none",
+    },
+  },
+});
+
+export const schoolCell = style({
+  fontSize: "0.8125rem",
+  color: vars.color.adminTextMuted,
+  display: "none",
+  "@media": {
+    [`(min-width: ${breakpoints.md})`]: {
+      display: "table-cell",
+    },
+  },
+});
+
+export const dateCell = style({
+  fontFamily: vars.font.mono,
+  fontSize: "0.71875rem",
+  color: vars.color.adminTextCaption,
+  whiteSpace: "nowrap",
+  display: "none",
+  "@media": {
+    [`(min-width: ${breakpoints.md})`]: {
+      display: "table-cell",
+    },
+  },
+});
+
+// Card Footer
+export const cardFooter = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: "0.75rem",
+  paddingBlock: "0.875rem",
+  paddingInline: "1.125rem",
+  fontSize: "0.78125rem",
+  color: vars.color.adminTextCaption,
+  borderBlockStart: `1px solid ${vars.color.adminBorder}`,
+});
+
+export const pageButtons = style({
+  display: "flex",
+  gap: "0.375rem",
+});
+
+export const pageBtn = style({
+  paddingBlock: "0.4375rem",
+  paddingInline: "0.8125rem",
+  border: `1px solid ${vars.color.adminBorder}`,
+  borderRadius: "0.4375rem",
+  background: vars.color.adminSurface,
+  fontSize: "0.78125rem",
+  cursor: "pointer",
+  color: vars.color.adminText,
+  textDecoration: "none",
+  inlineSize: "fit-content",
+  transition: "background 0.15s ease",
+  selectors: {
+    "&:hover": {
+      background: vars.color.adminSurfaceSoft,
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
+  },
+});
+
+export const pageBtnDisabled = style({
+  opacity: 0.4,
+  pointerEvents: "none",
+});
+
+export const emptyState = style({
+  padding: "2rem",
+  textAlign: "center",
+  color: vars.color.adminTextCaption,
+  fontSize: "0.875rem",
 });

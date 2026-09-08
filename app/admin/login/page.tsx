@@ -1,16 +1,7 @@
+import Image from "next/image";
+import Link from "next/link";
 import { loginAdmin } from "@/lib/auth";
-import {
-  page,
-  card,
-  title,
-  form,
-  label,
-  input,
-  actions,
-  button,
-  helper,
-  errorMessage,
-} from "./page.css";
+import * as s from "./page.css";
 
 export default async function AdminLoginPage({
   searchParams,
@@ -22,7 +13,7 @@ export default async function AdminLoginPage({
 
   let errorText = "";
   if (error === "invalid") {
-    errorText = "Geçersiz e-posta adresi veya şifre girdiniz.";
+    errorText = "E-posta veya şifre hatalı. Lütfen kontrol ediniz.";
   } else if (error === "missing") {
     errorText = "Lütfen e-posta ve şifrenizi eksiksiz giriniz.";
   } else if (error === "config") {
@@ -30,53 +21,144 @@ export default async function AdminLoginPage({
   }
 
   return (
-    <main className={page}>
-      <div className={card}>
-        <h1 className={title}>Admin Girişi</h1>
+    <div className={s.container}>
+      {/* Left Brand Panel (Desktop) */}
+      <aside className={s.heroPanel} aria-label="Serhan Turizm Yönetim Paneli">
+        <div>
+          <Image
+            src="/images/logo-white.svg"
+            alt="Serhan Turizm"
+            width={200}
+            height={58}
+            className={s.heroLogo}
+            priority
+          />
+        </div>
 
-        <p className={helper}>
-          Serhan Turizm yönetim paneline erişmek için kullanıcı bilgilerinizi giriniz.
-        </p>
-
-        {errorText ? (
-          <div className={errorMessage} role="alert">
-            {errorText}
+        <div className={s.heroContent}>
+          <div className={s.heroHeader}>
+            <span className={s.heroTag}>YÖNETİM PANELİ</span>
+            <h1 className={s.heroTitle}>Operasyon kontrolü, bir tıkta.</h1>
+            <p className={s.heroDesc}>
+              Talepler, teklif yönetimi, okul yönetimi ve QR kod baskısı — tek panel, hepsi bir yerde.
+            </p>
           </div>
-        ) : null}
 
-        <form action={loginAdmin} className={form}>
-          <label className={label} htmlFor="email">
-            E-posta
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            defaultValue="admin@serhanturizm.com"
-            className={input}
-            required
-            autoComplete="email"
-          />
+          <div className={s.featureList}>
+            <div className={s.featureItem}>
+              <span className={s.featureIcon} aria-hidden="true">✓</span>
+              <span>Canlı operasyon takibi</span>
+            </div>
+            <div className={s.featureItem}>
+              <span className={s.featureIcon} aria-hidden="true">✓</span>
+              <span>Talep yönetim sistemi</span>
+            </div>
+            <div className={s.featureItem}>
+              <span className={s.featureIcon} aria-hidden="true">✓</span>
+              <span>QR kod ve baskı otomasyonu</span>
+            </div>
+          </div>
+        </div>
 
-          <label className={label} htmlFor="password">
-            Şifre
-          </label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            className={input}
-            required
-            autoComplete="current-password"
-          />
+        <div className={s.heroFooter}>
+          <span>© 2026 Serhan Turizm</span>
+          <br />
+          <Link href="/kurumsal/kullanim-kosullari" className={s.heroFooterLinks}>
+            Kullanım şartları
+          </Link>
+          <span> · </span>
+          <Link href="/kurumsal/gizlilik-politikasi" className={s.heroFooterLinks}>
+            Gizlilik
+          </Link>
+        </div>
+      </aside>
 
-          <div className={actions}>
-            <button type="submit" className={button}>
-              Giriş yap
+      {/* Right Login Form Panel */}
+      <main className={s.formPanel}>
+        <div className={s.formCard}>
+          <div className={s.formHeader}>
+            <Image
+              src="/images/logo.svg"
+              alt="Serhan Turizm"
+              width={160}
+              height={46}
+              className={s.mobileLogo}
+              priority
+            />
+            <h2 className={s.formTitle}>Giriş yap</h2>
+            <p className={s.formSubtitle}>
+              Yönetim paneline erişmek için kimlik bilgilerinizi girin.
+            </p>
+          </div>
+
+          <form action={loginAdmin} className={s.form}>
+            {errorText ? (
+              <div className={s.errorBox} role="alert" aria-live="polite">
+                {errorText}
+              </div>
+            ) : null}
+
+            <label className={s.field} htmlFor="email">
+              <span className={s.label}>E-posta veya kullanıcı adı</span>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                defaultValue="admin@serhanturizm.com"
+                placeholder="admin@serhanturizm.com"
+                className={s.input}
+                required
+                autoComplete="email"
+              />
+            </label>
+
+            <label className={s.field} htmlFor="password">
+              <div className={s.fieldLabelRow}>
+                <span className={s.label}>Şifre</span>
+                <span className={s.forgotLink}>Şifremi unuttum</span>
+              </div>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="••••••••"
+                className={s.input}
+                required
+                autoComplete="current-password"
+              />
+            </label>
+
+            <label className={s.rememberRow}>
+              <input type="checkbox" name="remember" className={s.checkbox} defaultChecked />
+              <span>Beni hatırla</span>
+            </label>
+
+            <button type="submit" className={s.submitButton}>
+              <span>Giriş yap</span>
+              <span aria-hidden="true">→</span>
             </button>
+          </form>
+
+          <div className={s.divider}>
+            <span className={s.dividerLine} aria-hidden="true" />
+            <span className={s.dividerText}>VE</span>
+            <span className={s.dividerLine} aria-hidden="true" />
           </div>
-        </form>
-      </div>
-    </main>
+
+          <button type="button" className={s.ssoButton} disabled title="SSO entegrasyonu yakında">
+            <span aria-hidden="true">👤</span>
+            <span>SSO ile giriş yap</span>
+          </button>
+
+          <div className={s.infoCard}>
+            <span className={s.infoCardTitle}>Sistem Yöneticisi Girişi:</span>
+            <div className={s.infoCardMono}>
+              <div>admin@serhanturizm.com</div>
+              <div>Çevre değişkenlerinde tanımlı şifreniz</div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
   );
 }

@@ -4,54 +4,54 @@ import { vars } from "@/styles/tokens.css";
 export const wrapper = style({
   inlineSize: "100%",
   overflowX: "auto",
-  border: `1px solid ${vars.color.border}`,
-  borderRadius: vars.radius.lg,
-  backgroundColor: vars.color.background,
-  boxShadow: vars.shadow.sm,
+  border: `1px solid ${vars.color.adminBorder}`,
+  borderRadius: "0.75rem",
+  backgroundColor: vars.color.adminSurface,
 });
 
 export const table = style({
   inlineSize: "100%",
-  minInlineSize: "68rem",
+  minInlineSize: "58rem",
   borderCollapse: "collapse",
-  fontSize: vars.font.sizeSm,
+  fontSize: "0.875rem",
   textAlign: "left",
 });
 
 globalStyle(`${table} thead`, {
-  backgroundColor: vars.color.muted,
+  backgroundColor: vars.color.adminSurfaceSoft,
 });
 
 globalStyle(`${table} th`, {
-  paddingBlock: "0.875rem",
-  paddingInline: vars.space.md,
-  fontSize: vars.font.sizeXs,
-  fontWeight: vars.font.weightBold,
-  color: vars.color.mutedForeground,
+  paddingBlock: "0.6875rem",
+  paddingInline: "1.125rem",
+  fontSize: "0.625rem",
+  fontFamily: vars.font.mono,
+  fontWeight: vars.font.weightMedium,
+  color: vars.color.adminTextCaption,
   textTransform: "uppercase",
-  letterSpacing: "0.05em",
-  borderBottom: `1px solid ${vars.color.border}`,
+  letterSpacing: "0.1em",
+  borderBlockEnd: `1px solid ${vars.color.adminBorder}`,
   whiteSpace: "nowrap",
 });
 
 globalStyle(`${table} td`, {
-  paddingBlock: "1rem",
-  paddingInline: vars.space.md,
-  borderBottom: `1px solid ${vars.color.border}`,
+  paddingBlock: "0.9375rem",
+  paddingInline: "1.125rem",
+  borderBlockEnd: `1px solid ${vars.color.adminBorderLight}`,
   verticalAlign: "middle",
-  color: vars.color.foreground,
+  color: vars.color.adminText,
 });
 
 globalStyle(`${table} tbody tr`, {
-  transition: "background-color 0.15s ease",
+  transition: "background 0.15s ease",
 });
 
 globalStyle(`${table} tbody tr:hover`, {
-  backgroundColor: "hsl(0 0% 98%)",
+  backgroundColor: vars.color.adminRowHover,
 });
 
 globalStyle(`${table} tbody tr:last-child td`, {
-  borderBottom: "none",
+  borderBlockEnd: "none",
 });
 
 export const nameCell = style({
@@ -59,9 +59,9 @@ export const nameCell = style({
 });
 
 export const schoolName = style({
-  fontSize: vars.font.sizeSm,
-  fontWeight: vars.font.weightBold,
-  color: vars.color.foreground,
+  fontSize: "0.875rem",
+  fontWeight: vars.font.weightMedium,
+  color: vars.color.adminText,
   display: "block",
   lineHeight: 1.35,
 });
@@ -70,50 +70,87 @@ export const publicPageLink = style({
   display: "inline-flex",
   alignItems: "center",
   gap: "0.25rem",
-  fontSize: vars.font.sizeXs,
-  color: vars.color.mutedForeground,
+  fontSize: "0.71875rem",
+  fontFamily: vars.font.mono,
+  color: vars.color.adminTextCaption,
   textDecoration: "none",
   marginBlockStart: "0.25rem",
+  inlineSize: "fit-content",
   transition: "color 0.15s ease",
-  ":hover": {
-    color: vars.color.primary,
-    textDecoration: "underline",
+  selectors: {
+    "&:hover": {
+      color: vars.color.adminPrimary,
+      textDecoration: "underline",
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
   },
 });
 
 export const addressCell = style({
-  minInlineSize: "16rem",
-  maxInlineSize: "22rem",
+  minInlineSize: "13rem",
+  maxInlineSize: "20rem",
 });
 
 export const districtBadge = style({
-  display: "inline-flex",
-  alignItems: "center",
-  fontSize: "0.6875rem",
-  fontWeight: vars.font.weightMedium,
-  color: vars.color.primary,
-  backgroundColor: vars.color.accent,
-  paddingBlock: "0.125rem",
-  paddingInline: "0.45rem",
-  borderRadius: vars.radius.sm,
-  marginBlockEnd: "0.3125rem",
+  display: "inline-block",
+  fontSize: "0.75rem",
+  fontWeight: vars.font.weightNormal,
+  color: vars.color.adminTextMuted,
+  backgroundColor: vars.color.adminSurfaceSoft,
+  paddingBlock: "0.25rem",
+  paddingInline: "0.625rem",
+  borderRadius: vars.radius.full,
 });
 
-export const addressText = style({
-  display: "flex",
-  alignItems: "flex-start",
-  gap: "0.35rem",
-  fontSize: "0.75rem",
-  color: vars.color.mutedForeground,
-  lineHeight: 1.4,
+export const slugCell = style({
+  fontFamily: vars.font.mono,
+  fontSize: "0.71875rem",
+  color: vars.color.adminTextCaption,
+  maxInlineSize: "11rem",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+});
+
+export const countCell = style({
+  fontFamily: vars.font.mono,
+  fontSize: "0.8125rem",
+  color: vars.color.adminText,
+});
+
+export const countBadge = style({
+  fontFamily: vars.font.mono,
+  fontSize: "0.8125rem",
+  fontWeight: vars.font.weightMedium,
+  color: vars.color.adminText,
+});
+
+export const dateCell = style({
+  fontFamily: vars.font.mono,
+  fontSize: "0.71875rem",
+  color: vars.color.adminTextCaption,
+  whiteSpace: "nowrap",
+});
+
+export const centerCell = style({
+  textAlign: "center",
+});
+
+export const empty = style({
+  padding: "2rem",
+  textAlign: "center",
+  color: vars.color.adminTextCaption,
+  fontSize: "0.875rem",
 });
 
 export const mapPinIcon = style({
+  inlineSize: "0.875rem",
+  blockSize: "0.875rem",
+  color: vars.color.adminTextSubtle,
   flexShrink: 0,
-  inlineSize: "0.75rem",
-  blockSize: "0.75rem",
-  marginBlockStart: "0.15rem",
-  color: vars.color.mutedForeground,
 });
 
 export const mapLink = style({
@@ -121,82 +158,128 @@ export const mapLink = style({
   alignItems: "center",
   gap: "0.25rem",
   fontSize: "0.6875rem",
-  color: vars.color.primary,
-  marginBlockStart: "0.3125rem",
-  textDecoration: "underline",
-  fontWeight: vars.font.weightMedium,
-  ":hover": {
-    opacity: 0.8,
+  color: vars.color.adminPrimary,
+  textDecoration: "none",
+  marginBlockStart: "0.1875rem",
+  inlineSize: "fit-content",
+  selectors: {
+    "&:hover": {
+      color: vars.color.adminPrimaryHover,
+      textDecoration: "underline",
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
   },
-});
-
-export const slugCell = style({
-  minInlineSize: "11rem",
 });
 
 export const slug = style({
   fontFamily: vars.font.mono,
+  fontSize: "0.71875rem",
+  color: vars.color.adminTextCaption,
+});
+
+export const addressText = style({
   fontSize: "0.75rem",
-  color: vars.color.mutedForeground,
-  backgroundColor: vars.color.muted,
-  paddingBlock: "0.1875rem",
-  paddingInline: "0.4375rem",
-  borderRadius: vars.radius.sm,
-  border: `1px solid ${vars.color.border}`,
-  display: "inline-block",
-  wordBreak: "break-all",
+  color: vars.color.adminTextCaption,
+  lineHeight: 1.4,
+});
+
+export const mapsLink = style({
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "0.25rem",
+  fontSize: "0.6875rem",
+  color: vars.color.adminPrimary,
+  textDecoration: "none",
+  marginBlockStart: "0.1875rem",
+  inlineSize: "fit-content",
+  selectors: {
+    "&:hover": {
+      color: vars.color.adminPrimaryHover,
+      textDecoration: "underline",
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
+  },
 });
 
 export const tcBadge = style({
-  display: "inline-flex",
-  alignItems: "center",
-  paddingBlock: "0.1875rem",
-  paddingInline: "0.5rem",
-  borderRadius: vars.radius.full,
   fontSize: "0.6875rem",
   fontWeight: vars.font.weightMedium,
-  whiteSpace: "nowrap",
+  paddingBlock: "0.1875rem",
+  paddingInline: "0.4375rem",
+  borderRadius: "0.25rem",
+  display: "inline-block",
 });
 
 export const tcRequired = style({
-  backgroundColor: "hsl(35 92% 95%)",
-  color: "hsl(35 92% 33%)",
-  border: "1px solid hsl(35 92% 80%)",
+  backgroundColor: vars.color.adminPrimarySoft,
+  color: vars.color.adminPrimary,
 });
 
 export const tcOptional = style({
-  backgroundColor: vars.color.muted,
-  color: vars.color.mutedForeground,
+  backgroundColor: vars.color.adminSurfaceSoft,
+  color: vars.color.adminTextCaption,
 });
 
-export const countBadge = style({
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  minInlineSize: "1.75rem",
-  paddingBlock: "0.125rem",
-  paddingInline: "0.375rem",
-  borderRadius: vars.radius.full,
-  backgroundColor: vars.color.muted,
-  fontSize: vars.font.sizeXs,
-  fontWeight: vars.font.weightBold,
-  color: vars.color.foreground,
+export const statusBadge = style({
+  fontSize: "0.6875rem",
+  fontWeight: vars.font.weightMedium,
+  paddingBlock: "0.1875rem",
+  paddingInline: "0.4375rem",
+  borderRadius: "0.25rem",
+  display: "inline-block",
 });
 
-export const dateCell = style({
-  fontSize: vars.font.sizeXs,
-  color: vars.color.mutedForeground,
-  whiteSpace: "nowrap",
+export const statusActive = style({
+  backgroundColor: vars.color.adminPrimarySoft,
+  color: vars.color.adminPrimary,
+});
+
+export const statusPassive = style({
+  backgroundColor: vars.color.adminAlertSoft,
+  color: vars.color.adminAlertText,
 });
 
 export const actionsCell = style({
-  minInlineSize: "9rem",
   whiteSpace: "nowrap",
 });
 
-export const empty = style({
-  padding: vars.space.xl,
-  color: vars.color.mutedForeground,
-  textAlign: "center",
-  fontSize: vars.font.sizeSm,
+export const actionButtons = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "0.375rem",
+  flexWrap: "wrap",
+});
+
+export const qrActionButton = style({
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "0.25rem",
+  paddingBlock: "0.375rem",
+  paddingInline: "0.6875rem",
+  fontSize: "0.71875rem",
+  fontWeight: vars.font.weightMedium,
+  color: vars.color.adminText,
+  backgroundColor: vars.color.adminSurface,
+  border: `1px solid ${vars.color.adminBorder}`,
+  borderRadius: "0.375rem",
+  cursor: "pointer",
+  textDecoration: "none",
+  inlineSize: "fit-content",
+  transition: "all 0.15s ease",
+  selectors: {
+    "&:hover": {
+      backgroundColor: vars.color.adminSurfaceSoft,
+      borderColor: vars.color.adminTextSubtle,
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
+  },
 });

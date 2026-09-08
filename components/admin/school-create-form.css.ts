@@ -6,9 +6,9 @@ export const form = style({
   flexDirection: "column",
   gap: vars.space.lg,
   padding: vars.space.xl,
-  backgroundColor: vars.color.background,
+  backgroundColor: vars.color.adminSurface,
   borderRadius: vars.radius.lg,
-  border: `1px solid ${vars.color.border}`,
+  border: `1px solid ${vars.color.adminBorder}`,
   boxShadow: vars.shadow.sm,
 });
 
@@ -16,22 +16,22 @@ export const formHeader = style({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  borderBottom: `1px solid ${vars.color.border}`,
-  paddingBottom: vars.space.md,
+  borderBlockEnd: `1px solid ${vars.color.adminBorder}`,
+  paddingBlockEnd: vars.space.md,
 });
 
 export const formTitle = style({
   fontSize: vars.font.sizeLg,
   fontWeight: vars.font.weightBold,
-  color: vars.color.foreground,
+  color: vars.color.adminText,
   margin: 0,
 });
 
 export const formSubtitle = style({
   fontSize: vars.font.sizeSm,
-  color: vars.color.mutedForeground,
+  color: vars.color.adminTextCaption,
   margin: 0,
-  marginTop: vars.space.xs,
+  marginBlockStart: vars.space.xs,
 });
 
 export const closeButton = style({
@@ -39,23 +39,29 @@ export const closeButton = style({
   border: "none",
   fontSize: "1.25rem",
   cursor: "pointer",
-  color: vars.color.mutedForeground,
+  color: vars.color.adminTextCaption,
   padding: vars.space.xs,
   borderRadius: vars.radius.sm,
   lineHeight: 1,
-  ":hover": {
-    color: vars.color.foreground,
-    backgroundColor: vars.color.muted,
+  selectors: {
+    "&:hover": {
+      color: vars.color.adminText,
+      backgroundColor: vars.color.adminSurfaceSoft,
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
   },
 });
 
 export const grid = style({
   display: "grid",
-  gridTemplateColumns: "1fr 1fr",
+  gridTemplateColumns: "1fr",
   gap: vars.space.md,
   "@media": {
-    [`screen and (max-width: ${breakpoints.md})`]: {
-      gridTemplateColumns: "1fr",
+    [`screen and (min-width: ${breakpoints.md})`]: {
+      gridTemplateColumns: "1fr 1fr",
     },
   },
 });
@@ -73,27 +79,33 @@ export const field = style({
 export const label = style({
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
-  color: vars.color.foreground,
+  color: vars.color.adminText,
+});
+
+export const requiredMark = style({
+  color: vars.color.adminAlert,
 });
 
 export const input = style({
   fontFamily: vars.font.sans,
   fontSize: vars.font.sizeSm,
-  color: vars.color.foreground,
-  backgroundColor: vars.color.background,
-  border: `1px solid ${vars.color.border}`,
+  color: vars.color.adminText,
+  backgroundColor: vars.color.adminSurface,
+  border: `1px solid ${vars.color.adminBorder}`,
   borderRadius: vars.radius.md,
   paddingBlock: "0.625rem",
   paddingInline: vars.space.md,
   inlineSize: "100%",
   transition: "border-color 0.15s ease, box-shadow 0.15s ease",
-  ":focus-visible": {
-    outline: "none",
-    borderColor: vars.color.primary,
-    boxShadow: `0 0 0 1px ${vars.color.primary}`,
-  },
-  "::placeholder": {
-    color: vars.color.mutedForeground,
+  selectors: {
+    "&:focus-visible": {
+      outline: "none",
+      borderColor: vars.color.adminPrimary,
+      boxShadow: `0 0 0 1px ${vars.color.adminPrimary}`,
+    },
+    "&::placeholder": {
+      color: vars.color.adminTextSubtle,
+    },
   },
 });
 
@@ -110,14 +122,14 @@ export const checkboxLabel = style({
   gap: vars.space.sm,
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
-  color: vars.color.foreground,
+  color: vars.color.adminText,
   cursor: "pointer",
 });
 
 export const checkbox = style({
   inlineSize: "1.125rem",
   blockSize: "1.125rem",
-  accentColor: vars.color.primary,
+  accentColor: vars.color.adminPrimary,
   cursor: "pointer",
 });
 
@@ -125,29 +137,34 @@ export const actions = style({
   display: "flex",
   alignItems: "center",
   gap: vars.space.md,
-  paddingTop: vars.space.sm,
-  borderTop: `1px solid ${vars.color.border}`,
+  paddingBlockStart: vars.space.sm,
+  borderBlockStart: `1px solid ${vars.color.adminBorder}`,
 });
 
 export const submit = style({
   fontFamily: vars.font.sans,
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
-  color: vars.color.primaryForeground,
-  backgroundColor: vars.color.primary,
-  border: `1px solid ${vars.color.primary}`,
+  color: vars.color.adminPrimaryForeground,
+  backgroundColor: vars.color.adminPrimary,
+  border: `1px solid ${vars.color.adminPrimary}`,
   borderRadius: vars.radius.md,
   paddingBlock: "0.625rem",
   paddingInline: vars.space.xl,
   cursor: "pointer",
+  inlineSize: "fit-content",
   transition: "background-color 0.15s ease",
   selectors: {
     "&:hover:not(:disabled)": {
-      backgroundColor: "hsl(215 25% 22%)",
+      backgroundColor: vars.color.adminPrimaryHover,
     },
     "&:disabled": {
       opacity: 0.6,
       cursor: "not-allowed",
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
     },
   },
 });
@@ -156,22 +173,29 @@ export const cancelButton = style({
   fontFamily: vars.font.sans,
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
-  color: vars.color.mutedForeground,
+  color: vars.color.adminTextMuted,
   backgroundColor: "transparent",
-  border: `1px solid ${vars.color.border}`,
+  border: `1px solid ${vars.color.adminBorder}`,
   borderRadius: vars.radius.md,
   paddingBlock: "0.625rem",
   paddingInline: vars.space.lg,
   cursor: "pointer",
+  inlineSize: "fit-content",
   transition: "all 0.15s ease",
-  ":hover": {
-    backgroundColor: vars.color.muted,
-    color: vars.color.foreground,
+  selectors: {
+    "&:hover": {
+      backgroundColor: vars.color.adminSurfaceSoft,
+      color: vars.color.adminText,
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
+    },
   },
 });
 
 export const error = style({
-  color: vars.color.danger,
+  color: vars.color.adminAlert,
   fontSize: vars.font.sizeSm,
   margin: 0,
 });
@@ -182,9 +206,9 @@ export const successCard = style({
   justifyContent: "space-between",
   gap: vars.space.md,
   padding: vars.space.lg,
-  backgroundColor: vars.color.muted,
+  backgroundColor: vars.color.adminSurfaceSoft,
   borderRadius: vars.radius.lg,
-  border: `1px solid ${vars.color.border}`,
+  border: `1px solid ${vars.color.adminBorder}`,
 });
 
 export const successMessage = style({
@@ -192,7 +216,7 @@ export const successMessage = style({
   alignItems: "center",
   gap: vars.space.md,
   fontSize: vars.font.sizeSm,
-  color: vars.color.foreground,
+  color: vars.color.adminText,
 });
 
 export const successBadge = style({
@@ -202,7 +226,12 @@ export const successBadge = style({
   inlineSize: "2rem",
   blockSize: "2rem",
   borderRadius: vars.radius.full,
-  backgroundColor: "hsl(140 50% 92%)",
+  backgroundColor: vars.color.adminSuccessBg,
   color: vars.color.success,
   fontWeight: vars.font.weightBold,
+});
+
+export const successDesc = style({
+  margin: 0,
+  color: vars.color.adminTextCaption,
 });

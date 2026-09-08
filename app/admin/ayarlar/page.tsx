@@ -10,9 +10,8 @@ export default async function AdminSettingsPage() {
   const settings = await getSiteSettings();
 
   return (
-    <main className={s.page}>
-      <h1 className={s.heading}>Site Ayarları</h1>
+    <div className={s.page}>
       <SettingsForm initialData={settings} />
-    </main>
+    </div>
   );
 }

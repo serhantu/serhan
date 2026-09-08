@@ -8,7 +8,7 @@ export const wrapper = style({
 });
 
 export const dropzone = style({
-  border: `2px dashed ${vars.color.border}`,
+  border: `2px dashed ${vars.color.adminBorder}`,
   borderRadius: vars.radius.md,
   padding: vars.space.xl,
   textAlign: "center",
@@ -16,15 +16,19 @@ export const dropzone = style({
   transition: "border-color 0.15s, background 0.15s",
   selectors: {
     "&:hover": {
-      borderColor: vars.color.primary,
-      background: vars.color.muted,
+      borderColor: vars.color.adminPrimary,
+      background: vars.color.adminSurfaceSoft,
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminPrimary}`,
+      outlineOffset: "2px",
     },
   },
 });
 
 export const dropzoneActive = style({
-  borderColor: vars.color.primary,
-  background: vars.color.accent,
+  borderColor: vars.color.adminPrimary,
+  background: vars.color.adminPrimarySoft,
 });
 
 export const dropzoneDisabled = style({
@@ -34,7 +38,7 @@ export const dropzoneDisabled = style({
 
 export const label = style({
   fontSize: vars.font.sizeSm,
-  color: vars.color.mutedForeground,
+  color: vars.color.adminTextCaption,
 });
 
 export const preview = style({
@@ -42,9 +46,9 @@ export const preview = style({
   alignItems: "center",
   gap: vars.space.md,
   padding: vars.space.sm,
-  border: `1px solid ${vars.color.border}`,
+  border: `1px solid ${vars.color.adminBorder}`,
   borderRadius: vars.radius.sm,
-  background: vars.color.muted,
+  background: vars.color.adminSurfaceSoft,
 });
 
 export const previewImage = style({
@@ -62,40 +66,45 @@ export const previewInfo = style({
 
 export const previewUrl = style({
   fontSize: vars.font.sizeXs,
-  color: vars.color.mutedForeground,
+  color: vars.color.adminTextCaption,
   wordBreak: "break-all",
 });
 
 export const removeButton = style({
   background: "none",
   border: "none",
-  color: vars.color.danger,
+  color: vars.color.adminAlert,
   cursor: "pointer",
   fontSize: vars.font.sizeSm,
   fontWeight: vars.font.weightMedium,
   padding: vars.space.xs,
   borderRadius: vars.radius.sm,
   inlineSize: "fit-content",
+  transition: "background-color 0.15s ease",
   selectors: {
-    "&:hover": { background: vars.color.dangerBg },
+    "&:hover": { background: vars.color.adminAlertSoft },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.adminAlert}`,
+      outlineOffset: "2px",
+    },
   },
 });
 
 export const errorText = style({
-  color: vars.color.danger,
+  color: vars.color.adminAlert,
   fontSize: vars.font.sizeSm,
 });
 
 export const progressBar = style({
   inlineSize: "100%",
   blockSize: "0.25rem",
-  background: vars.color.muted,
+  background: vars.color.adminSurfaceSoft,
   borderRadius: vars.radius.full,
   overflow: "hidden",
 });
 
 export const progressFill = style({
   blockSize: "100%",
-  background: vars.color.primary,
+  background: vars.color.adminPrimary,
   transition: "inline-size 0.2s",
 });
