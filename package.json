@@ -12,6 +12,7 @@
     "db:migrate": "prisma migrate deploy",
     "seed:schools": "npx tsx scripts/seed-schools.ts",
     "email:test": "npx tsx scripts/test-email-templates.ts",
+    "email:test:all": "npx tsx scripts/test-email-templates.ts ALL",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
